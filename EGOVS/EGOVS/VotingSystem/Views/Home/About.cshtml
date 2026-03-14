@@ -1,0 +1,482 @@
+@{
+    ViewData["Title"] = "About - Ethiopian E-Voting System";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 50%, #a8dadc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(29, 53, 87, 0.95) 0%, rgba(7, 137, 48, 0.9) 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ffffff, #fcd116);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 4rem 2rem;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, #078930 0%, #1d3557 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(30deg);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: linear-gradient(135deg, #078930, #fcd116);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-card .card-icon {
+            background: linear-gradient(135deg, #ffffff, #a8dadc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1d3557;
+        }
+
+        .mission-card h2 {
+            color: white;
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 2rem 0 1rem;
+            color: #078930;
+        }
+
+        .mission-card h3 {
+            color: #fcd116;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .mission-card p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(168, 218, 220, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #078930;
+        }
+
+        .feature-icon {
+            color: #078930;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text strong {
+            color: #1d3557;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .btn-back {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: linear-gradient(135deg, #078930, #1d3557);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #1d3557, #078930);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1d3557 0%, #0c1a2d 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .ethiopia-flag {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #078930 33%, #FCD116 33% 66%, #E12026 66%);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 1rem;
+            vertical-align: middle;
+            border: 2px solid white;
+        }
+
+        /* Animation */
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design for tablets */
+        @@media screen and (max-width: 968px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive Design for mobile */
+        @@media screen and (max-width: 768px) {
+            .main-container {
+                padding: 2rem 1rem;
+            }
+            
+            .about-card, .mission-card {
+                padding: 2rem;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-back {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 2rem;
+                display: inline-flex;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .mission-card h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Small mobile devices */
+        @@media screen and (max-width: 480px) {
+            .about-card, .mission-card {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .card-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="/Home/Index" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <h1>About Our E-Voting System</h1>
+            <p>Revolutionizing Democratic Participation in Ethiopia Through Secure Digital Innovation</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- About System Card -->
+            <div class="about-card">
+                <div class="card-icon">
+                    <i class="fas fa-vote-yea"></i>
+                </div>
+                <h2>Ethiopian Digital Voting Platform</h2>
+                <p>
+                    The <strong>Ethiopian Government Online Voting System</strong> represents a groundbreaking 
+                    advancement in electoral technology, designed to bring secure, transparent, and accessible 
+                    voting to every citizen across our nation.
+                </p>
+                
+                <h3>Our Vision</h3>
+                <p>
+                    To create a voting ecosystem that empowers every Ethiopian citizen to participate in 
+                    democratic processes with confidence, security, and convenience, regardless of their 
+                    location or circumstances.
+                </p>
+
+                <h3>Key Features</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <div class="feature-text">
+                            <strong>Military-Grade Security</strong>
+                            <span>Advanced encryption and blockchain technology</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <div class="feature-text">
+                            <strong>Universal Access</strong>
+                            <span>Vote from any device with internet connection</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-fingerprint feature-icon"></i>
+                        <div class="feature-text">
+                            <strong>Identity Verification</strong>
+                            <span>Secure authentication using national IDs</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-bolt feature-icon"></i>
+                        <div class="feature-text">
+                            <strong>Real-time Results</strong>
+                            <span>Instant vote counting and transparent reporting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Card -->
+            <div class="mission-card">
+                <div class="card-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <h2>Our Mission & Impact</h2>
+                <p>
+                    We are committed to strengthening Ethiopia's democracy through technological innovation 
+                    that makes voting more accessible, secure, and efficient for all citizens.
+                </p>
+
+                <h3>Transformative Benefits</h3>
+                <p>
+                    • <strong>Increased Participation:</strong> Reach voters in remote areas<br>
+                    • <strong>Cost Efficiency:</strong> Reduce election administration costs<br>
+                    • <strong>Transparency:</strong> Real-time auditing and verification<br>
+                    • <strong>Accessibility:</strong> Multi-language support and user-friendly design<br>
+                    • <strong>Security:</strong> Protect against fraud and ensure vote integrity
+                </p>
+
+                <h3>National Impact</h3>
+                <p>
+                    This platform represents Ethiopia's commitment to embracing digital transformation 
+                    while preserving the fundamental principles of democratic governance. By leveraging 
+                    cutting-edge technology, we're building a future where every voice can be heard 
+                    securely and efficiently.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                <span class="ethiopia-flag"></span>
+                Ethiopian Government Online Voting System
+                <span class="ethiopia-flag"></span>
+            </p>
+            <p>Building a Digital Future for Ethiopian Democracy</p>
+            <p>&copy; @DateTime.Now.Year - All Rights Reserved | Ensuring Transparent Democratic Processes</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add subtle animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.about-card, .mission-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

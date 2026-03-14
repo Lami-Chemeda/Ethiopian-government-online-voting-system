@@ -1,0 +1,1840 @@
+@{
+    ViewData["Title"] = "Manage Supervisors";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #8B0000;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #8B0000, #B22222);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(45deg, #B22222, #8B0000);
+            transform: translateY(-2px);
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #8B0000;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #8B0000, #B22222);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #B22222, #8B0000);
+            transform: translateY(-2px);
+        }
+
+        .supervisors-list {
+            margin-top: 30px;
+        }
+
+        .supervisor-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #8B0000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .supervisor-actions button {
+            margin-left: 10px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #FFA500;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #DC143C;
+            color: white;
+        }
+
+        .status-btn {
+            background: #32CD32;
+            color: white;
+        }
+
+        .status-inactive {
+            background: #808080;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-active {
+            background: #32CD32;
+            color: white;
+        }
+
+        .status-inactive {
+            background: #DC143C;
+            color: white;
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle input {
+            padding-right: 40px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Supervisor Registration Styles */
+        .upload-section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px dashed #1d3557;
+            border-radius: 8px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .upload-btn {
+            background: #1d3557;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .upload-btn:hover {
+            background: #457b9d;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .id-preview-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .id-preview {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .id-preview.active {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .id-preview img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .upload-instructions {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .ocr-processing {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #1d3557;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            animation: pulse-animation 2s infinite;
+        }
+
+        .upload-quality-tips {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .upload-quality-tips h6 {
+            margin: 0 0 8px 0;
+            color: #856404;
+        }
+
+        .upload-quality-tips ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .upload-quality-tips li {
+            margin-bottom: 5px;
+        }
+
+        .action-buttons-ocr {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-buttons-ocr button {
+            flex: 1;
+            margin-top: 0;
+        }
+
+        .extract-btn {
+            background: #28a745;
+        }
+
+        .extract-btn:hover {
+            background: #218838;
+        }
+
+        .demo-btn {
+            background: #6c757d;
+        }
+
+        .demo-btn:hover {
+            background: #5a6268;
+        }
+
+        .spinner-border {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 0.2em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner-border-animation .75s linear infinite;
+        }
+
+        @@keyframes spinner-border-animation {
+            to { transform: rotate(360deg); }
+        }
+
+        @@keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(29, 53, 87, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(29, 53, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(29, 53, 87, 0); }
+        }
+
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .processing-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #1d3557;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .extracted-field {
+            background-color: #f8f9fa !important;
+            border: 2px solid #28a745 !important;
+            color: #155724 !important;
+            font-weight: bold !important;
+            cursor: not-allowed !important;
+        }
+
+        .field-status {
+            font-size: 12px;
+            margin-top: 2px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .field-status.auto-filled {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .field-status.manual {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .error-field {
+            border: 2px solid #dc3545 !important;
+            background-color: #f8d7da !important;
+        }
+
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        .readonly-field {
+            background-color: #f8f9fa !important;
+            cursor: not-allowed !important;
+            color: #6c757d !important;
+        }
+
+        /* ADDED VALIDATION STYLES FROM MANAGER */
+        .field-error {
+            font-size: 12px;
+            margin-top: 2px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .field-error.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .field-error.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .validation-hint {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 2px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="/Admin/Dashboard">
+        ← Back to Dashboard
+    </a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>👨‍💼 Manage Supervisors</h1>
+            <p>Create, Update, and Delete System Supervisors</p>
+        </div>
+
+        <div class="content">
+            <div id="message" class="message"></div>
+
+            <!-- Supervisors Section -->
+            <div id="supervisors">
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="showForm('createSupervisorForm')">➕ Create Supervisor</button>
+                    <button class="action-btn" onclick="showForm('updateSupervisorForm')">✏️ Update Supervisor</button>
+                    <button class="action-btn" onclick="showForm('deleteSupervisorForm')">🗑️ Delete Supervisor</button>
+                </div>
+
+                <!-- Enhanced Create Supervisor Form -->
+                <div id="createSupervisorForm" class="form-section">
+                    <h3>Create New Supervisor</h3>
+                    <form id="createSupervisorFormElement">
+                        <!-- National ID Field -->
+                        <div class="form-group">
+                            <label for="supervisorNationalId" class="required">National ID (FAN)</label>
+                            <input type="text" id="supervisorNationalId" name="NationalId" placeholder="Enter National ID" required />
+                            <div class="field-status auto-filled" id="supervisorNationalIdStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <!-- Enhanced ID Upload Section -->
+                        <div class="upload-section">
+                            <div class="upload-instructions">
+                                <strong>📁 Upload National ID Card Photos</strong><br>
+                                Upload clear photos of front and back sides of supervisor's ID card
+                            </div>
+
+                            <div class="upload-quality-tips">
+                                <h6>📝 For Best OCR Results:</h6>
+                                <ul>
+                                    <li>Use high-quality scanned images or photos</li>
+                                    <li>Ensure good lighting without shadows or glare</li>
+                                    <li>Place ID on flat surface</li>
+                                    <li>Capture entire ID card clearly</li>
+                                    <li>File formats: JPG, PNG, BMP (Max 5MB)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="id-preview-container">
+                                <div class="id-preview" id="supervisorFrontPreviewContainer">
+                                    <div><strong>Front Side</strong></div>
+                                    <div id="supervisorFrontPreviewText">No file selected</div>
+                                    <div id="supervisorFrontPreviewImage"></div>
+                                    <input type="file" id="supervisorFrontIdUpload" class="file-input" accept="image/*" />
+                                    <button type="button" class="upload-btn" onclick="document.getElementById('supervisorFrontIdUpload').click()" style="margin-top: 10px;">
+                                        📷 Choose Front Image
+                                    </button>
+                                </div>
+                                
+                                <div class="id-preview" id="supervisorBackPreviewContainer">
+                                    <div><strong>Back Side</strong></div>
+                                    <div id="supervisorBackPreviewText">No file selected</div>
+                                    <div id="supervisorBackPreviewImage"></div>
+                                    <input type="file" id="supervisorBackIdUpload" class="file-input" accept="image/*" />
+                                    <button type="button" class="upload-btn" onclick="document.getElementById('supervisorBackIdUpload').click()" style="margin-top: 10px;">
+                                        📷 Choose Back Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons-ocr">
+                                <button type="button" class="upload-btn extract-btn" id="supervisorExtractInfoBtn">
+                                    🔍 Extract ID Information
+                                </button>
+                                <button type="button" class="upload-btn demo-btn" id="supervisorAutoFillBtn">
+                                    📝 Auto-fill Form
+                                </button>
+                            </div>
+
+                            <div id="supervisorOcrProcessing" class="ocr-processing">
+                                <!-- Processing message will be inserted here -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorFirstName" class="required">First Name</label>
+                            <input type="text" id="supervisorFirstName" name="FirstName" placeholder="Enter first name" required />
+                            <div class="field-status auto-filled" id="supervisorFirstNameStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorMiddleName" class="required">Middle Name</label>
+                            <input type="text" id="supervisorMiddleName" name="MiddleName" placeholder="Enter middle name" required />
+                            <div class="field-status auto-filled" id="supervisorMiddleNameStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorLastName" class="required">Last Name</label>
+                            <input type="text" id="supervisorLastName" name="LastName" placeholder="Enter last name" required />
+                            <div class="field-status auto-filled" id="supervisorLastNameStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorPhoneNumber" class="required">Phone Number</label>
+                            <input type="tel" id="supervisorPhoneNumber" name="PhoneNumber" placeholder="Enter phone number" required />
+                            <div class="field-status auto-filled" id="supervisorPhoneNumberStatus" style="display: none;">Auto-filled from ID</div>
+                            <!-- ADDED VALIDATION HINT -->
+                            <span class="validation-hint">Format: 09XXXXXXXX (10 digits), 251XXXXXXXXX (12 digits), or +251XXXXXXXXX (13 digits)</span>
+                            <div class="field-error" id="supervisorPhoneNumberError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorEmail">Email Address</label>
+                            <input type="email" id="supervisorEmail" name="Email" placeholder="Enter email address" />
+                        </div>
+
+                        <div class="form-group password-toggle">
+                            <label for="supervisorPassword" class="required">Password</label>
+                            <input type="password" id="supervisorPassword" name="Password" placeholder="Enter password" required />
+                            <button type="button" class="toggle-password" onclick="togglePassword('supervisorPassword')">👁️</button>
+                            <!-- ADDED VALIDATION HINT -->
+                            <span class="validation-hint">Min 6 chars: at least one letter, one number, and one special character</span>
+                            <div class="field-error" id="supervisorPasswordError"></div>
+                        </div>
+
+                        <div class="form-group password-toggle">
+                            <label for="supervisorConfirmPassword" class="required">Confirm Password</label>
+                            <input type="password" id="supervisorConfirmPassword" name="ConfirmPassword" placeholder="Confirm password" required />
+                            <button type="button" class="toggle-password" onclick="togglePassword('supervisorConfirmPassword')">👁️</button>
+                            <div class="field-error" id="supervisorConfirmPasswordError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorNationality" class="required">Nationality</label>
+                            <select id="supervisorNationality" name="Nationality" required>
+                                <option value="" disabled selected>Select Nationality</option>
+                                <option value="Ethiopian">Ethiopian</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="field-status auto-filled" id="supervisorNationalityStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorRegion" class="required">Region</label>
+                            <select id="supervisorRegion" name="Region" required>
+                                <option value="" disabled selected>Select Region</option>
+                            </select>
+                            <div class="field-status auto-filled" id="supervisorRegionStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorAge" class="required">Age</label>
+                            <input type="number" id="supervisorAge" name="Age" min="18" max="120" placeholder="Enter age" required />
+                            <div class="field-status auto-filled" id="supervisorAgeStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorSex" class="required">Sex</label>
+                            <select id="supervisorSex" name="Sex" required>
+                                <option value="" disabled selected>Select Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <div class="field-status auto-filled" id="supervisorSexStatus" style="display: none;">Auto-filled from ID</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisorIsActive">Account Status</label>
+                            <select id="supervisorIsActive" name="IsActive">
+                                <option value="true" selected>Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Supervisor</button>
+                    </form>
+                </div>
+
+                <!-- Update Supervisor Form -->
+                <div id="updateSupervisorForm" class="form-section">
+                    <h3>Update Supervisor</h3>
+                    <form id="updateSupervisorFormElement">
+                        <div class="form-group">
+                            <label for="updateSupervisorNationalId">Select Supervisor *</label>
+                            <select id="updateSupervisorNationalId" required onchange="loadSupervisorData(this.value)">
+                                <option value="">Select a supervisor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateFirstName">First Name *</label>
+                            <input type="text" id="updateFirstName" name="FirstName" required readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateMiddleName">Middle Name *</label>
+                            <input type="text" id="updateMiddleName" name="MiddleName" required readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateLastName">Last Name *</label>
+                            <input type="text" id="updateLastName" name="LastName" required readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePhoneNumber">Phone Number *</label>
+                            <input type="tel" id="updatePhoneNumber" name="PhoneNumber" required readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateEmail">Email Address *</label>
+                            <input type="email" id="updateEmail" name="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateNationality">Nationality *</label>
+                            <select id="updateNationality" name="Nationality" required readonly class="readonly-field">
+                                <option value="Ethiopian">Ethiopian</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateRegion">Region *</label>
+                            <select id="updateRegion" name="Region" required readonly class="readonly-field">
+                                <option value="">Select Region</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateAge">Age *</label>
+                            <input type="number" id="updateAge" name="Age" min="18" max="120" required readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateSex">Sex *</label>
+                            <select id="updateSex" name="Sex" required readonly class="readonly-field">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group password-toggle">
+                            <label for="updatePassword">New Password (leave blank to keep current)</label>
+                            <input type="password" id="updatePassword" name="Password" placeholder="Enter new password">
+                            <button type="button" class="toggle-password" onclick="togglePassword('updatePassword')">👁️</button>
+                            <!-- ADDED VALIDATION HINT -->
+                            <span class="validation-hint">Min 6 chars: at least one letter, one number, and one special character</span>
+                            <div class="field-error" id="updatePasswordError"></div>
+                        </div>
+                        <div class="form-group password-toggle">
+                            <label for="updateConfirmPassword">Confirm New Password</label>
+                            <input type="password" id="updateConfirmPassword" placeholder="Confirm new password">
+                            <button type="button" class="toggle-password" onclick="togglePassword('updateConfirmPassword')">👁️</button>
+                            <div class="field-error" id="updateConfirmPasswordError"></div>
+                        </div>
+                        <button type="submit" class="submit-btn">Update Supervisor</button>
+                    </form>
+                </div>
+
+                <!-- Delete Supervisor Form -->
+                <div id="deleteSupervisorForm" class="form-section">
+                    <h3>Delete Supervisor</h3>
+                    <form id="deleteSupervisorFormElement">
+                        <div class="form-group">
+                            <label for="deleteSupervisorNationalId">Select Supervisor to Delete *</label>
+                            <select id="deleteSupervisorNationalId" required>
+                                <option value="">Select a supervisor</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn" style="background: #DC143C;">Delete Supervisor</button>
+                    </form>
+                </div>
+
+                <!-- Supervisors List -->
+                <div class="supervisors-list">
+                    <h3>Current Supervisors</h3>
+                    <div id="supervisorsContainer">
+                        <!-- Supervisors will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-content">
+            <h3 id="processingTitle">Processing Registration</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p id="processingStatus">Please wait...</p>
+            <div id="processingDetails"></div>
+        </div>
+    </div>
+
+<script>
+// Ethiopia regions data
+const ethiopiaRegions = [
+    "Tigray", "Afar", "Amhara", "Oromia", "Somali", "Benishangul-Gumuz", 
+    "Southern Nations, Nationalities, and Peoples' Region", "Gambela", 
+    "Harari", "Addis Ababa", "Dire Dawa"
+];
+
+// Global variables
+let allSupervisors = [];
+let supervisorFrontImageFile = null;
+let supervisorBackImageFile = null;
+let extractedSupervisorIDData = null;
+
+// ========== ADDED VALIDATION FUNCTIONS FROM MANAGER ==========
+function validatePhoneNumber(phone) {
+    phone = phone.trim();
+    
+    // Remove any spaces or dashes
+    phone = phone.replace(/[\s-]/g, '');
+    
+    // Check Ethiopian phone number patterns
+    if (phone.startsWith('09') && phone.length === 10) {
+        // 09XXXXXXXX - 10 digits total
+        return /^09\d{8}$/.test(phone);
+    } else if (phone.startsWith('251') && phone.length === 12) {
+        // 251XXXXXXXXX - 12 digits total
+        return /^251\d{9}$/.test(phone);
+    } else if (phone.startsWith('+251') && phone.length === 13) {
+        // +251XXXXXXXXX - 13 digits total
+        return /^\+251\d{9}$/.test(phone);
+    }
+    return false;
+}
+
+function validatePassword(password) {
+    // Minimum length 6
+    if (password.length < 6) return false;
+    
+    // At least one letter (A-Z or a-z)
+    if (!/[A-Za-z]/.test(password)) return false;
+    
+    // At least one number (0-9)
+    if (!/\d/.test(password)) return false;
+    
+    // At least one special character
+    if (!/[!@@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) return false;
+    
+    return true;
+}
+
+function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.getElementById(fieldId + 'Error');
+    
+    if (field) {
+        field.classList.add('error-field');
+    }
+    
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.className = 'field-error error';
+        errorDiv.style.display = 'block';
+    }
+}
+
+function clearFieldError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.getElementById(fieldId + 'Error');
+    
+    if (field) {
+        field.classList.remove('error-field');
+    }
+    
+    if (errorDiv) {
+        errorDiv.style.display = 'none';
+    }
+}
+
+function clearAllFieldErrors() {
+    document.querySelectorAll('.field-error').forEach(error => {
+        error.style.display = 'none';
+    });
+    document.querySelectorAll('.error-field').forEach(field => {
+        field.classList.remove('error-field');
+    });
+}
+
+function setupValidationListeners() {
+    // Create form validations
+    const createPhone = document.getElementById('supervisorPhoneNumber');
+    const createPassword = document.getElementById('supervisorPassword');
+    const createConfirmPassword = document.getElementById('supervisorConfirmPassword');
+
+    // Update form validations
+    const updatePassword = document.getElementById('updatePassword');
+    const updateConfirmPassword = document.getElementById('updateConfirmPassword');
+
+    if (createPhone) {
+        createPhone.addEventListener('blur', function() {
+            const phone = this.value.trim();
+            if (phone && !validatePhoneNumber(phone)) {
+                showFieldError('supervisorPhoneNumber', 
+                    'Invalid format. Use: 09XXXXXXXX (10 digits), 251XXXXXXXXX (12 digits), or +251XXXXXXXXX (13 digits)');
+            } else {
+                clearFieldError('supervisorPhoneNumber');
+            }
+        });
+    }
+
+    if (createPassword) {
+        createPassword.addEventListener('input', function() {
+            const password = this.value;
+            if (password && !validatePassword(password)) {
+                showFieldError('supervisorPassword', 
+                    'Password must be at least 6 characters with at least one letter, one number, and one special character');
+            } else {
+                clearFieldError('supervisorPassword');
+            }
+        });
+    }
+
+    if (createConfirmPassword) {
+        createConfirmPassword.addEventListener('input', function() {
+            const password = document.getElementById('supervisorPassword').value;
+            const confirmPassword = this.value;
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                showFieldError('supervisorConfirmPassword', 'Passwords do not match');
+            } else {
+                clearFieldError('supervisorConfirmPassword');
+            }
+        });
+    }
+
+    if (updatePassword) {
+        updatePassword.addEventListener('input', function() {
+            const password = this.value;
+            if (password && !validatePassword(password)) {
+                showFieldError('updatePassword', 
+                    'Password must be at least 6 characters with at least one letter, one number, and one special character');
+            } else {
+                clearFieldError('updatePassword');
+            }
+        });
+    }
+
+    if (updateConfirmPassword) {
+        updateConfirmPassword.addEventListener('input', function() {
+            const password = document.getElementById('updatePassword').value;
+            const confirmPassword = this.value;
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                showFieldError('updateConfirmPassword', 'Passwords do not match');
+            } else {
+                clearFieldError('updateConfirmPassword');
+            }
+        });
+    }
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    loadSupervisorsFromServer();
+    populateSupervisorRegions();
+    
+    // Setup validation listeners
+    setupValidationListeners();
+    
+    // Initialize supervisor file upload event listeners
+    const frontUpload = document.getElementById('supervisorFrontIdUpload');
+    const backUpload = document.getElementById('supervisorBackIdUpload');
+    const extractBtn = document.getElementById('supervisorExtractInfoBtn');
+    const autoFillBtn = document.getElementById('supervisorAutoFillBtn');
+
+    if (frontUpload) {
+        frontUpload.addEventListener('change', function(e) {
+            handleSupervisorFileUpload(e, 'front');
+        });
+    }
+    if (backUpload) {
+        backUpload.addEventListener('change', function(e) {
+            handleSupervisorFileUpload(e, 'back');
+        });
+    }
+    if (extractBtn) {
+        extractBtn.addEventListener('click', extractSupervisorIDInformation);
+    }
+    if (autoFillBtn) {
+        autoFillBtn.addEventListener('click', autoFillSupervisorForm);
+    }
+
+    // Enhanced National ID checking with specific messages
+    document.getElementById('supervisorNationalId').addEventListener('blur', async function() {
+        const nationalId = this.value.trim();
+        
+        if (nationalId.length > 0) {
+            try {
+                const response = await fetch(`/Admin/CheckNationalId?nationalId=${encodeURIComponent(nationalId)}`);
+                const result = await response.json();
+                
+                if (result.exists) {
+                    showMessage('❌ ' + result.message, false);
+                    this.classList.add('error-field');
+                } else {
+                    this.classList.remove('error-field');
+                }
+            } catch (error) {
+                console.error('Error checking National ID:', error);
+            }
+        }
+    });
+
+// Create Supervisor Form - UPDATED with proper duplicate checking
+document.getElementById('createSupervisorFormElement').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const nationalId = document.getElementById('supervisorNationalId').value;
+    const firstName = document.getElementById('supervisorFirstName').value;
+    const middleName = document.getElementById('supervisorMiddleName').value;
+    const lastName = document.getElementById('supervisorLastName').value;
+    const phoneNumber = document.getElementById('supervisorPhoneNumber').value;
+    const email = document.getElementById('supervisorEmail').value;
+    const password = document.getElementById('supervisorPassword').value;
+    const confirmPassword = document.getElementById('supervisorConfirmPassword').value;
+    const nationality = document.getElementById('supervisorNationality').value;
+    const region = document.getElementById('supervisorRegion').value;
+    const age = parseInt(document.getElementById('supervisorAge').value);
+    const sex = document.getElementById('supervisorSex').value;
+
+    // Validation
+    if (!nationalId || !firstName || !middleName || !lastName || !phoneNumber || !password || !confirmPassword || !nationality || !region || !age || !sex) {
+        showMessage('Please fill in all required fields.', false);
+        return;
+    }
+
+    // ADDED PHONE VALIDATION
+    if (!validatePhoneNumber(phoneNumber)) {
+        showMessage('Invalid phone number format. Use: 09XXXXXXXX (10 digits), 251XXXXXXXXX (12 digits), or +251XXXXXXXXX (13 digits)', false);
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showMessage('Passwords do not match.', false);
+        return;
+    }
+
+    // ADDED PASSWORD VALIDATION
+    if (!validatePassword(password)) {
+        showMessage('Password must be at least 6 characters with at least one letter, one number, and one special character', false);
+        return;
+    }
+
+    if (age < 18 || age > 120) {
+        showMessage('Age must be between 18 and 120.', false);
+        return;
+    }
+
+    if (sex !== 'Male' && sex !== 'Female') {
+        showMessage('Sex must be Male or Female.', false);
+        return;
+    }
+
+    try {
+        // First check if National ID already exists in any table using the enhanced check
+        console.log('Checking if National ID exists in all tables...');
+        const checkResponse = await fetch(`/Admin/CheckNationalId?nationalId=${encodeURIComponent(nationalId)}`);
+        if (!checkResponse.ok) {
+            throw new Error(`HTTP error! status: ${checkResponse.status}`);
+        }
+        const checkResult = await checkResponse.json();
+        
+        if (checkResult.exists) {
+            showMessage('❌ ' + checkResult.message, false);
+            return;
+        }
+
+        // Create form data
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+        formData.append('FirstName', firstName);
+        formData.append('MiddleName', middleName);
+        formData.append('LastName', lastName);
+        formData.append('PhoneNumber', phoneNumber);
+        formData.append('Email', email);
+        formData.append('Password', password);
+        formData.append('Nationality', nationality);
+        formData.append('Region', region);
+        formData.append('Age', age.toString());
+        formData.append('Sex', sex);
+
+        console.log('Sending registration request to /Admin/RegisterSupervisor...');
+        
+        const response = await fetch('/Admin/RegisterSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            showMessage('✅ Supervisor registered successfully!', true);
+            
+            // Reset form
+            this.reset();
+            
+            // Reset extracted fields
+            document.querySelectorAll('.extracted-field').forEach(field => {
+                field.classList.remove('extracted-field');
+                field.readOnly = false;
+            });
+            document.querySelectorAll('.field-status').forEach(status => {
+                status.style.display = 'none';
+            });
+            
+            // Reset file uploads
+            supervisorFrontImageFile = null;
+            supervisorBackImageFile = null;
+            extractedSupervisorIDData = null;
+            document.getElementById('supervisorFrontPreviewText').textContent = 'No file selected';
+            document.getElementById('supervisorBackPreviewText').textContent = 'No file selected';
+            document.getElementById('supervisorFrontPreviewImage').innerHTML = '';
+            document.getElementById('supervisorBackPreviewImage').innerHTML = '';
+            document.getElementById('supervisorFrontPreviewContainer').classList.remove('active');
+            document.getElementById('supervisorBackPreviewContainer').classList.remove('active');
+            
+            // Reload supervisors list
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage('❌ ' + result.message, false);
+        }
+    } catch (error) {
+        console.error('Error creating supervisor:', error);
+        showMessage('❌ Error creating supervisor: ' + error.message, false);
+    }
+});
+
+// Enhanced Update Supervisor functionality
+document.getElementById('updateSupervisorFormElement').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const nationalId = document.getElementById('updateSupervisorNationalId').value;
+    const email = document.getElementById('updateEmail').value;
+    const password = document.getElementById('updatePassword').value;
+    const confirmPassword = document.getElementById('updateConfirmPassword').value;
+
+    if (!nationalId) {
+        showMessage('Please select a supervisor to update.', false);
+        return;
+    }
+
+    if (!email) {
+        showMessage('Email is required.', false);
+        return;
+    }
+
+    // ADDED PASSWORD VALIDATION
+    if (password && password !== confirmPassword) {
+        showMessage('Password and Confirm Password do not match.', false);
+        return;
+    }
+
+    // ADDED PASSWORD VALIDATION
+    if (password && !validatePassword(password)) {
+        showMessage('Password must be at least 6 characters with at least one letter, one number, and one special character', false);
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+        formData.append('Email', email);
+        
+        if (password) {
+            formData.append('Password', password);
+            formData.append('ConfirmPassword', confirmPassword);
+        }
+
+        const response = await fetch('/Admin/UpdateSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            showMessage('✅ ' + result.message, true);
+            this.reset();
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage('❌ ' + result.message, false);
+        }
+    } catch (error) {
+        showMessage('❌ Error updating supervisor: ' + error.message, false);
+    }
+});
+
+// Enhanced Delete Supervisor functionality
+document.getElementById('deleteSupervisorFormElement').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const nationalId = document.getElementById('deleteSupervisorNationalId').value;
+
+    if (!nationalId) {
+        showMessage('Please select a supervisor to delete.', false);
+        return;
+    }
+
+    // Get supervisor name for confirmation message
+    const supervisor = allSupervisors.find(s => s.nationalId === nationalId);
+    const supervisorName = supervisor ? `${supervisor.firstName} ${supervisor.lastName}` : 'this supervisor';
+
+    if (!confirm(`Are you sure you want to permanently delete ${supervisorName}? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+        
+        const response = await fetch('/Admin/DeleteSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            showMessage('✅ ' + result.message, true);
+            this.reset();
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage('❌ ' + result.message, false);
+        }
+    } catch (error) {
+        showMessage('❌ Error deleting supervisor: ' + error.message, false);
+    }
+});
+});
+
+function showForm(formId) {
+    document.querySelectorAll('.form-section').forEach(form => {
+        form.style.display = 'none';
+    });
+    document.getElementById(formId).style.display = 'block';
+    
+    // Clear validation errors when switching forms
+    clearAllFieldErrors();
+}
+
+function showMessage(message, isSuccess) {
+    const messageDiv = document.getElementById('message');
+    messageDiv.textContent = message;
+    messageDiv.className = isSuccess ? 'message success' : 'message error';
+    messageDiv.style.display = 'block';
+    
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+    }, 5000);
+}
+
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    input.setAttribute('type', type);
+}
+
+// ========== SUPERVISOR FUNCTIONS ==========
+async function loadSupervisorsFromServer() {
+    try {
+        const response = await fetch('/Admin/GetSupervisors');
+        const result = await response.json();
+        
+        if (result.success) {
+            allSupervisors = result.supervisors;
+            displaySupervisors(allSupervisors);
+            populateSupervisorDropdowns(allSupervisors);
+        } else {
+            showMessage('Error loading supervisors: ' + result.message, false);
+        }
+    } catch (error) {
+        showMessage('Error loading supervisors: ' + error.message, false);
+    }
+}
+
+function displaySupervisors(supervisors) {
+    const container = document.getElementById('supervisorsContainer');
+    container.innerHTML = '';
+    
+    if (supervisors.length === 0) {
+        container.innerHTML = '<p>No supervisors found.</p>';
+        return;
+    }
+    
+    supervisors.forEach(supervisor => {
+        const supervisorDiv = document.createElement('div');
+        supervisorDiv.className = 'supervisor-item';
+        supervisorDiv.innerHTML = `
+            <div class="supervisor-info">
+                <div>
+                    <strong>${supervisor.firstName} ${supervisor.middleName || ''} ${supervisor.lastName}</strong>
+                    <span class="status-badge ${supervisor.isActive ? 'status-active' : 'status-inactive'}">
+                        ${supervisor.isActive ? 'ACTIVE' : 'INACTIVE'}
+                    </span>
+                    <br>
+                    <small>National ID: ${supervisor.nationalId} | Phone: ${supervisor.phoneNumber}</small>
+                    <br>
+                    <small>Email: ${supervisor.email || 'N/A'} | Region: ${supervisor.region}</small>
+                    <br>
+                    <small>Age: ${supervisor.age} | Sex: ${supervisor.sex} | Created: ${supervisor.createdAt}</small>
+                </div>
+            </div>
+            <div class="supervisor-actions">
+                <button class="edit-btn" onclick="editSupervisor('${supervisor.nationalId}')">Edit</button>
+                <button class="status-btn ${!supervisor.isActive ? 'status-inactive' : ''}" onclick="toggleSupervisorStatus('${supervisor.nationalId}', ${!supervisor.isActive})">
+                    ${supervisor.isActive ? 'Deactivate' : 'Activate'}
+                </button>
+                <button class="delete-btn" onclick="deleteSupervisor('${supervisor.nationalId}')">Delete</button>
+            </div>
+        `;
+        container.appendChild(supervisorDiv);
+    });
+}
+
+function populateSupervisorDropdowns(supervisors) {
+    const updateSelect = document.getElementById('updateSupervisorNationalId');
+    const deleteSelect = document.getElementById('deleteSupervisorNationalId');
+    
+    updateSelect.innerHTML = '<option value="">Select a supervisor</option>';
+    deleteSelect.innerHTML = '<option value="">Select a supervisor</option>';
+    
+    supervisors.forEach(supervisor => {
+        const displayText = `${supervisor.firstName} ${supervisor.lastName} - ${supervisor.nationalId} (${supervisor.isActive ? 'Active' : 'Inactive'})`;
+        const option1 = new Option(displayText, supervisor.nationalId);
+        const option2 = new Option(displayText, supervisor.nationalId);
+        updateSelect.add(option1);
+        deleteSelect.add(option2);
+    });
+}
+
+// Enhanced load supervisor data for update form
+async function loadSupervisorData(nationalId) {
+    if (!nationalId) return;
+    
+    const supervisor = allSupervisors.find(s => s.nationalId === nationalId);
+    if (supervisor) {
+        // Display ALL supervisor information
+        document.getElementById('updateFirstName').value = supervisor.firstName;
+        document.getElementById('updateMiddleName').value = supervisor.middleName || '';
+        document.getElementById('updateLastName').value = supervisor.lastName;
+        document.getElementById('updatePhoneNumber').value = supervisor.phoneNumber;
+        document.getElementById('updateEmail').value = supervisor.email || '';
+        document.getElementById('updateNationality').value = supervisor.nationality;
+        document.getElementById('updateRegion').value = supervisor.region;
+        document.getElementById('updateAge').value = supervisor.age;
+        document.getElementById('updateSex').value = supervisor.sex;
+        
+        // Clear password fields
+        document.getElementById('updatePassword').value = '';
+        document.getElementById('updateConfirmPassword').value = '';
+        
+        // Populate regions dropdown
+        populateUpdateRegions(supervisor.region);
+        
+        showMessage(`✅ Loaded supervisor: ${supervisor.firstName} ${supervisor.lastName}. Only email and password can be updated.`, true);
+        
+        // Show supervisor details in a nice format
+        console.log('Supervisor details loaded:', supervisor);
+    } else {
+        showMessage('❌ Supervisor not found.', false);
+    }
+}
+
+function populateUpdateRegions(selectedRegion = '') {
+    const regionSelect = document.getElementById('updateRegion');
+    if (!regionSelect) return;
+    
+    regionSelect.innerHTML = '<option value="">Select Region</option>';
+    
+    ethiopiaRegions.forEach(region => {
+        const option = document.createElement('option');
+        option.value = region;
+        option.textContent = region;
+        if (region === selectedRegion) {
+            option.selected = true;
+        }
+        regionSelect.appendChild(option);
+    });
+}
+
+function populateSupervisorRegions() {
+    const regionSelect = document.getElementById('supervisorRegion');
+    if (!regionSelect) return;
+    
+    regionSelect.innerHTML = '<option value="" disabled selected>Select Region</option>';
+    
+    ethiopiaRegions.forEach(region => {
+        const option = document.createElement('option');
+        option.value = region;
+        option.textContent = region;
+        regionSelect.appendChild(option);
+    });
+}
+
+// Supervisor OCR Functions
+function handleSupervisorFileUpload(event, side) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!validateImageFile(file)) {
+        showMessage('Please select a valid image file (JPG, PNG, BMP) under 5MB', false);
+        event.target.value = '';
+        return;
+    }
+
+    if (side === 'front') {
+        supervisorFrontImageFile = file;
+    } else {
+        supervisorBackImageFile = file;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imageData = e.target.result;
+        updateSupervisorPreview(side, imageData, file.name);
+    };
+    reader.readAsDataURL(file);
+}
+
+function validateImageFile(file) {
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp'];
+    const maxSize = 5 * 1024 * 1024;
+    return allowedTypes.includes(file.type) && file.size <= maxSize;
+}
+
+function updateSupervisorPreview(side, imageData, fileName) {
+    const container = document.getElementById('supervisor' + side.charAt(0).toUpperCase() + side.slice(1) + 'PreviewContainer');
+    const textElement = document.getElementById('supervisor' + side.charAt(0).toUpperCase() + side.slice(1) + 'PreviewText');
+    const imageElement = document.getElementById('supervisor' + side.charAt(0).toUpperCase() + side.slice(1) + 'PreviewImage');
+
+    if (container && textElement && imageElement) {
+        container.classList.add('active');
+        textElement.textContent = fileName;
+        textElement.style.color = '#28a745';
+        textElement.style.fontWeight = 'bold';
+        imageElement.innerHTML = `<img src="${imageData}" alt="${side} side preview" style="max-width: 100px; max-height: 80px; border-radius: 4px;">`;
+    }
+}
+
+function markSupervisorFieldAsExtractedFromOCR(fieldId) {
+    const field = document.getElementById('supervisor' + fieldId);
+    const statusElement = document.getElementById('supervisor' + fieldId + 'Status');
+    
+    if (field) {
+        field.classList.add('extracted-field');
+        field.readOnly = true;
+        
+        if (statusElement) {
+            statusElement.style.display = 'inline-block';
+            statusElement.textContent = 'Auto-filled from ID';
+            statusElement.className = 'field-status auto-filled';
+        }
+    }
+}
+
+function fillSupervisorFormWithIDData(data) {
+    if (data.nationalId && data.nationalId.trim() !== '') {
+        document.getElementById('supervisorNationalId').value = data.nationalId.trim();
+        markSupervisorFieldAsExtractedFromOCR('NationalId');
+    }
+    if (data.firstName && data.firstName.trim() !== '') {
+        document.getElementById('supervisorFirstName').value = data.firstName.trim();
+        markSupervisorFieldAsExtractedFromOCR('FirstName');
+    }
+    if (data.middleName && data.middleName.trim() !== '') {
+        document.getElementById('supervisorMiddleName').value = data.middleName.trim();
+        markSupervisorFieldAsExtractedFromOCR('MiddleName');
+    } else if (data.firstName && data.firstName.length > 0) {
+        document.getElementById('supervisorMiddleName').value = data.firstName.charAt(0) + '.';
+        markSupervisorFieldAsExtractedFromOCR('MiddleName');
+    }
+    if (data.lastName && data.lastName.trim() !== '') {
+        document.getElementById('supervisorLastName').value = data.lastName.trim();
+        markSupervisorFieldAsExtractedFromOCR('LastName');
+    }
+    if (data.phoneNumber && data.phoneNumber.trim() !== '') {
+        document.getElementById('supervisorPhoneNumber').value = data.phoneNumber.trim();
+        markSupervisorFieldAsExtractedFromOCR('PhoneNumber');
+    }
+    if (data.nationality && data.nationality.trim() !== '') {
+        document.getElementById('supervisorNationality').value = data.nationality.trim();
+        markSupervisorFieldAsExtractedFromOCR('Nationality');
+    } else {
+        document.getElementById('supervisorNationality').value = 'Ethiopian';
+        markSupervisorFieldAsExtractedFromOCR('Nationality');
+    }
+    if (data.region && data.region.trim() !== '') {
+        document.getElementById('supervisorRegion').value = data.region;
+        markSupervisorFieldAsExtractedFromOCR('Region');
+    }
+    if (data.sex && data.sex.trim() !== '') {
+        document.getElementById('supervisorSex').value = data.sex;
+        markSupervisorFieldAsExtractedFromOCR('Sex');
+    }
+    if (data.age && data.age > 0) {
+        document.getElementById('supervisorAge').value = data.age;
+        markSupervisorFieldAsExtractedFromOCR('Age');
+    } else if (data.dateOfBirth) {
+        const age = calculateAgeFromDate(data.dateOfBirth);
+        if (age > 0) {
+            document.getElementById('supervisorAge').value = age;
+            markSupervisorFieldAsExtractedFromOCR('Age');
+        }
+    }
+
+    showMessage('✅ Supervisor ID information successfully extracted! Fields are now locked.', true);
+}
+
+async function extractSupervisorIDInformation() {
+    if (!supervisorFrontImageFile && !supervisorBackImageFile) {
+        showMessage('Please upload at least one ID image (front or back)', false);
+        return;
+    }
+
+    try {
+        showSupervisorOCRProcessing('🔍 Scanning Supervisor ID card...');
+
+        const formData = new FormData();
+        if (supervisorFrontImageFile) formData.append('FrontImage', supervisorFrontImageFile);
+        if (supervisorBackImageFile) formData.append('BackImage', supervisorBackImageFile);
+
+        const response = await fetch('/Home/ProcessIDPhotos', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const result = await response.json();
+        
+        if (result.success) {
+            extractedSupervisorIDData = result.data;
+            showMessage(`✅ ${result.message || 'Supervisor ID information extracted successfully!'}`, true);
+            fillSupervisorFormWithIDData(result.data);
+        } else {
+            showMessage('❌ ' + (result.error || 'Failed to extract supervisor ID information'), false);
+        }
+        
+    } catch (error) {
+        showMessage('❌ Error scanning supervisor ID: ' + error.message, false);
+    } finally {
+        setTimeout(() => {
+            hideSupervisorOCRProcessing();
+        }, 2000);
+    }
+}
+
+function showSupervisorOCRProcessing(message) {
+    const ocrProcessing = document.getElementById('supervisorOcrProcessing');
+    if (ocrProcessing) {
+        ocrProcessing.innerHTML = `
+            <div style="text-align: center; padding: 15px;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                    <div class="spinner-border spinner-border-sm" role="status" style="color: #1d3557;"></div>
+                    <span style="font-weight: bold; color: #1d3557;">${message}</span>
+                </div>
+            </div>
+        `;
+        ocrProcessing.style.display = 'block';
+    }
+}
+
+function hideSupervisorOCRProcessing() {
+    const ocrProcessing = document.getElementById('supervisorOcrProcessing');
+    if (ocrProcessing) {
+        ocrProcessing.style.display = 'none';
+    }
+}
+
+function autoFillSupervisorForm() {
+    if (!extractedSupervisorIDData) {
+        showMessage('❌ Please extract supervisor ID information first by clicking "Extract ID Information"', false);
+        return;
+    }
+    fillSupervisorFormWithIDData(extractedSupervisorIDData);
+    showMessage('✅ Supervisor ID data displayed on form! Fields are now locked.', true);
+}
+
+function calculateAgeFromDate(dateString) {
+    try {
+        let birthDate;
+        if (dateString.includes('/')) {
+            const parts = dateString.split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                const year = parseInt(parts[2]);
+                const gregorianYear = year - 8;
+                birthDate = new Date(gregorianYear, month - 1, day);
+            }
+        } else {
+            birthDate = new Date(dateString);
+        }
+        
+        if (birthDate && !isNaN(birthDate.getTime())) {
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age > 0 ? age : 0;
+        }
+    } catch (error) {
+        console.error('Error calculating age:', error);
+    }
+    return 0;
+}
+
+// Enhanced Update Supervisor functionality with proper error handling
+document.getElementById('updateSupervisorFormElement').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const nationalId = document.getElementById('updateSupervisorNationalId').value;
+    const email = document.getElementById('updateEmail').value;
+    const password = document.getElementById('updatePassword').value;
+    const confirmPassword = document.getElementById('updateConfirmPassword').value;
+
+    if (!nationalId) {
+        showMessage('Please select a supervisor to update.', false);
+        return;
+    }
+
+    if (!email) {
+        showMessage('Email is required.', false);
+        return;
+    }
+
+    if (password && password !== confirmPassword) {
+        showMessage('Password and Confirm Password do not match.', false);
+        return;
+    }
+
+    if (password && password.length < 6) {
+        showMessage('Password must be at least 6 characters long.', false);
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+        formData.append('Email', email);
+        
+        if (password) {
+            formData.append('Password', password);
+            formData.append('ConfirmPassword', confirmPassword);
+        }
+
+        console.log('Updating supervisor with data:', {
+            NationalId: nationalId,
+            Email: email,
+            HasPassword: !!password
+        });
+
+        const response = await fetch('/Admin/UpdateSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        console.log('Update response status:', response.status);
+
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Update error response:', errorText);
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Update result:', result);
+        
+        if (result.success) {
+            showMessage('✅ ' + result.message, true);
+            // Reset password fields only
+            document.getElementById('updatePassword').value = '';
+            document.getElementById('updateConfirmPassword').value = '';
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage('❌ ' + result.message, false);
+        }
+    } catch (error) {
+        console.error('Error updating supervisor:', error);
+        showMessage('❌ Error updating supervisor: ' + error.message, false);
+    }
+});
+
+// Enhanced Delete Supervisor functionality with proper error handling
+document.getElementById('deleteSupervisorFormElement').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const nationalId = document.getElementById('deleteSupervisorNationalId').value;
+
+    if (!nationalId) {
+        showMessage('Please select a supervisor to delete.', false);
+        return;
+    }
+
+    // Get supervisor name for confirmation message
+    const supervisor = allSupervisors.find(s => s.nationalId === nationalId);
+    const supervisorName = supervisor ? `${supervisor.firstName} ${supervisor.lastName}` : 'this supervisor';
+
+    if (!confirm(`Are you sure you want to permanently delete ${supervisorName}? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+
+        console.log('Deleting supervisor:', nationalId);
+
+        const response = await fetch('/Admin/DeleteSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        console.log('Delete response status:', response.status);
+
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Delete error response:', errorText);
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Delete result:', result);
+        
+        if (result.success) {
+            showMessage('✅ ' + result.message, true);
+            this.reset();
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage('❌ ' + result.message, false);
+        }
+    } catch (error) {
+        console.error('Error deleting supervisor:', error);
+        showMessage('❌ Error deleting supervisor: ' + error.message, false);
+    }
+});
+
+// Enhanced Toggle Supervisor Status with proper error handling
+async function toggleSupervisorStatus(nationalId, newStatus) {
+    if (!confirm(`Are you sure you want to ${newStatus ? 'activate' : 'deactivate'} this supervisor?`)) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+        formData.append('IsActive', newStatus.toString());
+
+        console.log('Toggling supervisor status:', { nationalId, newStatus });
+
+        const response = await fetch('/Admin/ToggleSupervisorStatus', {
+            method: 'POST',
+            body: formData
+        });
+
+        console.log('Toggle status response status:', response.status);
+
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Toggle status error response:', errorText);
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Toggle status result:', result);
+        
+        if (result.success) {
+            showMessage(result.message, true);
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage(result.message, false);
+        }
+    } catch (error) {
+        console.error('Error updating supervisor status:', error);
+        showMessage('Error updating supervisor status: ' + error.message, false);
+    }
+}
+
+// Enhanced Delete supervisor directly with proper error handling
+async function deleteSupervisor(nationalId) {
+    // Get supervisor name for confirmation message
+    const supervisor = allSupervisors.find(s => s.nationalId === nationalId);
+    const supervisorName = supervisor ? `${supervisor.firstName} ${supervisor.lastName}` : 'this supervisor';
+
+    if (!confirm(`Are you sure you want to permanently delete ${supervisorName}? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('NationalId', nationalId);
+
+        console.log('Deleting supervisor directly:', nationalId);
+
+        const response = await fetch('/Admin/DeleteSupervisor', {
+            method: 'POST',
+            body: formData
+        });
+
+        console.log('Direct delete response status:', response.status);
+
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Direct delete error response:', errorText);
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Direct delete result:', result);
+        
+        if (result.success) {
+            showMessage(result.message, true);
+            await loadSupervisorsFromServer();
+        } else {
+            showMessage(result.message, false);
+        }
+    } catch (error) {
+        console.error('Error deleting supervisor:', error);
+        showMessage('Error deleting supervisor: ' + error.message, false);
+    }
+}
+
+function editSupervisor(nationalId) {
+    showForm('updateSupervisorForm');
+    document.getElementById('updateSupervisorNationalId').value = nationalId;
+    loadSupervisorData(nationalId);
+}
+</script>
+</body>
+</html>

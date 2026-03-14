@@ -1,0 +1,966 @@
+@{
+    ViewData["Title"] = "System Logs";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .log-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 10px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #2a9d8f, #1d3557);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #1d3557, #2a9d8f);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .log-table-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .log-table th {
+            background: #1d3557;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .log-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .log-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .log-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .status-success { background: #2a9d8f; }
+        .status-failed { background: #e63946; }
+        .status-attempt { background: #f4a261; }
+        .status-warning { background: #e9c46a; }
+
+        .log-role {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .role-voter { background: #2a9d8f; }
+        .role-admin { background: #e63946; }
+        .role-supervisor { background: #457b9d; }
+        .role-manager { background: #f4a261; }
+        .role-candidate { background: #9d4edd; }
+        .role-system { background: #6c757d; }
+
+        .log-nationalid {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #495057;
+            font-weight: bold;
+        }
+
+        .log-action {
+            font-weight: bold;
+        }
+
+        .action-login-attempt { color: #457b9d; }
+        .action-post-login { color: #2a9d8f; }
+        .action-logout { color: #e63946; }
+        .action-create { color: #2a9d8f; }
+        .action-update { color: #f4a261; }
+        .action-delete { color: #e63946; }
+        .action-vote { color: #2a9d8f; }
+        .action-register { color: #457b9d; }
+
+        .log-description {
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .log-time {
+            font-size: 0.9em;
+            color: #6c757d;
+            white-space: nowrap;
+        }
+
+        .log-date {
+            font-size: 0.9em;
+            color: #495057;
+            font-weight: bold;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .page-btn.active {
+            background: #1d3557;
+            color: white;
+            border-color: #1d3557;
+        }
+
+        .page-btn:hover:not(.active) {
+            background: #f8f9fa;
+        }
+
+        .no-logs {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .export-btn {
+            background: linear-gradient(45deg, #2a9d8f, #1d3557);
+            color: white;
+        }
+
+        .clear-btn {
+            background: linear-gradient(45deg, #e63946, #e76f51);
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: linear-gradient(45deg, #d90429, #e63946);
+            transform: translateY(-2px);
+        }
+
+        .stats-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1d3557;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .log-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .detail-value {
+            color: #212529;
+            word-break: break-all;
+        }
+
+        .clear-options {
+            display: none;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .clear-option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-option:hover {
+            background: #f8f9fa;
+            border-color: #1d3557;
+        }
+
+        .clear-option.selected {
+            background: #e7f3ff;
+            border-color: #1d3557;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <!-- ANTI-FORGERY TOKEN - ADD THIS -->
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="header">
+            <a class="back-btn" href="/Admin/Dashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1><i class="fas fa-clipboard-list"></i> System Activity Logs</h1>
+            <p>Monitor user activities, login attempts, and system events</p>
+        </div>
+
+        <div class="content">
+            <!-- Statistics Panel -->
+            <div class="stats-panel" id="statsPanel">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalLogs">0</div>
+                    <div class="stat-label">Total Logs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="failedLogs">0</div>
+                    <div class="stat-label">Failed Logins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="oldLogs">0</div>
+                    <div class="stat-label">Logs > 30 days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="newestLog">-</div>
+                    <div class="stat-label">Newest Log</div>
+                </div>
+            </div>
+
+            <!-- Log Controls -->
+            <div class="log-controls">
+                <input type="text" class="search-box" id="searchInput" placeholder="Search by National ID, Action, Description, or Status..." onkeyup="filterLogs()">
+                <select class="filter-select" id="roleFilter" onchange="filterLogs()">
+                    <option value="all">All Roles</option>
+                    <option value="Voter">Voter</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Candidate">Candidate</option>
+                    <option value="System">System</option>
+                </select>
+                <select class="filter-select" id="actionFilter" onchange="filterLogs()">
+                    <option value="all">All Actions</option>
+                    <option value="Login Attempt">Login Attempts</option>
+                    <option value="Post-Login">Post-Login</option>
+                    <option value="Logout">Logout</option>
+                    <option value="Create">Create</option>
+                    <option value="Update">Update</option>
+                    <option value="Delete">Delete</option>
+                    <option value="Vote">Vote</option>
+                    <option value="Register">Register</option>
+                </select>
+                <select class="filter-select" id="statusFilter" onchange="filterLogs()">
+                    <option value="all">All Status</option>
+                    <option value="Success">Success</option>
+                    <option value="Failed">Failed</option>
+                    <option value="Attempt">Attempt</option>
+                    <option value="Warning">Warning</option>
+                </select>
+                <button class="btn export-btn" onclick="exportLogs()">
+                    <i class="fas fa-download"></i> Export Logs
+                </button>
+                <button class="btn clear-btn" onclick="showClearOptions()">
+                    <i class="fas fa-trash"></i> Clear Logs
+                </button>
+                <button class="btn btn-primary" onclick="refreshLogs()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <!-- Clear Logs Options -->
+            <div class="clear-options" id="clearOptions">
+                <h4><i class="fas fa-exclamation-triangle"></i> Clear Logs Options</h4>
+                <p>Select what you want to clear:</p>
+                
+                <div class="clear-option" onclick="selectClearOption('failed')">
+                    <strong>Clear Failed Login Attempts Only</strong>
+                    <p>Remove only failed login attempts while keeping successful activities</p>
+                </div>
+                
+                <div class="clear-option" onclick="selectClearOption('old')">
+                    <strong>Clear Logs Older Than 30 Days</strong>
+                    <p>Remove old logs while keeping recent activity data</p>
+                </div>
+                
+                <div class="clear-option" onclick="selectClearOption('all')">
+                    <strong>Clear All Logs</strong>
+                    <p style="color: #e63946;"><i class="fas fa-warning"></i> This will remove ALL activity logs permanently!</p>
+                </div>
+
+                <div class="confirmation-buttons">
+                    <button class="btn btn-secondary" onclick="hideClearOptions()">Cancel</button>
+                    <button class="btn clear-btn" id="confirmClearBtn" onclick="confirmClearLogs()" disabled>
+                        <i class="fas fa-trash"></i> Confirm Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Log Table -->
+            <div class="log-table-container">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th width="120">National ID</th>
+                            <th width="100">Role</th>
+                            <th width="120">Action</th>
+                            <th>Description</th>
+                            <th width="80">Status</th>
+                            <th width="100">Date</th>
+                            <th width="100">Time</th>
+                            <th width="80">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logTableBody">
+                        <!-- Logs will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="details-modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Log Details</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allLogs = [];
+        let currentPage = 1;
+        const logsPerPage = 25;
+        let filteredLogs = [];
+        let selectedClearOption = null;
+
+        // Load logs when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSystemLogs();
+            loadLogStatistics();
+        });
+
+        // Function to get anti-forgery token
+        function getAntiForgeryToken() {
+            return document.querySelector('input[name="__RequestVerificationToken"]').value;
+        }
+
+        async function loadSystemLogs() {
+            try {
+                showLoading();
+                const response = await fetch('/Admin/GetSystemLogs');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allLogs = result.logs;
+                    filteredLogs = [...allLogs];
+                    displayLogs();
+                    setupPagination();
+                } else {
+                    showError('Failed to load system logs: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error loading system logs:', error);
+                showError('Error loading system logs: ' + error.message);
+            }
+        }
+
+        async function loadLogStatistics() {
+            try {
+                const response = await fetch('/Admin/GetLogStatistics');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.stats;
+                    document.getElementById('totalLogs').textContent = stats.totalLogs;
+                    document.getElementById('failedLogs').textContent = stats.failedLogs;
+                    document.getElementById('oldLogs').textContent = stats.oldLogs;
+                    
+                    if (stats.newestLog) {
+                        const newestDate = new Date(stats.newestLog);
+                        document.getElementById('newestLog').textContent = newestDate.toLocaleDateString();
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading log statistics:', error);
+            }
+        }
+
+        function showClearOptions() {
+            document.getElementById('clearOptions').style.display = 'block';
+            selectedClearOption = null;
+            document.getElementById('confirmClearBtn').disabled = true;
+        }
+
+        function hideClearOptions() {
+            document.getElementById('clearOptions').style.display = 'none';
+            selectedClearOption = null;
+            document.getElementById('confirmClearBtn').disabled = true;
+            
+            // Remove selected class from all options
+            document.querySelectorAll('.clear-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        function selectClearOption(option) {
+            selectedClearOption = option;
+            
+            // Update UI
+            document.querySelectorAll('.clear-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            document.getElementById('confirmClearBtn').disabled = false;
+        }
+
+        async function confirmClearLogs() {
+            if (!selectedClearOption) {
+                alert('Please select a clear option first.');
+                return;
+            }
+
+            const confirmationMessage = {
+                'all': 'Are you sure you want to clear ALL system logs? This action cannot be undone!',
+                'old': 'Are you sure you want to clear logs older than 30 days?',
+                'failed': 'Are you sure you want to clear all failed login attempts?'
+            };
+
+            if (!confirm(confirmationMessage[selectedClearOption])) {
+                return;
+            }
+
+            try {
+                // Get the anti-forgery token
+                const token = getAntiForgeryToken();
+                
+                console.log('Clearing logs with option:', selectedClearOption);
+                console.log('Token found:', token ? 'Yes' : 'No');
+                
+                const response = await fetch('/Admin/ClearLogs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify({
+                        clearType: selectedClearOption
+                    })
+                });
+
+                // Check if response is OK
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    const successMessage = `✅ ${result.message}`;
+                    alert(successMessage);
+                    console.log('Clear logs successful:', result);
+                    
+                    // Hide clear options
+                    hideClearOptions();
+                    
+                    // Refresh the logs and statistics
+                    await loadSystemLogs();
+                    await loadLogStatistics();
+                } else {
+                    // Show error message from server
+                    const errorMessage = `❌ Error: ${result.message}`;
+                    alert(errorMessage);
+                    console.error('Clear logs failed:', result);
+                }
+            } catch (error) {
+                console.error('Error clearing logs:', error);
+                
+                // More detailed error message
+                let errorMessage = '❌ Error clearing logs. ';
+                if (error.name === 'TypeError') {
+                    errorMessage += 'Network error or CORS issue. Please check your connection.';
+                } else if (error.message.includes('HTTP error')) {
+                    errorMessage += `Server returned error: ${error.message}`;
+                } else {
+                    errorMessage += 'Please try again.';
+                }
+                
+                alert(errorMessage);
+            }
+        }
+
+        function filterLogs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const actionFilter = document.getElementById('actionFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            filteredLogs = allLogs.filter(log => {
+                const matchesSearch = 
+                    (log.nationalId && log.nationalId.toLowerCase().includes(searchTerm)) ||
+                    (log.action && log.action.toLowerCase().includes(searchTerm)) ||
+                    (log.description && log.description.toLowerCase().includes(searchTerm)) ||
+                    (log.status && log.status.toLowerCase().includes(searchTerm));
+                const matchesRole = roleFilter === 'all' || (log.role && log.role === roleFilter);
+                const matchesAction = actionFilter === 'all' || (log.action && log.action === actionFilter);
+                const matchesStatus = statusFilter === 'all' || (log.status && log.status === statusFilter);
+
+                return matchesSearch && matchesRole && matchesAction && matchesStatus;
+            });
+
+            currentPage = 1;
+            displayLogs();
+            setupPagination();
+        }
+
+        function displayLogs() {
+            const logTableBody = document.getElementById('logTableBody');
+            const startIndex = (currentPage - 1) * logsPerPage;
+            const endIndex = startIndex + logsPerPage;
+            const currentLogs = filteredLogs.slice(startIndex, endIndex);
+
+            if (currentLogs.length === 0) {
+                logTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="no-logs">
+                            <i class="fas fa-search" style="font-size: 2em; margin-bottom: 10px;"></i>
+                            <p>No activity logs found matching your criteria</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            logTableBody.innerHTML = currentLogs.map(log => `
+                <tr>
+                    <td class="log-nationalid">${log.nationalId || 'SYSTEM'}</td>
+                    <td>
+                        <span class="log-role role-${(log.role || 'system').toLowerCase()}">
+                            ${log.role || 'System'}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="log-action action-${(log.action || '').toLowerCase().replace(' ', '-')}">
+                            <i class="fas fa-${getActionIcon(log.action)}"></i> ${log.action || 'Unknown'}
+                        </span>
+                    </td>
+                    <td class="log-description" title="${log.description || 'No description'}">
+                        ${log.description || 'No description'}
+                    </td>
+                    <td>
+                        <span class="log-status status-${(log.status || 'attempt').toLowerCase()}">
+                            ${log.status || 'Attempt'}
+                        </span>
+                    </td>
+                    <td class="log-date">${formatDate(log.timestamp)}</td>
+                    <td class="log-time">${formatTime(log.timestamp)}</td>
+                    <td>
+                        <button class="btn" style="background: #6c757d; color: white;" onclick="viewLogDetails(${JSON.stringify(log).replace(/"/g, '&quot;')})" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getActionIcon(action) {
+            if (!action) return 'circle';
+            
+            const icons = {
+                'Login Attempt': 'sign-in-alt',
+                'Post-Login': 'user-check',
+                'Logout': 'sign-out-alt',
+                'Create': 'plus-circle',
+                'Update': 'edit',
+                'Delete': 'trash',
+                'Vote': 'vote-yea',
+                'Register': 'user-plus',
+                'Login': 'sign-in-alt'
+            };
+            return icons[action] || 'circle';
+        }
+
+        function setupPagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+
+            // Previous button
+            if (currentPage > 1) {
+                paginationHTML += `<button class="page-btn" onclick="changePage(${currentPage - 1})">Previous</button>`;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHTML += `
+                        <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<span class="page-btn">...</span>`;
+                }
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                paginationHTML += `<button class="page-btn" onclick="changePage(${currentPage + 1})">Next</button>`;
+            }
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            displayLogs();
+            setupPagination();
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString();
+        }
+
+        function formatTime(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleTimeString();
+        }
+
+        function viewLogDetails(log) {
+            const modal = document.getElementById('detailsModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const detailsHTML = `
+                <div class="log-details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">National ID</div>
+                        <div class="detail-value">${log.nationalId || 'SYSTEM'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Role</div>
+                        <div class="detail-value">${log.role || 'System'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Action</div>
+                        <div class="detail-value">${log.action || 'Unknown'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value">${log.status || 'Attempt'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Date & Time</div>
+                        <div class="detail-value">${formatDate(log.timestamp)} ${formatTime(log.timestamp)}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">IP Address</div>
+                        <div class="detail-value">${log.ipAddress || 'Unknown'}</div>
+                    </div>
+                </div>
+                <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-value">${log.description || 'No description available'}</div>
+                </div>
+                ${log.additionalData ? `
+                <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-label">Additional Data</div>
+                    <div class="detail-value">${log.additionalData}</div>
+                </div>
+                ` : ''}
+                ${log.userAgent ? `
+                <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-label">User Agent</div>
+                    <div class="detail-value" style="font-size: 0.8em;">${log.userAgent}</div>
+                </div>
+                ` : ''}
+            `;
+            
+            modalContent.innerHTML = detailsHTML;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detailsModal');
+            modal.style.display = 'none';
+        }
+
+        function refreshLogs() {
+            loadSystemLogs();
+            loadLogStatistics();
+        }
+
+        function exportLogs() {
+            const logData = filteredLogs.map(log => 
+                `Date: ${formatDate(log.timestamp)} | Time: ${formatTime(log.timestamp)} | National ID: ${log.nationalId || 'SYSTEM'} | Role: ${log.role || 'System'} | Action: ${log.action || 'Unknown'} | Status: ${log.status || 'Attempt'} | Description: ${log.description || 'No description'}`
+            ).join('\n');
+            
+            const blob = new Blob([logData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `system_activity_logs_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function showLoading() {
+            const logTableBody = document.getElementById('logTableBody');
+            logTableBody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="no-logs">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2em; margin-bottom: 10px;"></i>
+                        <p>Loading system logs...</p>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function showError(message) {
+            const logTableBody = document.getElementById('logTableBody');
+            logTableBody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="no-logs">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2em; margin-bottom: 10px; color: #e63946;"></i>
+                        <p>${message}</p>
+                        <button class="btn btn-primary" onclick="refreshLogs()" style="margin-top: 10px;">
+                            <i class="fas fa-sync"></i> Try Again
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailsModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(refreshLogs, 30000);
+    </script>
+</body>
+</html>

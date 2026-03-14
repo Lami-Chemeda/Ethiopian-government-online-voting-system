@@ -1,0 +1,619 @@
+@{
+    ViewData["Title"] = "Delete Voter";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ethiopian Voting System</title>
+    <style>
+        /* Enhanced Styling with Ethiopian Theme */
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #457b9d;
+            --accent-color: #e63946;
+            --success-color: #2a9d8f;
+            --warning-color: #e9c46a;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --text-color: #2d3748;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 25%, #a8dadc 50%, var(--light-color) 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1e3c72;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent-color), #c1121f);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent-color), #c1121f);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c1121f, var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            font-weight: 500;
+        }
+
+        .success {
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .voter-info {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .voter-info h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .literacy-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .literacy-badge.literate {
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            color: #155724;
+        }
+
+        .literacy-badge.illiterate {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+        }
+
+        .warning-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .warning-box h3 {
+            margin-bottom: 10px;
+            color: #856404;
+        }
+
+        .warning-box p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .processing-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--box-shadow);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #c1121f);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                margin-top: 80px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .voter-info {
+                padding: 20px;
+            }
+            
+            .warning-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="goBackToDashboard()">
+        ← Back to Dashboard
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🗑️ Delete Voter</h1>
+            <p>Remove voter from the Ethiopian E-Voting System</p>
+        </div>
+
+        <div class="content">
+            <div id="message" class="message"></div>
+
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <h3>Warning: Irreversible Action</h3>
+                <p><strong>Deleting a voter will permanently remove all their information from the system.</strong></p>
+                <p>This action cannot be undone and will affect all related voting records.</p>
+                <p style="margin-top: 15px; font-weight: 600;">Please proceed with extreme caution.</p>
+            </div>
+
+            <div class="form-section">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px; text-align: center;">Delete Voter Account</h3>
+                
+                <!-- Voter Selection -->
+                <div class="form-group">
+                    <label for="deleteVoterNationalId" class="required">Select Voter to Delete</label>
+                    <select id="deleteVoterNationalId" required onchange="loadVoterForDeletion(this.value)">
+                        <option value="">Select a voter to delete</option>
+                    </select>
+                </div>
+
+                <!-- Voter Information Display -->
+                <div id="voterInfo" class="voter-info" style="display: none;">
+                    <h4>📋 Voter to be Deleted</h4>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Full Name</div>
+                            <div class="info-value" id="displayFullName"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">National ID</div>
+                            <div class="info-value" id="displayNationalId"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Phone Number</div>
+                            <div class="info-value" id="displayPhoneNumber"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Age</div>
+                            <div class="info-value" id="displayAge"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sex</div>
+                            <div class="info-value" id="displaySex"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Region</div>
+                            <div class="info-value" id="displayRegion"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Literacy Status</div>
+                            <div class="info-value">
+                                <span id="displayLiterate" class="literacy-badge"></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Registration Date</div>
+                            <div class="info-value" id="displayRegisterDate"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Form -->
+                <form id="deleteVoterFormElement" style="display: none;">
+                    <button type="submit" class="submit-btn" id="deleteSubmitBtn">
+                        🗑️ Delete Voter Permanently
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-content">
+            <h3 id="processingTitle" style="color: var(--accent-color); margin-bottom: 15px;">Deleting Voter</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p id="processingStatus" style="color: #666;">Please wait while we process deletion...</p>
+            <div id="processingDetails" style="margin-top: 10px; font-size: 14px; color: #888;"></div>
+        </div>
+    </div>
+
+    <script>
+        let allVoters = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVotersFromServer();
+        });
+
+        function goBackToDashboard() {
+            window.location.href = '/Manager/Dashboard';
+        }
+
+        // Load voters from server
+        async function loadVotersFromServer() {
+            try {
+                const response = await fetch('/Manager/GetVoters');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allVoters = result.voters;
+                    populateVoterDropdown(allVoters);
+                } else {
+                    showMessage('Error loading voters: ' + result.message, false);
+                }
+            } catch (error) {
+                showMessage('Error loading voters: ' + error.message, false);
+            }
+        }
+
+        // Populate voter dropdown
+        function populateVoterDropdown(voters) {
+            const select = document.getElementById('deleteVoterNationalId');
+            select.innerHTML = '<option value="">Select a voter to delete</option>';
+            
+            voters.forEach(voter => {
+                const displayText = `${voter.firstName} ${voter.lastName} - ${voter.nationalId} (${voter.region}) - ${voter.literate === 'Yes' ? 'Literate' : 'Illiterate'}`;
+                const option = new Option(displayText, voter.nationalId);
+                select.add(option);
+            });
+        }
+
+        // Load voter data when selected
+        function loadVoterForDeletion(nationalId) {
+            if (!nationalId) {
+                document.getElementById('voterInfo').style.display = 'none';
+                document.getElementById('deleteVoterFormElement').style.display = 'none';
+                return;
+            }
+
+            const voter = allVoters.find(v => v.nationalId === nationalId);
+            if (voter) {
+                // Display voter information
+                document.getElementById('displayFullName').textContent = `${voter.firstName} ${voter.middleName} ${voter.lastName}`;
+                document.getElementById('displayNationalId').textContent = voter.nationalId;
+                document.getElementById('displayPhoneNumber').textContent = voter.phoneNumber;
+                document.getElementById('displayAge').textContent = voter.age;
+                document.getElementById('displaySex').textContent = voter.sex;
+                document.getElementById('displayRegion').textContent = voter.region;
+                
+                const literateBadge = document.getElementById('displayLiterate');
+                literateBadge.textContent = voter.literate === 'Yes' ? 'Literate' : 'Illiterate';
+                literateBadge.className = `literacy-badge ${voter.literate === 'Yes' ? 'literate' : 'illiterate'}`;
+                
+                document.getElementById('displayRegisterDate').textContent = voter.registerDate;
+
+                // Show sections
+                document.getElementById('voterInfo').style.display = 'block';
+                document.getElementById('deleteVoterFormElement').style.display = 'block';
+            } else {
+                document.getElementById('voterInfo').style.display = 'none';
+                document.getElementById('deleteVoterFormElement').style.display = 'none';
+            }
+        }
+
+        function showMessage(message, isSuccess) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = isSuccess ? 'message success' : 'message error';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function showProcessingOverlay(title, message) {
+            const overlay = document.getElementById('processingOverlay');
+            const titleElement = document.getElementById('processingTitle');
+            const statusElement = document.getElementById('processingStatus');
+            
+            if (overlay && titleElement && statusElement) {
+                titleElement.textContent = title;
+                statusElement.textContent = message;
+                overlay.style.display = 'flex';
+            }
+        }
+
+        function hideProcessingOverlay() {
+            const overlay = document.getElementById('processingOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }
+
+        // Delete Voter Form - SIMPLIFIED CONFIRMATION
+        document.getElementById('deleteVoterFormElement').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const nationalId = document.getElementById('deleteVoterNationalId').value;
+
+            if (!nationalId) {
+                showMessage('Please select a voter to delete.', false);
+                return;
+            }
+
+            // Get voter name for confirmation message
+            const voter = allVoters.find(v => v.nationalId === nationalId);
+            const voterName = voter ? `${voter.firstName} ${voter.lastName}` : 'this voter';
+            const voterNationalId = voter ? voter.nationalId : nationalId;
+            const voterLiteracy = voter ? (voter.literate === 'Yes' ? 'Literate' : 'Illiterate') : 'Unknown';
+
+            // Single confirmation dialog
+            if (!confirm(`Are you sure you want to PERMANENTLY DELETE this voter?\n\nName: ${voterName}\nNational ID: ${voterNationalId}\nLiteracy: ${voterLiteracy}\n\nThis action cannot be undone!`)) {
+                return;
+            }
+
+            showProcessingOverlay('Deleting Voter', 'Permanently removing voter from system...');
+
+            try {
+                const formData = new FormData();
+                formData.append('NationalId', nationalId);
+
+                const response = await fetch('/Manager/DeleteVoter', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    hideProcessingOverlay();
+                    showMessage('✅ ' + result.message, true);
+                    
+                    // Reset form
+                    this.reset();
+                    document.getElementById('voterInfo').style.display = 'none';
+                    document.getElementById('deleteVoterFormElement').style.display = 'none';
+                    
+                    // Reload voters list
+                    await loadVotersFromServer();
+                    
+                } else {
+                    hideProcessingOverlay();
+                    showMessage('❌ ' + result.message, false);
+                }
+            } catch (error) {
+                hideProcessingOverlay();
+                showMessage('❌ Error deleting voter: ' + error.message, false);
+            }
+        });
+    </script>
+</body>
+</html>

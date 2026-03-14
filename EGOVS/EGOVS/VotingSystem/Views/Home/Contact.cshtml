@@ -1,0 +1,662 @@
+@{
+    ViewData["Title"] = "Contact Us - Ethiopian E-Voting System";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Enhanced Styling with Full-Screen Ethiopian Theme */
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #457b9d;
+            --accent-color: #e63946;
+            --success-color: #2a9d8f;
+            --warning-color: #e9c46a;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --text-color: #2d3748;
+            --border-radius: 16px;
+            --box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ethiopian Pattern Background with Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(232, 65, 24, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 90% 80%, rgba(20, 126, 59, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 50% 50%, rgba(252, 209, 22, 0.06) 0%, transparent 50%),
+                            linear-gradient(45deg, transparent 48%, rgba(29, 53, 87, 0.03) 50%, transparent 52%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @@keyframes backgroundShift {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(-10px) translateY(-10px); }
+        }
+
+        /* Main Container - Full Screen Design */
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 0.8s ease-out;
+            margin: 20px 0;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .ethiopia-flag {
+            display: inline-block;
+            width: 30px;
+            height: 18px;
+            background: linear-gradient(to bottom, #270cf0ff 33%, #fcd310 33%, #fcd310 66%, #078930 66%);
+            margin: 0 12px;
+            border-radius: 3px;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* FIXED: Back Button Styling - Now Proper Button */
+        .back-home-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            padding: 12px 20px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .back-home-btn:hover {
+            background: #0de13bff;
+            transform: translateX(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(193, 18, 31, 0.4);
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            margin: 40px 0;
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(241, 250, 238, 0.8), rgba(168, 218, 220, 0.6));
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .contact-intro h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .contact-intro p {
+            color: var(--text-color);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Cards Grid */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .contact-card.email {
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .contact-card.phone {
+            border-top: 5px solid var(--success-color);
+        }
+
+        .contact-card.telegram {
+            border-top: 5px solid #0088cc;
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .contact-card.email .contact-icon {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.1), rgba(230, 57, 70, 0.2));
+            color: var(--accent-color);
+        }
+
+        .contact-card.phone .contact-icon {
+            background: linear-gradient(135deg, rgba(42, 157, 143, 0.1), rgba(42, 157, 143, 0.2));
+            color: var(--success-color);
+        }
+
+        .contact-card.telegram .contact-icon {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.1), rgba(0, 136, 204, 0.2));
+            color: #0088cc;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .contact-details {
+            margin-top: 15px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(29, 53, 87, 0.2);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(29, 53, 87, 0.3);
+        }
+
+        .contact-card.email .contact-link {
+            background: linear-gradient(135deg, var(--accent-color), #d32f2f);
+        }
+
+        .contact-card.phone .contact-link {
+            background: linear-gradient(135deg, var(--success-color), #248277);
+        }
+
+        .contact-card.telegram .contact-link {
+            background: linear-gradient(135deg, #0088cc, #006699);
+        }
+
+        .contact-phone-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .phone-number {
+            padding: 8px 15px;
+            background: rgba(69, 123, 157, 0.1);
+            border-radius: 6px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        /* Support Hours */
+        .support-hours {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(233, 196, 106, 0.1), rgba(233, 196, 106, 0.2));
+            border-radius: 12px;
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .support-hours h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .support-hours ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .support-hours li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color);
+        }
+
+        .support-hours li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--secondary-color);
+            font-size: 14px;
+            opacity: 0.8;
+            border-top: 1px solid rgba(69, 123, 157, 0.2);
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .header {
+                margin-bottom: 30px;
+            }
+            
+            .back-home-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                align-self: flex-start;
+            }
+            
+            .contact-card {
+                min-height: 200px;
+                padding: 25px 20px;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .main-container {
+                padding: 20px 10px;
+            }
+            
+            .container {
+                padding: 25px 15px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .contact-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .contact-phone-numbers {
+                flex-direction: column;
+            }
+            
+            .phone-number {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animation for contact cards */
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .contact-card:nth-child(1) { animation-delay: 0.1s; }
+        .contact-card:nth-child(2) { animation-delay: 0.2s; }
+        .contact-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <!-- Back to Home Button -->
+            <button class="back-home-btn" onclick="goBackToHome()">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+
+            <div class="header">
+                <h2>Contact Us <span class="ethiopia-flag"></span></h2>
+                <p class="subtitle">Ethiopian Electronic Voting System - Get in Touch</p>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="contact-info-section">
+                <div class="contact-intro">
+                    <h3>We're Here to Help You!</h3>
+                    <p>
+                        Have questions about the Ethiopian Electronic Voting System? Need assistance with registration, 
+                        voting, or technical issues? Our support team is ready to help you. Choose your preferred method 
+                        of contact below.
+                    </p>
+                    <p style="margin-top: 15px; font-style: italic; color: var(--secondary-color);">
+                        <i class="fas fa-info-circle"></i> For the fastest response, please include relevant details in your inquiry.
+                    </p>
+                </div>
+
+                <div class="contact-cards">
+                    <!-- Email Card -->
+                    <div class="contact-card email">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email Support</h4>
+                        <p>Send us an email for detailed inquiries</p>
+                        <div class="contact-details">
+                            <a href="mailto:lami28807@gmail.com" class="contact-link">
+                                <i class="fas fa-paper-plane"></i> Send Email
+                            </a>
+                            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                                <i class="fas fa-clock"></i> Response time: Within 24 hours
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Phone Card -->
+                    <div class="contact-card phone">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h4>Phone Support</h4>
+                        <p>Call us for immediate assistance</p>
+                        <div class="contact-details">
+                            <div class="contact-phone-numbers">
+                                <div class="phone-number">
+                                    <i class="fas fa-mobile-alt"></i> 0983664549
+                                </div>
+                                <div class="phone-number">
+                                    <i class="fas fa-phone"></i> 0920939012
+                                </div>
+                            </div>
+                            <a href="tel:+251983664549" class="contact-link" style="margin-top: 15px;">
+                                <i class="fas fa-phone"></i> Call Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Telegram Card -->
+                    <div class="contact-card telegram">
+                        <div class="contact-icon">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <h4>Telegram Support</h4>
+                        <p>Chat with us on Telegram</p>
+                        <div class="contact-details">
+                            <a href="https://t.me/+WAw_tUG5OvRlOTk0" target="_blank" class="contact-link">
+                                <i class="fab fa-telegram"></i> Open Telegram
+                            </a>
+                            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                                <i class="fas fa-bolt"></i> Instant messaging support
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Hours -->
+                <div class="support-hours">
+                    <h4><i class="fas fa-clock"></i> Support Hours</h4>
+                    <ul>
+                        <li>
+                            <span>Monday - Friday</span>
+                            <span style="font-weight: 600; color: var(--primary-color);">8:00 AM - 6:00 PM</span>
+                        </li>
+                        <li>
+                            <span>Saturday</span>
+                            <span style="font-weight: 600; color: var(--primary-color);">9:00 AM - 4:00 PM</span>
+                        </li>
+                        <li>
+                            <span>Sunday</span>
+                            <span style="font-weight: 600; color: var(--primary-color);">10:00 AM - 2:00 PM</span>
+                        </li>
+                        <li>
+                            <span>Election Day</span>
+                            <span style="font-weight: 600; color: var(--accent-color);">24/7 Support</span>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: italic;">
+                        <i class="fas fa-exclamation-circle"></i> During election periods, support is available 24/7.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2024 Ethiopian Electronic Voting System. Ensuring secure and transparent elections.</p>
+                <p style="margin-top: 5px; font-size: 0.85rem; opacity: 0.7;">
+                    <i class="fas fa-shield-alt"></i> All communications are encrypted and secure
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Back to Home function
+        function goBackToHome() {
+            console.log('Back to Home button clicked');
+            
+            // Try multiple navigation methods
+            const pathsToTry = [
+                '/Home/Index',
+                '/',
+                './Home/Index',
+                './',
+                window.location.origin + '/Home/Index',
+                window.location.origin + '/'
+            ];
+            
+            for (let path of pathsToTry) {
+                try {
+                    console.log('Trying path:', path);
+                    window.location.href = path;
+                    return; // Exit if successful
+                } catch (error) {
+                    console.log('Failed with path:', path, error);
+                    continue;
+                }
+            }
+            
+            // If all else fails, show alert
+            alert('Cannot navigate to home page. Please use the browser back button or navigate manually.');
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Contact page loaded successfully');
+            
+            // Add click event listeners to all contact links
+            document.querySelectorAll('.contact-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    console.log('Contact link clicked:', this.href);
+                    // Allow default behavior (navigation to email/phone/telegram)
+                });
+            });
+            
+            // Add animation to contact cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.contact-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Telegram link confirmation
+        document.querySelectorAll('a[href*="telegram"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!confirm('You are being redirected to Telegram. Do you want to continue?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

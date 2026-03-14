@@ -1,0 +1,529 @@
+@model List<Candidate>
+@{
+    ViewData["Title"] = "Cast Vote";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 25%, #a8dadc 50%, var(--light-color) 75%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+        }
+        h2 { 
+            text-align: center; 
+            margin-bottom: 35px; 
+            color: #1d3557; 
+            margin-top: 15px;
+            font-size: 2.5em;
+        }
+        .candidate-option {
+            border: 4px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .candidate-option:hover {
+            border-color: #457b9d;
+            background-color: #f8f9fa;
+        }
+        .candidate-option.selected {
+            border-color: #1d3557;
+            background-color: #e8f4fd;
+            transform: scale(1.04);
+            box-shadow: 0 8px 25px rgba(29, 53, 87, 0.25);
+        }
+        .candidate-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        .candidate-photo {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #e0e0e0;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .party-logo {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 5px solid #457b9d;
+            background: white;
+            padding: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+        .candidate-info {
+            flex-grow: 1;
+        }
+        .candidate-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1d3557;
+            margin: 0 0 12px 0;
+        }
+        .candidate-party {
+            font-size: 1.6em;
+            color: #457b9d;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+        .candidate-region {
+            font-size: 1.3em;
+            color: #666;
+            margin: 0;
+        }
+        button {
+            width: 100%; 
+            padding: 20px; 
+            margin-top: 35px;
+            border: none; 
+            border-radius: 12px;
+            background: #1d3557; 
+            color: white; 
+            font-weight: bold; 
+            cursor: pointer;
+            font-size: 22px;
+            transition: background 0.3s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+        button:hover { 
+            background: #457b9d; 
+            transform: translateY(-3px);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            padding: 15px 25px;
+            background: #e63946;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+        }
+        .back-btn:hover {
+            background: #a4161a;
+            transform: translateY(-3px);
+        }
+        .message {
+            text-align: center; 
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            display: none;
+            font-size: 1.2em;
+        }
+        .success-message {
+            color: #155724;
+            background-color: #d4edda;
+            border: 3px solid #c3e6cb;
+        }
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 3px solid #f5c6cb;
+        }
+        .no-candidates {
+            text-align: center;
+            color: #666;
+            padding: 50px;
+            font-size: 1.3em;
+        }
+        .no-photo, .no-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            background: #ddd;
+            border: 5px solid #e0e0e0;
+        }
+        .no-photo {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            font-size: 2em;
+        }
+        .no-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            padding: 20px;
+        }
+        .selection-indicator {
+            color: #1d3557;
+            font-size: 3em;
+            margin-left: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .candidate-option.selected .selection-indicator {
+            opacity: 1;
+        }
+        .warning-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 3px solid #ffeaa7;
+            font-size: 1.2em;
+        }
+        .election-info {
+            background: #e7f3ff;
+            color: #1d3557;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 3px solid #b3d9ff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .election-inactive {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 3px solid #f5c6cb;
+            font-size: 1.2em;
+        }
+        .candidate-status {
+            margin-top: 12px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <a class="back-btn" href="@Url.Action("Dashboard", "Voter")">← Back to Dashboard</a>
+        <h2>Cast Your Vote</h2>
+        
+        @if (Model.Any())
+        {
+            <!-- Election Information -->
+            @if (ViewBag.ElectionSettings != null)
+            {
+                <div class="election-info">
+                    🗳️ Election: @ViewBag.ElectionSettings.ElectionName<br>
+                    ⏰ Voting Period: @ViewBag.ElectionSettings.StartDate.ToString("yyyy-MM-dd HH:mm") to @ViewBag.ElectionSettings.EndDate.ToString("yyyy-MM-dd HH:mm")
+                </div>
+            }
+
+            @if (!ViewBag.IsElectionActive)
+            {
+                <div class="election-inactive">
+                    <strong>⚠️ Voting Not Active</strong><br>
+                    @if (ViewBag.ElectionSettings == null || !ViewBag.ElectionSettings.IsActive)
+                    {
+                        <span>Election has not been activated by administrator.</span>
+                    }
+                    else if (ViewBag.CurrentTime < ViewBag.ElectionSettings.StartDate)
+                    {
+                        <span>Voting will start on @ViewBag.ElectionSettings.StartDate.ToString("yyyy-MM-dd HH:mm")</span>
+                    }
+                    else if (ViewBag.CurrentTime > ViewBag.ElectionSettings.EndDate)
+                    {
+                        <span>Voting ended on @ViewBag.ElectionSettings.EndDate.ToString("yyyy-MM-dd HH:mm")</span>
+                    }
+                </div>
+            }
+
+            <div class="warning-message">
+                <strong>Important:</strong> You can only vote once. This action cannot be undone.
+            </div>
+
+            <form id="voteForm">
+                @Html.AntiForgeryToken()
+                
+                <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.3em;">
+                    Select your preferred candidate by clicking on their card
+                </p>
+                
+                @foreach (var candidate in Model)
+                {
+                    <div class="candidate-option" onclick="selectCandidate('@candidate.NationalId', this)">
+                        <div class="candidate-images">
+                            @if (!string.IsNullOrEmpty(candidate.PhotoUrl))
+                            {
+                                <img src="@candidate.PhotoUrl" alt="@candidate.FirstName @candidate.LastName" class="candidate-photo" 
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="no-photo" style="display: none;"></div>
+                            }
+                            else
+                            {
+                                <div class="no-photo"></div>
+                            }
+                            
+                            <!-- CORRECT PARTY LOGO FIELD -->
+                            @if (!string.IsNullOrEmpty(candidate.Logo))
+                            {
+                                <img src="@candidate.Logo" alt="@candidate.Party Logo" class="party-logo" 
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="no-logo" style="display: none;">@candidate.Party Logo</div>
+                            }
+                            else
+                            {
+                                <div class="no-logo">@candidate.Party Logo</div>
+                            }
+                        </div>
+                        <div class="candidate-info">
+                            <div class="candidate-name">@candidate.FirstName @candidate.MiddleName @candidate.LastName</div>
+                            <div class="candidate-party">@candidate.Party</div>
+                            <div class="candidate-region">📍 @candidate.Region</div>
+                            <div class="candidate-status @(candidate.IsActive ? "status-active" : "status-inactive")">
+                                @(candidate.IsActive ? "Active Candidate" : "Inactive Candidate")
+                            </div>
+                        </div>
+                        <div class="selection-indicator">✓</div>
+                        <input type="radio" name="candidateNationalId" value="@candidate.NationalId" style="display: none;">
+                    </div>
+                }
+                
+                <button type="submit" id="submitVote" disabled>Submit Vote</button>
+                
+                <div class="message success-message" id="successMessage">
+                    Vote submitted successfully! Redirecting to dashboard...
+                </div>
+                <div class="message error-message" id="errorMessage">
+                    Please select a candidate before submitting your vote.
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="no-candidates">
+                <h3>No Candidates Available</h3>
+                <p>There are no active candidates at the moment.</p>
+                <p>Please check back later.</p>
+            </div>
+        }
+    </div>
+
+    <script>
+        let selectedCandidateNationalId = null;
+        let isElectionActive = @Json.Serialize(ViewBag.IsElectionActive);
+
+        function selectCandidate(candidateNationalId, element) {
+            // First check if election is active
+            if (!isElectionActive) {
+                showElectionError();
+                return;
+            }
+
+            // Remove selected class from all options
+            document.querySelectorAll('.candidate-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Set the radio button as checked
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            selectedCandidateNationalId = candidateNationalId;
+            document.getElementById('submitVote').disabled = false;
+            
+            // Hide any previous error messages
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function showElectionError() {
+            let errorMessage = "Voting is not currently active. ";
+            
+            @if (ViewBag.ElectionSettings == null || !ViewBag.ElectionSettings.IsActive)
+            {
+                <text>errorMessage += "The election has not been activated by the administrator.";</text>
+            }
+            else if (ViewBag.CurrentTime < ViewBag.ElectionSettings.StartDate)
+            {
+                <text>errorMessage += "Voting will start on @ViewBag.ElectionSettings.StartDate.ToString("yyyy-MM-dd HH:mm")";</text>
+            }
+            else if (ViewBag.CurrentTime > ViewBag.ElectionSettings.EndDate)
+            {
+                <text>errorMessage += "Voting ended on @ViewBag.ElectionSettings.EndDate.ToString("yyyy-MM-dd HH:mm")";</text>
+            }
+            else
+            {
+                <text>errorMessage += "Please check the election schedule.";</text>
+            }
+            
+            alert(errorMessage);
+        }
+
+        document.getElementById('voteForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            // First check if election is active
+            if (!isElectionActive) {
+                showElectionError();
+                return;
+            }
+
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const submitButton = document.getElementById('submitVote');
+
+            if (!selectedCandidateNationalId) {
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                return;
+            }
+
+            // Disable submit button to prevent multiple submissions
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting Vote...';
+
+            // Get the anti-forgery token
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            // Prepare form data - use URLSearchParams for proper encoding
+            const formData = new URLSearchParams();
+            formData.append('candidateNationalId', selectedCandidateNationalId);
+            formData.append('__RequestVerificationToken', token);
+
+            // Send vote to server
+            fetch('@Url.Action("CastVote", "Voter")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': token
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    
+                    // Use the redirect URL from server response or default to Dashboard
+                    const redirectUrl = data.redirectUrl || '@Url.Action("Dashboard", "Voter")';
+                    
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 2000);
+                } else {
+                    throw new Error(data.message || 'Failed to cast vote');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = 'Error: ' + error.message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Vote';
+            });
+        });
+
+        // Add initials to no-photo placeholders
+        document.addEventListener('DOMContentLoaded', function() {
+            const noPhotoElements = document.querySelectorAll('.no-photo');
+            noPhotoElements.forEach(photo => {
+                if (photo.style.display !== 'none') {
+                    const candidateCard = photo.closest('.candidate-option');
+                    const candidateName = candidateCard.querySelector('.candidate-name').textContent;
+                    const initials = candidateName.split(' ')
+                        .map(name => name[0])
+                        .join('')
+                        .substring(0, 2)
+                        .toUpperCase();
+                    photo.innerHTML = initials;
+                }
+            });
+
+            // Handle image loading errors
+            const images = document.querySelectorAll('.candidate-photo, .party-logo');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const noImage = this.nextElementSibling;
+                    if (noImage && (noImage.classList.contains('no-photo') || noImage.classList.contains('no-logo'))) {
+                        noImage.style.display = 'flex';
+                        
+                        // Add initials to the newly shown no-photo
+                        if (noImage.classList.contains('no-photo')) {
+                            const candidateCard = this.closest('.candidate-option');
+                            const candidateName = candidateCard.querySelector('.candidate-name').textContent;
+                            const initials = candidateName.split(' ')
+                                .map(name => name[0])
+                                .join('')
+                                .substring(0, 2)
+                                .toUpperCase();
+                            noImage.innerHTML = initials;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

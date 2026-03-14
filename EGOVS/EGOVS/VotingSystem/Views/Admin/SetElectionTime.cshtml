@@ -1,0 +1,725 @@
+@{
+    ViewData["Title"] = "Set Election Time";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ethiopian Online Voting System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #2a9d8f, #1d3557);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #1d3557, #2a9d8f);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #1d3557;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #457b9d;
+            box-shadow: 0 0 0 0.2rem rgba(69, 123, 157, 0.25);
+        }
+
+        .form-control:invalid {
+            border-color: #dc3545;
+        }
+
+        .form-control:valid:not(:placeholder-shown) {
+            border-color: #28a745;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #1d3557, #457b9d);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #457b9d, #1d3557);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #2a9d8f;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .badge-scheduled { background: #fff3cd; color: #856404; }
+        .badge-ongoing { background: #d1edff; color: #0c5460; }
+        .badge-completed { background: #d4edda; color: #155724; }
+        .badge-inactive { background: #f8d7da; color: #721c24; }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+        }
+
+        .time-info {
+            background: #e7f3ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid #1890ff;
+        }
+
+        .validation-message {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .date-input-wrapper {
+            position: relative;
+        }
+
+        .input-feedback {
+            font-size: 0.875em;
+            margin-top: 5px;
+        }
+
+        .input-feedback.valid {
+            color: #28a745;
+        }
+
+        .input-feedback.invalid {
+            color: #dc3545;
+        }
+
+        .duration-display {
+            background: #e8f5e8;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="/Admin/Dashboard">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Set Election Time</h1>
+            <p>Configure Voting Schedule - Voters can only vote within this time period</p>
+        </div>
+
+        <div class="content">
+            <div id="alertContainer"></div>
+
+            <!-- Election Status Card -->
+            <div class="status-card">
+                <h5><i class="fas fa-info-circle"></i> Current Voting Status</h5>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <strong>Status:</strong> 
+                        <span id="electionStatus" class="status-badge badge-inactive">Loading...</span>
+                    </div>
+                    <div id="electionDates" class="text-muted">
+                        <small>Loading dates...</small>
+                    </div>
+                </div>
+                <div id="timeInfo" class="time-info" style="display: none;">
+                    <small id="timeMessage"></small>
+                </div>
+            </div>
+
+            <!-- Election Settings Form -->
+            <form id="electionSettingsForm">
+                <div class="form-group">
+                    <label class="form-label">Election Name</label>
+                    <input type="text" class="form-control" id="electionName" name="electionName" 
+                           placeholder="Enter election name" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group date-input-wrapper">
+                            <label class="form-label">Start Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="startDate" name="startDate" 
+                                   min="" required>
+                            <div class="validation-message" id="startDateError">
+                                Start date must be in the future
+                            </div>
+                            <div class="input-feedback" id="startDateFeedback"></div>
+                            <small class="text-muted">Voting will begin at this time</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group date-input-wrapper">
+                            <label class="form-label">End Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="endDate" name="endDate" 
+                                   min="" required>
+                            <div class="validation-message" id="endDateError">
+                                End date must be after start date
+                            </div>
+                            <div class="input-feedback" id="endDateFeedback"></div>
+                            <small class="text-muted">Voting will end at this time</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voting Duration Display -->
+                <div id="durationDisplay" class="duration-display">
+                    <strong>Voting Duration:</strong> <span id="durationText">Calculating...</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Region</label>
+                    <select class="form-control" id="region" name="region">
+                        <option value="All Regions">All Regions</option>
+                        <option value="Addis Ababa">Addis Ababa</option>
+                        <option value="Oromia">Oromia</option>
+                        <option value="Amhara">Amhara</option>
+                        <option value="Tigray">Tigray</option>
+                        <option value="Somali">Somali</option>
+                        <option value="Afar">Afar</option>
+                        <option value="Dire Dawa">Dire Dawa</option>
+                        <option value="Benishangul-Gumuz">Benishangul-Gumuz</option>
+                        <option value="Gambela">Gambela</option>
+                        <option value="Harari">Harari</option>
+                        <option value="Southern Nations">Southern Nations</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                    <button type="button" class="btn btn-success" id="activateBtn" disabled>
+                        <i class="fas fa-play"></i> Activate Election
+                    </button>
+                    <button type="button" class="btn btn-warning" id="deactivateBtn" disabled>
+                        <i class="fas fa-pause"></i> Deactivate Election
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to format date for datetime-local input
+        function formatDateTimeLocal(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // Calculate and display voting duration
+        function updateVotingDuration() {
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            const durationDisplay = document.getElementById('durationDisplay');
+            const durationText = document.getElementById('durationText');
+
+            if (startDateInput.value && endDateInput.value) {
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+                const duration = endDate - startDate;
+
+                if (duration > 0) {
+                    const days = Math.floor(duration / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+
+                    let durationString = '';
+                    if (days > 0) durationString += `${days} day${days > 1 ? 's' : ''} `;
+                    if (hours > 0) durationString += `${hours} hour${hours > 1 ? 's' : ''} `;
+                    if (minutes > 0) durationString += `${minutes} minute${minutes > 1 ? 's' : ''}`;
+
+                    durationText.textContent = durationString.trim() || 'Less than 1 minute';
+                    durationDisplay.style.display = 'block';
+                } else {
+                    durationDisplay.style.display = 'none';
+                }
+            } else {
+                durationDisplay.style.display = 'none';
+            }
+        }
+
+        // Initialize date constraints
+        function initializeDateConstraints() {
+            const now = new Date();
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            
+            // Set minimum start date to current time + 1 minute
+            const minStartDate = new Date(now.getTime() + 60000);
+            startDateInput.min = formatDateTimeLocal(minStartDate);
+            
+            console.log('Date constraints initialized - Start date cannot be before:', startDateInput.min);
+        }
+
+        // ========== UPDATED VALIDATION FUNCTIONS ONLY ==========
+
+// Update end date constraints when start date changes
+function updateEndDateConstraints() {
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    const startDateError = document.getElementById('startDateError');
+    const startDateFeedback = document.getElementById('startDateFeedback');
+    const endDateFeedback = document.getElementById('endDateFeedback');
+    const saveBtn = document.getElementById('saveBtn');
+    
+    if (startDateInput.value) {
+        const startDate = new Date(startDateInput.value);
+        const now = new Date();
+        
+        // Validate start date - cannot be in past
+        if (startDate <= now) {
+            startDateError.textContent = 'Start date cannot be in the past';
+            startDateError.style.display = 'block';
+            startDateFeedback.textContent = '❌ Start date must be in the future';
+            startDateFeedback.className = 'input-feedback invalid';
+            startDateInput.setCustomValidity('Start date must be in the future');
+            saveBtn.disabled = true;
+        } else {
+            startDateError.style.display = 'none';
+            startDateFeedback.textContent = '✅ Start date is valid';
+            startDateFeedback.className = 'input-feedback valid';
+            startDateInput.setCustomValidity('');
+            
+            // Set end date minimum to be exactly the start date (allowing any time after)
+            const minEndDate = new Date(startDate.getTime() + 60000); // 1 minute after to ensure it's after
+            endDateInput.min = formatDateTimeLocal(minEndDate);
+            endDateFeedback.textContent = `⏰ End date must be after ${formatDateTimeLocal(startDate)}`;
+            endDateFeedback.className = 'input-feedback';
+            
+            // If end date is already set and invalid, clear it
+            if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
+                endDateInput.value = '';
+            }
+            
+            validateEndDate();
+            updateVotingDuration();
+        }
+    }
+}
+
+// Validate end date
+function validateEndDate() {
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    const endDateError = document.getElementById('endDateError');
+    const endDateFeedback = document.getElementById('endDateFeedback');
+    const saveBtn = document.getElementById('saveBtn');
+    
+    let isValid = true;
+
+    if (startDateInput.value && endDateInput.value) {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+        
+        if (endDate <= startDate) {
+            endDateError.textContent = 'End date must be after start date';
+            endDateError.style.display = 'block';
+            endDateFeedback.textContent = '❌ End date must be after start date';
+            endDateFeedback.className = 'input-feedback invalid';
+            endDateInput.setCustomValidity('End date must be after start date');
+            isValid = false;
+        } else {
+            endDateError.style.display = 'none';
+            endDateFeedback.textContent = '✅ End date is valid';
+            endDateFeedback.className = 'input-feedback valid';
+            endDateInput.setCustomValidity('');
+        }
+    } else if (endDateInput.value) {
+        endDateFeedback.textContent = '⚠️ Please set start date first';
+        endDateFeedback.className = 'input-feedback invalid';
+        isValid = false;
+    }
+
+    // Enable/disable save button based on validation
+    saveBtn.disabled = !isValid || !startDateInput.value || !endDateInput.value;
+    return isValid;
+}
+
+// Save election settings - UPDATED CLIENT VALIDATION
+document.getElementById('electionSettingsForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    if (!validateEndDate()) {
+        showAlert('Please fix the validation errors before saving.', 'warning');
+        return;
+    }
+
+    const formData = {
+        electionName: document.getElementById('electionName').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        region: document.getElementById('region').value
+    };
+    
+    // SIMPLIFIED CLIENT VALIDATION - ONLY TWO RULES:
+    const startDate = new Date(formData.startDate);
+    const endDate = new Date(formData.endDate);
+    const now = new Date();
+    
+    if (startDate <= now) {
+        showAlert('Start date must be in the future. Please select a future date and time.', 'danger');
+        return;
+    }
+    
+    if (endDate <= startDate) {
+        showAlert('End date must be after start date. Please adjust the end date.', 'danger');
+        return;
+    }
+
+    try {
+        const saveBtn = document.getElementById('saveBtn');
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        const response = await fetch('/Admin/UpdateElectionSettings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showAlert(result.message, 'success');
+            loadElectionSettings(); // Reload settings
+        } else {
+            showAlert(result.message, 'danger');
+        }
+    } catch (error) {
+        showAlert('Error saving election settings: ' + error.message, 'danger');
+    } finally {
+        const saveBtn = document.getElementById('saveBtn');
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+    }
+});
+
+
+
+        // Show alert message
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            alertContainer.appendChild(alert);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // Format time display
+        function formatTimeInfo(startDate, endDate, status) {
+            const now = new Date();
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            
+            if (status === 'scheduled') {
+                const timeLeft = start - now;
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                return `Voting starts in ${days}d ${hours}h ${minutes}m`;
+            } else if (status === 'ongoing') {
+                const timeLeft = end - now;
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                return `Voting ends in ${hours}h ${minutes}m`;
+            } else if (status === 'completed') {
+                return 'Voting period has ended';
+            } else {
+                return 'Election is not active';
+            }
+        }
+
+        // Load election settings
+        async function loadElectionSettings() {
+            try {
+                const response = await fetch('/Admin/GetElectionSettings');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const settings = result.settings;
+                    
+                    // Update form fields
+                    document.getElementById('electionName').value = settings.electionName;
+                    document.getElementById('startDate').value = settings.startDate;
+                    document.getElementById('endDate').value = settings.endDate;
+                    document.getElementById('region').value = settings.region;
+                    
+                    // Update status display
+                    const status = settings.status.toLowerCase();
+                    document.getElementById('electionStatus').textContent = settings.status;
+                    document.getElementById('electionStatus').className = `status-badge badge-${status}`;
+                    
+                    document.getElementById('electionDates').innerHTML = `
+                        <small>${new Date(settings.startDate).toLocaleString()} - ${new Date(settings.endDate).toLocaleString()}</small>
+                    `;
+                    
+                    // Update time info
+                    const timeInfo = formatTimeInfo(settings.startDate, settings.endDate, status);
+                    document.getElementById('timeMessage').textContent = timeInfo;
+                    document.getElementById('timeInfo').style.display = 'block';
+                    
+                    // Update button states
+                    document.getElementById('activateBtn').disabled = settings.isActive;
+                    document.getElementById('deactivateBtn').disabled = !settings.isActive;
+
+                    // Update date constraints and validation
+                    updateEndDateConstraints();
+                    validateEndDate();
+                    updateVotingDuration();
+                } else {
+                    showAlert('Error loading election settings: ' + result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('Error loading election settings: ' + error.message, 'danger');
+            }
+        }
+
+        // Save election settings
+        document.getElementById('electionSettingsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateEndDate()) {
+                showAlert('Please fix the validation errors before saving.', 'warning');
+                return;
+            }
+
+            const formData = {
+                electionName: document.getElementById('electionName').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                region: document.getElementById('region').value
+            };
+            
+            // Additional client-side validation
+            const startDate = new Date(formData.startDate);
+            const endDate = new Date(formData.endDate);
+            const now = new Date();
+            
+            if (startDate <= now) {
+                showAlert('Start date must be in the future. Please select a future date and time.', 'danger');
+                return;
+            }
+            
+            if (endDate <= startDate) {
+                showAlert('End date must be after start date. Please adjust the end date.', 'danger');
+                return;
+            }
+
+            try {
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                const response = await fetch('/Admin/UpdateElectionSettings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    loadElectionSettings(); // Reload settings
+                } else {
+                    showAlert(result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('Error saving election settings: ' + error.message, 'danger');
+            } finally {
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+            }
+        });
+
+        // Activate election
+        document.getElementById('activateBtn').addEventListener('click', async function() {
+            if (confirm('Are you sure you want to activate the election? This will allow voting during the scheduled time.')) {
+                try {
+                    const response = await fetch('/Admin/ToggleElectionStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ isActive: true })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert(result.message, 'success');
+                        loadElectionSettings(); // Reload settings
+                    } else {
+                        showAlert(result.message, 'danger');
+                    }
+                } catch (error) {
+                    showAlert('Error activating election: ' + error.message, 'danger');
+                }
+            }
+        });
+
+        // Deactivate election
+        document.getElementById('deactivateBtn').addEventListener('click', async function() {
+            if (confirm('Are you sure you want to deactivate the election? This will stop all voting activities.')) {
+                try {
+                    const response = await fetch('/Admin/ToggleElectionStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ isActive: false })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert(result.message, 'success');
+                        loadElectionSettings(); // Reload settings
+                    } else {
+                        showAlert(result.message, 'danger');
+                    }
+                } catch (error) {
+                    showAlert('Error deactivating election: ' + error.message, 'danger');
+                }
+            }
+        });
+
+        // Event listeners for real-time validation
+        document.getElementById('startDate').addEventListener('change', function() {
+            updateEndDateConstraints();
+            updateVotingDuration();
+        });
+
+        document.getElementById('endDate').addEventListener('change', function() {
+            validateEndDate();
+            updateVotingDuration();
+        });
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDateConstraints();
+            loadElectionSettings();
+        });
+    </script>
+</body>
+</html>
