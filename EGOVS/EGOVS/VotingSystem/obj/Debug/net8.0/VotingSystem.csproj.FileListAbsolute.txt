@@ -434,6 +434,7 @@ C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.RazorAssemblyInfo.cache
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.RazorAssemblyInfo.cs
+C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.sourcelink.json
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\staticwebassets\msbuild.VotingSystem.Microsoft.AspNetCore.StaticWebAssets.props
