@@ -1,31 +1,25 @@
-# Base runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
-
-# Build image
+# Stage 1: Build the project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Set working directory inside container
 WORKDIR /src
+
+# Copy all files from your repo into the container
 COPY . .
-RUN dotnet publish -c Release -o /app/publish
 
-# Final image
-FROM base AS final
+# Publish the project
+# Note: path to VotingSystem.csproj relative to the Dockerfile
+RUN dotnet publish VotingSystem/VotingSystem/VotingSystem.csproj -c Release -o /app/publish
+
+# Stage 2: Create runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
+
+# Copy published files from build stage
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "VotingSystem.dll"]# Base runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
 
-# Build image
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY . .
-RUN dotnet publish VotingSystem.csproj -c Release -o /app/publish
+# Expose port 80
+EXPOSE 80
 
-# Final image
-FROM base AS final
-WORKDIR /app
-COPY --from=build /app/publish .
+# Start the application
 ENTRYPOINT ["dotnet", "VotingSystem.dll"]
