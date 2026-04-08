@@ -4,15 +4,19 @@ using VotingSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// ================= SERVICES =================
+
+// MVC
 builder.Services.AddControllersWithViews();
 
-// Database configuration
+// Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Add Login Tracking Service
+
+// Login Tracking
 builder.Services.AddScoped<ILoginTrackingService, LoginTrackingService>();
-// Add session services
+
+// Session
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -20,20 +24,18 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Register HTTP Client for OCR services
+// HTTP Client
 builder.Services.AddHttpClient();
 
-// Register OCR Services - Use TesseractOCRService for real OCR processing
+// OCR Services
 builder.Services.AddScoped<IOCRService, TesseractOCRService>();
-
-// Register additional services
 builder.Services.AddScoped<EthiopianOCRService>();
 builder.Services.AddScoped<TextToSpeechService>();
 
-// Register Comment Service
+// Comment Service
 builder.Services.AddScoped<ICommentService, CommentService>();
 
-// Add logging
+// Logging
 builder.Services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
@@ -42,10 +44,10 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddFilter("VotingSystem.Services.TesseractOCRService", LogLevel.Information);
 });
 
-// Build the application
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// ================= PIPELINE =================
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -54,25 +56,13 @@ if (!app.Environment.IsDevelopment())
 else
 {
     app.UseDeveloperExceptionPage();
-    
-    // Ensure tessdata directory exists in development
+
+    // Ensure tessdata folder exists
     var tessDataPath = Path.Combine(Directory.GetCurrentDirectory(), "tessdata");
     if (!Directory.Exists(tessDataPath))
     {
         Directory.CreateDirectory(tessDataPath);
         Console.WriteLine($"Created tessdata directory at: {tessDataPath}");
-        Console.WriteLine("Please ensure eng.traineddata and amh.traineddata are placed in this directory.");
-    }
-    else
-    {
-        Console.WriteLine($"Tessdata directory exists at: {tessDataPath}");
-        
-        // Check if language files exist
-        var engPath = Path.Combine(tessDataPath, "eng.traineddata");
-        var amhPath = Path.Combine(tessDataPath, "amh.traineddata");
-        
-        Console.WriteLine($"English language file exists: {File.Exists(engPath)}");
-        Console.WriteLine($"Amharic language file exists: {File.Exists(amhPath)}");
     }
 }
 
@@ -80,20 +70,17 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// ============ ADD THIS MIDDLEWARE FOR CACHE CONTROL ============
+// Disable Cache
 app.Use(async (context, next) =>
 {
-    // Add no-cache headers to ALL responses
     context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
     context.Response.Headers["Pragma"] = "no-cache";
     context.Response.Headers["Expires"] = "0";
-    
     await next();
 });
-// ===============================================================
 
-app.UseAuthorization();
 app.UseSession();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
