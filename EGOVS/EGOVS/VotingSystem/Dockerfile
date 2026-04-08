@@ -1,31 +1,21 @@
-# Base runtime image
+# ---------- Base Runtime ----------
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
-# Build image
+# ---------- Build Stage ----------
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY . .
-RUN dotnet publish -c Release -o /app/publish
 
-# Final image
-FROM base AS final
-WORKDIR /app
-COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "VotingSystem.dll"]# Base runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
-
-# Build image
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+# Copy project files
 COPY . .
+
+# Publish project
 RUN dotnet publish VotingSystem.csproj -c Release -o /app/publish
 
-# Final image
+# ---------- Final Stage ----------
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+
 ENTRYPOINT ["dotnet", "VotingSystem.dll"]
