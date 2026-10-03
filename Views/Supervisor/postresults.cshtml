@@ -1,0 +1,697 @@
+@{
+    ViewData["Title"] = "Post Election Results";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #333;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .election-selector {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .form-group select, .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .results-preview {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .results-table th, .results-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: #4facfe;
+            color: white;
+            font-weight: bold;
+        }
+
+        .results-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .winner-badge {
+            background: #32CD32;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .vote-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 5px 0;
+            overflow: hidden;
+        }
+
+        .vote-fill {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #32CD32, #228B22);
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .notification-area {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E90FF;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .position-header {
+            background: #4facfe;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .refresh-btn:hover {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            transform: translateY(-2px);
+        }
+
+        .published-badge {
+            background: #1E90FF;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .debug-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+
+        .debug-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .debug-info {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="/Supervisor/Dashboard">
+        ← Back to Dashboard
+    </a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📢 Post Election Results</h1>
+            <p>Announce and Publish Election Results</p>
+        </div>
+
+        <div class="content">
+            <div id="message" class="message"></div>
+
+            <!-- Debug Section -->
+            <div class="debug-section">
+                <h3>🔧 Debug Tools</h3>
+                <button class="debug-btn" onclick="loadDebugInfo()">Check Database</button>
+                <button class="debug-btn" onclick="testEndpoints()">Test Endpoints</button>
+                <div id="debugInfo" class="debug-info"></div>
+            </div>
+
+            <div class="notification-area">
+                <h3>📋 Instructions</h3>
+                <p>View real-time election results from the database. Results are automatically calculated based on vote counts. Winners are determined by the highest number of votes per position.</p>
+                <p><strong>Note:</strong> Published results will be visible to all voters when they click "View Results".</p>
+            </div>
+
+            <div class="election-selector">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Election Results</h3>
+                    <button class="refresh-btn" onclick="loadResults()">🔄 Refresh Results</button>
+                </div>
+                <p>Showing results for all positions with votes</p>
+            </div>
+
+            <div id="resultsSection">
+                <div class="loading">Loading election results...</div>
+            </div>
+
+            <div id="noResults" style="display: none; text-align: center; padding: 40px; color: #666;">
+                <h3>No Election Results Available</h3>
+                <p>There are no votes recorded in the system yet. Results will appear here once voting begins.</p>
+            </div>
+
+            <div class="form-group" id="publishSection" style="display: none;">
+                <label for="announcementText">Announcement Message (Optional):</label>
+                <textarea id="announcementText" placeholder="Add a custom message to accompany the published results..."></textarea>
+            </div>
+
+            <div class="action-buttons" id="actionButtons" style="display: none;">
+                <button class="btn btn-success" onclick="publishAllResults()">
+                    📢 Publish All Results
+                </button>
+                <button class="btn btn-primary" onclick="loadPublishedResults()">
+                    📋 View Published Results
+                </button>
+            </div>
+
+            <div id="publishedResults" style="display: none; margin-top: 30px;">
+                <div class="notification-area" style="background: #d4edda; border-left-color: #28a745;">
+                    <h3>✅ Published Results</h3>
+                    <div id="publishedResultsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentResults = [];
+        let publishedResults = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Supervisor PostResults page loaded');
+            loadResults();
+            loadPublishedResults();
+        });
+
+        function showMessage(message, isSuccess) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = isSuccess ? 'message success' : 'message error';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Debug functions
+        async function loadDebugInfo() {
+            try {
+                const debugInfo = document.getElementById('debugInfo');
+                debugInfo.style.display = 'block';
+                debugInfo.innerHTML = 'Loading debug information...';
+
+                const response = await fetch('/Supervisor/DebugElectionData');
+                const result = await response.json();
+                
+                if (result.success) {
+                    debugInfo.innerHTML = JSON.stringify(result.debugInfo, null, 2);
+                } else {
+                    debugInfo.innerHTML = `Error: ${result.error}\n${result.stackTrace}`;
+                }
+            } catch (error) {
+                document.getElementById('debugInfo').innerHTML = `Fetch error: ${error.message}`;
+            }
+        }
+
+        async function testEndpoints() {
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.style.display = 'block';
+            debugInfo.innerHTML = 'Testing endpoints...\n\n';
+
+            const endpoints = [
+                '/Supervisor/GetElectionResults', 
+                '/Supervisor/GetPublishedResults'
+            ];
+
+            for (const endpoint of endpoints) {
+                try {
+                    debugInfo.innerHTML += `Testing ${endpoint}... `;
+                    const response = await fetch(endpoint);
+                    const result = await response.json();
+                    debugInfo.innerHTML += `✅ Success\n`;
+                } catch (error) {
+                    debugInfo.innerHTML += `❌ Error: ${error.message}\n`;
+                }
+            }
+        }
+
+        async function loadResults() {
+            try {
+                const resultsSection = document.getElementById('resultsSection');
+                resultsSection.innerHTML = '<div class="loading">Loading election results...</div>';
+
+                console.log('Fetching election results from Supervisor...');
+                const response = await fetch('/Supervisor/GetElectionResults');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                console.log('Raw response:', text);
+                
+                if (!text) {
+                    throw new Error('Empty response from server');
+                }
+                
+                const result = JSON.parse(text);
+                console.log('Parsed election results:', result);
+                
+                if (result.success && result.elections && result.elections.length > 0) {
+                    currentResults = result.elections;
+                    displayResults(currentResults);
+                    
+                    // Show publish section and buttons
+                    document.getElementById('publishSection').style.display = 'block';
+                    document.getElementById('actionButtons').style.display = 'flex';
+                    document.getElementById('noResults').style.display = 'none';
+                    
+                    showMessage('Results loaded successfully!', true);
+                } else {
+                    document.getElementById('noResults').style.display = 'block';
+                    document.getElementById('publishSection').style.display = 'none';
+                    document.getElementById('actionButtons').style.display = 'none';
+                    resultsSection.innerHTML = '';
+                    
+                    if (result.message) {
+                        showMessage(result.message, false);
+                    } else {
+                        showMessage('No election results available.', false);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading results:', error);
+                showMessage('Error loading results: ' + error.message, false);
+                document.getElementById('resultsSection').innerHTML = '';
+                document.getElementById('noResults').style.display = 'block';
+            }
+        }
+
+        function displayResults(elections) {
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.innerHTML = '';
+
+            elections.forEach(election => {
+                const positionDiv = document.createElement('div');
+                positionDiv.className = 'results-preview';
+                
+                // Check if this position is already published
+                const isPublished = publishedResults.some(published => 
+                    published.candidateName && election.candidates.some(c => 
+                        c.candidateName === published.candidateName
+                    )
+                );
+                
+                let tableHTML = `
+                    <div class="position-header">
+                        ${election.position} - Total Votes: ${election.totalVotes}
+                        ${isPublished ? '<span class="published-badge">PUBLISHED</span>' : ''}
+                    </div>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Party</th>
+                                <th>Votes</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                if (election.candidates && election.candidates.length > 0) {
+                    election.candidates.forEach(candidate => {
+                        tableHTML += `
+                            <tr>
+                                <td>${candidate.candidateName}</td>
+                                <td>${candidate.party}</td>
+                                <td>${candidate.voteCount}</td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span>${candidate.percentage}%</span>
+                                        <div class="vote-bar" style="flex: 1;">
+                                            <div class="vote-fill" style="width: ${candidate.percentage}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    ${candidate.isWinner ? '<span class="winner-badge">WINNER</span>' : ''}
+                                </td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    tableHTML += `
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #666; padding: 40px;">
+                                No candidates have received votes yet.
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                tableHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                positionDiv.innerHTML = tableHTML;
+                resultsSection.appendChild(positionDiv);
+            });
+        }
+
+        async function publishAllResults() {
+            const announcementText = document.getElementById('announcementText').value;
+            
+            if (!confirm('Are you sure you want to publish ALL election results? This action will make results publicly visible to all voters.')) {
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('announcementText', announcementText);
+
+                console.log('Publishing results...');
+                const response = await fetch('/Supervisor/PublishResults', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const text = await response.text();
+                console.log('Publish response:', text);
+                
+                if (!text) {
+                    throw new Error('Empty response from server');
+                }
+
+                const result = JSON.parse(text);
+                
+                if (result.success) {
+                    showMessage('Election results published successfully! Voters can now see the results.', true);
+                    
+                    // Clear announcement text
+                    document.getElementById('announcementText').value = '';
+                    
+                    // Reload published results
+                    await loadPublishedResults();
+                    await loadResults(); // Refresh to show published badges
+                    
+                } else {
+                    showMessage('Failed to publish results: ' + result.message, false);
+                }
+                
+            } catch (error) {
+                console.error('Error publishing results:', error);
+                showMessage('Error publishing results: ' + error.message, false);
+            }
+        }
+
+        async function loadPublishedResults() {
+            try {
+                console.log('Loading published results...');
+                const response = await fetch('/Supervisor/GetPublishedResults');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                console.log('Published results response:', text);
+                
+                if (!text) {
+                    throw new Error('Empty response from server');
+                }
+                
+                const result = JSON.parse(text);
+                
+                if (result.success && result.publishedResults && result.publishedResults.length > 0) {
+                    publishedResults = result.publishedResults;
+                    displayPublishedResults(publishedResults);
+                    document.getElementById('publishedResults').style.display = 'block';
+                } else {
+                    document.getElementById('publishedResults').style.display = 'none';
+                    console.log('No published results found');
+                }
+            } catch (error) {
+                console.log('No published results found or error loading them:', error);
+                document.getElementById('publishedResults').style.display = 'none';
+            }
+        }
+
+        function displayPublishedResults(publishedResults) {
+            const publishedList = document.getElementById('publishedResultsList');
+            publishedList.innerHTML = '';
+            
+            if (publishedResults.length === 0) {
+                publishedList.innerHTML = '<p>No results have been published yet.</p>';
+                return;
+            }
+            
+            let html = `
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Party</th>
+                            <th>Votes</th>
+                            <th>Percentage</th>
+                            <th>Status</th>
+                            <th>Published Date</th>
+                            <th>Approved By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            publishedResults.forEach(result => {
+                html += `
+                    <tr>
+                        <td>${result.candidateName}</td>
+                        <td>${result.party}</td>
+                        <td>${result.voteCount}</td>
+                        <td>${result.percentage}%</td>
+                        <td>${result.isWinner ? '<span class="winner-badge">WINNER</span>' : ''}</td>
+                        <td>${result.publishedDate}</td>
+                        <td>${result.approvedBy || 'System'}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+                <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                    Total Published Results: ${publishedResults.length}
+                </p>
+            `;
+
+            publishedList.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

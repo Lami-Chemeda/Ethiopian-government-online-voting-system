@@ -1,0 +1,417 @@
+@model List<Candidate>
+@{
+    ViewData["Title"] = "View Candidates";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: #1d3557;
+            font-size: 3em;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1d3557;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1em;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .candidate-card {
+            background: #f8f9fa;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 8px solid #1d3557;
+        }
+
+        .candidate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+
+        .candidate-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 30px;
+        }
+
+        .candidate-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .candidate-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #1d3557;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .party-logo {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            border-radius: 15px;
+            border: 5px solid #457b9d;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .candidate-info {
+            flex-grow: 1;
+        }
+
+        .candidate-name {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #1d3557;
+            margin-bottom: 12px;
+        }
+
+        .candidate-party {
+            font-size: 1.8em;
+            color: #457b9d;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .candidate-region {
+            font-size: 1.3em;
+            color: #666;
+            background: #e9ecef;
+            padding: 10px 18px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .candidate-bio {
+            margin-top: 20px;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .no-photo, .no-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+            font-weight: bold;
+            background: #ddd;
+            border: 5px solid #1d3557;
+        }
+
+        .no-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            font-size: 2em;
+        }
+
+        .no-logo {
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            padding: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1d3557;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .empty-state i {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .candidate-details {
+            margin-top: 25px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #1d3557;
+            min-width: 150px;
+            font-size: 1.2em;
+        }
+
+        .detail-value {
+            color: #555;
+            font-size: 1.2em;
+        }
+
+        .candidate-status {
+            margin-top: 15px;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <a class="back-btn" href="@Url.Action("Dashboard", "Voter")">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+        
+        <h1>🗳️ Available Candidates</h1>
+        
+        <!-- Server-side rendering of candidates -->
+        @if (Model.Any())
+        {
+            <div class="candidates-grid">
+                @foreach (var candidate in Model)
+                {
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-images">
+                                @if (!string.IsNullOrEmpty(candidate.PhotoUrl))
+                                {
+                                    <img src="@candidate.PhotoUrl" alt="@candidate.FirstName @candidate.LastName" 
+                                         class="candidate-photo" 
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="no-photo" style="display: none;"></div>
+                                }
+                                else
+                                {
+                                    <div class="no-photo"></div>
+                                }
+                                
+                                <!-- CORRECT PARTY LOGO FIELD -->
+                                @if (!string.IsNullOrEmpty(candidate.Logo))
+                                {
+                                    <img src="@candidate.Logo" alt="@candidate.Party Logo" 
+                                         class="party-logo" 
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="no-logo" style="display: none;">@candidate.Party Logo</div>
+                                }
+                                else
+                                {
+                                    <div class="no-logo">@candidate.Party Logo</div>
+                                }
+                            </div>
+                            <div class="candidate-info">
+                                <div class="candidate-name">
+                                    @candidate.FirstName @candidate.MiddleName @candidate.LastName
+                                </div>
+                                <div class="candidate-party">
+                                    @candidate.Party
+                                    @if (!string.IsNullOrEmpty(candidate.Logo))
+                                    {
+                                        <i class="fas fa-check-circle" style="color: #28a745; font-size: 1.5em;"></i>
+                                    }
+                                </div>
+                                <div class="candidate-region">📍 @candidate.Region</div>
+                                <div class="candidate-status @(candidate.IsActive ? "status-active" : "status-inactive")">
+                                    @(candidate.IsActive ? "Active Candidate" : "Inactive Candidate")
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="candidate-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Party:</span>
+                                <span class="detail-value">@candidate.Party</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Region:</span>
+                                <span class="detail-value">@candidate.Region</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Age:</span>
+                                <span class="detail-value">@candidate.Age years</span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(candidate.Bio))
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Bio:</span>
+                                    <span class="detail-value">@candidate.Bio</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-users"></i>
+                <h3>No Candidates Found</h3>
+                <p>There are no candidates registered in the system yet.</p>
+                <p>Please check back later or contact the election committee.</p>
+            </div>
+        }
+    </div>
+
+    <script>
+        // Function to handle broken images and add initials
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add initials to no-photo placeholders
+            const noPhotoElements = document.querySelectorAll('.no-photo');
+            noPhotoElements.forEach(photo => {
+                if (photo.style.display !== 'none') {
+                    const candidateCard = photo.closest('.candidate-card');
+                    const candidateName = candidateCard.querySelector('.candidate-name').textContent;
+                    const initials = candidateName.split(' ')
+                        .map(name => name[0])
+                        .join('')
+                        .substring(0, 2)
+                        .toUpperCase();
+                    photo.textContent = initials;
+                }
+            });
+
+            // Handle image loading errors
+            const images = document.querySelectorAll('.candidate-photo, .party-logo');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const noImage = this.nextElementSibling;
+                    if (noImage && (noImage.classList.contains('no-photo') || noImage.classList.contains('no-logo'))) {
+                        noImage.style.display = 'flex';
+                        
+                        // Add initials to the newly shown no-photo
+                        if (noImage.classList.contains('no-photo')) {
+                            const candidateCard = this.closest('.candidate-card');
+                            const candidateName = candidateCard.querySelector('.candidate-name').textContent;
+                            const initials = candidateName.split(' ')
+                                .map(name => name[0])
+                                .join('')
+                                .substring(0, 2)
+                                .toUpperCase();
+                            noImage.textContent = initials;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

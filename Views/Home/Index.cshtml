@@ -1,0 +1,882 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ETHIOPIAN E-VOTING SYSTEM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0D3B2E;
+            --secondary: #1E6B52;
+            --accent: #FCD116;
+            --accent2: #DA121A;
+            --light: #F8F9FA;
+            --text-light: #FFFFFF;
+            --text-dark: #2D3748;
+            --border-radius: 16px;
+            --box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-light);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(232, 65, 24, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 90% 80%, rgba(20, 126, 59, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 50% 50%, rgba(252, 209, 22, 0.06) 0%, transparent 50%),
+                            linear-gradient(45deg, transparent 48%, rgba(29, 53, 87, 0.03) 50%, transparent 52%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @@keyframes backgroundShift {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(-10px) translateY(-10px); }
+        }
+
+        .header {
+            background: rgba(13, 59, 46, 0.95);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #078930 33%, #FCD116 33% 66%, #DA121A 66%);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            font-weight: bold;
+            animation: logoPulse 3s infinite;
+        }
+
+        @@keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 700;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a:hover {
+            background: var(--accent);
+            color: var(--text-dark);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            position: relative;
+            z-index: 2;
+            background: rgba(13, 59, 46, 0.7);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--box-shadow);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: slideInDown 1s ease-out;
+        }
+
+        @@keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+            display: block;
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--accent), #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: colorShift 3s infinite alternate;
+        }
+
+        @@keyframes colorShift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(20deg); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            min-width: 180px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features {
+            background: var(--light);
+            padding: 6rem 2rem;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            padding: 3rem 2rem;
+            background: var(--light);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13, 59, 46, 0.03), rgba(30, 107, 82, 0.05));
+            z-index: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process .section-title {
+            color: var(--text-light);
+        }
+
+        .process .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 5px solid var(--light);
+            transition: all 0.3s;
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .step-content {
+            text-align: center;
+            max-width: 250px;
+        }
+
+        .step-content h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: var(--light);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .cta-section p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: #e6b800;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @@keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Media Queries */
+        @@media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero h1 .highlight {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero h1 .highlight {
+                font-size: 3.2rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .stat-item {
+                min-width: 140px;
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.8rem;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero h1 .highlight {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">EVS</div>
+                <div class="logo-text">ETHIOPIAN E-VOTING SYSTEM</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="/Home/About"><i class="fas fa-info-circle"></i> ABOUT</a></li>
+                <li><a href="/Home/Contact"><i class="fas fa-envelope"></i> CONTACT</a></li>
+                <li><a href="/Home/Login"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
+                <li><a href="/Home/Register"><i class="fas fa-user-plus"></i> REGISTER</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>SECURE DIGITAL VOTING <span class="highlight">FOR ETHIOPIA</span></h1>
+            <p>EMPOWERING EVERY ETHIOPIAN CITIZEN WITH A MODERN, TRANSPARENT, AND ACCESSIBLE VOTING PLATFORM FOR THE 21ST CENTURY</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">SYSTEM UPTIME</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">12M+</div>
+                    <div class="stat-label">REGISTERED VOTERS</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">256-BIT</div>
+                    <div class="stat-label">ENCRYPTION</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <h2 class="section-title">WHY OUR E-VOTING SYSTEM?</h2>
+            <p class="section-subtitle">DESIGNED SPECIFICALLY FOR ETHIOPIA'S UNIQUE NEEDS WITH CUTTING-EDGE TECHNOLOGY AND MAXIMUM SECURITY</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>MILITARY-GRADE SECURITY</h3>
+                    <p>END-TO-END ENCRYPTION AND BLOCKCHAIN TECHNOLOGY ENSURE YOUR VOTE IS COMPLETELY SECURE, ANONYMOUS, AND TAMPER-PROOF</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>ACCESSIBLE ANYWHERE</h3>
+                    <p>VOTE FROM ANY DEVICE WITH INTERNET CONNECTION - MAKING DEMOCRACY ACCESSIBLE TO ALL ETHIOPIANS ACROSS THE NATION</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>INSTANT RESULTS</h3>
+                    <p>REAL-TIME VOTE COUNTING AND IMMEDIATE, VERIFIABLE RESULT PUBLICATION AFTER VOTING CLOSES</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>IDENTITY VERIFICATION</h3>
+                    <p>ADVANCED ID VERIFICATION USING ETHIOPIAN NATIONAL IDS AND OPTIONAL BIOMETRIC TECHNOLOGY TO PREVENT FRAUD</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>TRANSPARENT PROCESS</h3>
+                    <p>COMPLETE AUDIT TRAIL AND TRANSPARENT VOTING PROCESS THAT EVERYONE CAN VERIFY AND TRUST</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>SUPPORT ILLETRATE VOTER</h3>
+                    <p>ILLETRATE VOTER ARE INCLUDED IN OUR SYSTEM BECAUSE THEY ARE THE MEMBER OF THE COUNTRY</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voting Process Section -->
+    <section class="process">
+        <div class="process-container">
+            <h2 class="section-title">HOW TO VOTE</h2>
+            <p class="section-subtitle">OUR STREAMLINED PROCESS MAKES VOTING SIMPLE, SECURE, AND ACCESSIBLE FOR EVERY ELIGIBLE ETHIOPIAN CITIZEN</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>VERIFY</h3>
+                        <p>COMPLETE IDENTITY VERIFICATION THROUGH OUR SECURE AUTHENTICATION SYSTEM</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>REGISTER</h3>
+                        <p>CREATE YOUR ACCOUNT WITH YOUR ETHIOPIAN NATIONAL ID AND PERSONAL DETAILS</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>VOTE</h3>
+                        <p>CAST THE CANDIDATE YOU NEED DURING THE OFFICIAL VOTING PERIOD</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>VIEW RESULT</h3>
+                        <p>THE VOTER CAN VIEW RESULT TO KNOW THEIR REPRESENTATIVE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>READY TO PARTICIPATE IN ETHIOPIA'S DIGITAL DEMOCRACY?</h2>
+            <p>JOIN MILLIONS OF ETHIOPIANS WHO ARE ALREADY USING OUR SECURE PLATFORM TO EXERCISE THEIR DEMOCRATIC RIGHTS</p>
+            <div class="cta-buttons">
+                <a href="/Home/Login" class="btn btn-primary pulse">
+                    <i class="fas fa-sign-in-alt"></i> ACCESS VOTING PORTAL
+                </a>
+                <a href="/Home/About" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> LEARN MORE ABOUT THE SYSTEM
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll animation for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            // Check on load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

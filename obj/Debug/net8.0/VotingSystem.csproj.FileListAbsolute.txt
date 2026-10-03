@@ -1,0 +1,454 @@
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.Development.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.staticwebassets.runtime.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/leptonica-1.82.0.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/tesseract50.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/leptonica-1.82.0.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/tesseract50.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.deps.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.runtimeconfig.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.pdb
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Core.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Identity.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Humanizer.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Data.SqlClient.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.Extensions.Msal.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Mono.TextTemplating.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.CodeDom.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Convention.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Hosting.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Runtime.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Drawing.Common.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Memory.Data.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Runtime.Caching.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Permissions.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Windows.Extensions.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.Drawing.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/System.Drawing.Common.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.AssemblyReference.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.GeneratedMSBuildEditorConfig.editorconfig
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfoInputs.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfo.cs
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.CoreCompileInputs.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.MvcApplicationPartsAssemblyInfo.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cs
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.build.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.development.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.VotingSystem.Microsoft.AspNetCore.StaticWebAssets.props
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.build.VotingSystem.props
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.VotingSystem.props
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.VotingSystem.props
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.pack.json
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/bundle/VotingSystem.styles.css
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/projectbundle/VotingSystem.bundle.scp.css
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSy.1FF55D8B.Up2Date
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/refint/VotingSystem.dll
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.pdb
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.genruntimeconfig.cache
+/home/lami/Music/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/ref/VotingSystem.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.Development.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.staticwebassets.runtime.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/.~lock.amh.traineddata#
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/amh.traineddata
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/eng.traineddata
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/leptonica-1.82.0.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/tesseract50.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/leptonica-1.82.0.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/tesseract50.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.deps.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.runtimeconfig.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.pdb
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Core.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Identity.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Humanizer.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Data.SqlClient.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.Extensions.Msal.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Mono.TextTemplating.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.CodeDom.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Convention.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Hosting.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Runtime.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Drawing.Common.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Memory.Data.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Runtime.Caching.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Permissions.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Windows.Extensions.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.Drawing.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/System.Drawing.Common.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.AssemblyReference.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.GeneratedMSBuildEditorConfig.editorconfig
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfoInputs.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfo.cs
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.CoreCompileInputs.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.MvcApplicationPartsAssemblyInfo.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cs
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.build.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.development.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.VotingSystem.Microsoft.AspNetCore.StaticWebAssets.props
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.build.VotingSystem.props
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.VotingSystem.props
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.VotingSystem.props
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.pack.json
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/bundle/VotingSystem.styles.css
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/projectbundle/VotingSystem.bundle.scp.css
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSy.1FF55D8B.Up2Date
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/refint/VotingSystem.dll
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.pdb
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.genruntimeconfig.cache
+/home/lami/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/ref/VotingSystem.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.Development.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/appsettings.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.staticwebassets.runtime.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/.~lock.amh.traineddata#
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/amh.traineddata
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tessdata/eng.traineddata
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libarchive.so.13
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libarchive.so.13.8.5
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libdeflate.so.0
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libgif.so.7
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libgif.so.7.2.0
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libjbig.so.0
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/liblept.so.5
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libleptonica-1.82.0.so
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libleptonica.so.6
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libleptonica.so.6.0.0
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libLerc.so.4
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libopenjp2.so.2.5.4
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libopenjp2.so.7
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libtesseract.so.5
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libtesseract.so.5.0.5
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libtesseract50.so
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libtiff.so.6
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libtiff.so.6.1.0
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libwebp.so.7
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libwebp.so.7.1.10
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libwebpmux.so.3
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/libwebpmux.so.3.1.1
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/leptonica-1.82.0.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x86/tesseract50.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/leptonica-1.82.0.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/x64/tesseract50.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.deps.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.runtimeconfig.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/VotingSystem.pdb
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Core.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Azure.Identity.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Humanizer.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Data.SqlClient.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Identity.Client.Extensions.Msal.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Mono.TextTemplating.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.CodeDom.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Convention.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Hosting.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.Runtime.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Drawing.Common.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Memory.Data.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Runtime.Caching.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Security.Permissions.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/System.Windows.Extensions.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/Tesseract.Drawing.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/unix/lib/net6.0/System.Drawing.Common.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.AssemblyReference.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.GeneratedMSBuildEditorConfig.editorconfig
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfoInputs.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.AssemblyInfo.cs
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.csproj.CoreCompileInputs.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.MvcApplicationPartsAssemblyInfo.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.RazorAssemblyInfo.cs
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.build.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.development.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.VotingSystem.Microsoft.AspNetCore.StaticWebAssets.props
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.build.VotingSystem.props
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.VotingSystem.props
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.VotingSystem.props
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/staticwebassets.pack.json
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/bundle/VotingSystem.styles.css
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/projectbundle/VotingSystem.bundle.scp.css
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSy.1FF55D8B.Up2Date
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/refint/VotingSystem.dll
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.pdb
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/VotingSystem.genruntimeconfig.cache
+/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/ref/VotingSystem.dll

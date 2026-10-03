@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fda196f2-73ac-491e-a760-6f63fa4f49df</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+  
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <!-- ADD THESE PACKAGES FOR TESSERACT OCR -->
+    <PackageReference Include="Tesseract" Version="5.2.0" />
+    <PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tessdata\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="x64\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

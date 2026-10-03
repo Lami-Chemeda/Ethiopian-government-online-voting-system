@@ -1,0 +1,341 @@
+{
+  "Files": [
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/obj/Debug/net8.0/scopedcss/projectbundle/VotingSystem.bundle.scp.css",
+      "PackagePath": "staticwebassets/VotingSystem.bundle.scp.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/css/site.css",
+      "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2841027160547032_logo_20251130143318.png",
+      "PackagePath": "staticwebassets/images/candidates/2841027160547032_logo_20251130143318.png"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2841027160547032_photo_20251130143318.jpg",
+      "PackagePath": "staticwebassets/images/candidates/2841027160547032_photo_20251130143318.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2841027160547032_symbol_20251130143318.jpg",
+      "PackagePath": "staticwebassets/images/candidates/2841027160547032_symbol_20251130143318.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2849706134790753_logo_20251202135749.jpg",
+      "PackagePath": "staticwebassets/images/candidates/2849706134790753_logo_20251202135749.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2849706134790753_photo_20251202135749.jpg",
+      "PackagePath": "staticwebassets/images/candidates/2849706134790753_photo_20251202135749.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/2849706134790753_symbol_20251202135749.jpg",
+      "PackagePath": "staticwebassets/images/candidates/2849706134790753_symbol_20251202135749.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_logo_20251129130342.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_logo_20251129130342.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_logo_20251130150300.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_logo_20251130150300.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_logo_20251228071248.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_logo_20251228071248.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_photo_20251129130342.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_photo_20251129130342.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_photo_20251130150300.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_photo_20251130150300.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_photo_20251228071248.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_photo_20251228071248.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_symbol_20251129130342.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_symbol_20251129130342.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_symbol_20251130150300.png",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_symbol_20251130150300.png"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/6098045069547346_symbol_20251228071248.jpg",
+      "PackagePath": "staticwebassets/images/candidates/6098045069547346_symbol_20251228071248.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/logos/14e106de-49e3-4fd0-bf5b-d7d5024b03bf.jpg",
+      "PackagePath": "staticwebassets/images/candidates/logos/14e106de-49e3-4fd0-bf5b-d7d5024b03bf.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/logos/2e8e7304-9901-4823-bf99-869e648e35a7.png",
+      "PackagePath": "staticwebassets/images/candidates/logos/2e8e7304-9901-4823-bf99-869e648e35a7.png"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/photos/8700ff2f-b277-4510-922e-10b7dbbc171c.jpg",
+      "PackagePath": "staticwebassets/images/candidates/photos/8700ff2f-b277-4510-922e-10b7dbbc171c.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/images/candidates/photos/8a90342b-9478-4908-98c8-cda32b1296fa.jpg",
+      "PackagePath": "staticwebassets/images/candidates/photos/8a90342b-9478-4908-98c8-cda32b1296fa.jpg"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/js/site.js",
+      "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/LICENSE",
+      "PackagePath": "staticwebassets/lib/bootstrap"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js.map"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation/LICENSE.md",
+      "PackagePath": "staticwebassets/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery/dist/jquery.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery/dist/jquery.min.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Id": "/All_code/all code/EGOVS/EGOVS/EGOVS/VotingSystem/wwwroot/lib/jquery/dist/jquery.min.map",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.VotingSystem.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.VotingSystem.props",
+      "PackagePath": "build\\VotingSystem.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.VotingSystem.props",
+      "PackagePath": "buildMultiTargeting\\VotingSystem.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.VotingSystem.props",
+      "PackagePath": "buildTransitive\\VotingSystem.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

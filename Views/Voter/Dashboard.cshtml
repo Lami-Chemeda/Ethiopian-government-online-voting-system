@@ -1,0 +1,191 @@
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Voter Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #2a9d8f;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(42, 157, 143, 0.2);
+        }
+
+        .card h3 {
+            color: #1d3557;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card button {
+            background: linear-gradient(45deg, #1d3557, #457b9d);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .card button:hover {
+            background: linear-gradient(45deg, #457b9d, #1d3557);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #e63946, #e76f51);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #e76f51, #e63946);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👤 Voter Dashboard</h1>
+            <p>Your Personal Voting Portal</p>
+        </div>
+
+        <div class="content">
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>👀 See Candidates</h3>
+                    <p>View all election candidates</p>
+                    <button onclick="seeCandidates()">View Candidates</button>
+                </div>
+
+                <div class="card">
+                    <h3>🗳️ Cast Vote</h3>
+                    <p>Cast your vote in the election</p>
+                    <button onclick="castVote()">Cast Vote</button>
+                </div>
+
+                <div class="card">
+                    <h3>📊 View Results</h3>
+                    <p>Check current election results</p>
+                    <button onclick="viewResults()">View Results</button>
+                </div>
+
+                <div class="card">
+                    <h3>💬 Comments</h3>
+                    <p>View comments from supervisors</p>
+                    <button onclick="viewComments()">View Comments</button>
+                </div>
+            </div>
+
+            <form id="logoutForm" method="post" action="@Url.Action("Logout", "Voter")">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="logout-btn">🚪 Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function seeCandidates() {
+            window.location.href = '@Url.Action("SeeCandidate", "Voter")';
+        }
+
+        function castVote() {
+            window.location.href = '@Url.Action("CastVote", "Voter")';
+        }
+
+        function viewResults() {
+            window.location.href = '@Url.Action("ViewResult", "Voter")';
+        }
+
+        function viewComments() {
+            window.location.href = '@Url.Action("Comments", "Voter")';
+        }
+
+        // Handle form submission for logout
+        document.getElementById('logoutForm').addEventListener('submit', function(e) {
+            if (!confirm('Are you sure you want to logout?')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

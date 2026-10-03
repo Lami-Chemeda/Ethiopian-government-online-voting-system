@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>WELCOME TO ETHIOPIAN GOVERNMENT ONLINE VOTING SYSTEM | @ViewData["Title"]</title>
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+    <style>
+        :root {
+            --eth-green: #078930;
+            --eth-yellow: #FCDD09;
+            --eth-red: #EF3340;
+            --eth-blue: #0F47AF;
+        }
+        
+        .main-navbar {
+            background: linear-gradient(135deg, #1a2639 0%, #0d1423 100%) !important;
+            padding: 12px 0;
+            border-bottom: 4px solid #FCDD09 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .ethiopian-brand-container {
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4));
+            transition: transform 0.3s ease;
+        }
+        
+        .ethiopian-brand-container:hover {
+            transform: scale(1.02);
+        }
+
+        .ethiopian-brand-text {
+            font-weight: 900;
+            font-size: 2.1rem; /* Increased by 30% */
+            /* Ethiopian Flag Colors Gradient */
+            background: linear-gradient(90deg, #00b140 0%, #00b140 30%, #FCDD09 45%, #FCDD09 55%, #EF3340 70%, #EF3340 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            text-decoration: none;
+        }
+        
+        .navbar-brand:hover {
+            color: transparent !important;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 main-navbar">
+            <div class="container">
+                <a class="navbar-brand ethiopian-brand-container" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="ethiopian-brand-text">Welcome to Ethiopian Government Online Voting System</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Ethiopian Government Voting System (EGOVS)
+        </div>
+    </footer>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        (function() {
+            history.pushState(null, null, location.href);
+            
+            window.onpopstate = function() {
+                history.go(1);
+            };
+            
+            sessionStorage.clear();
+            localStorage.removeItem('userSession');
+            
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+            
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.clear();
+            });
+        })();
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
