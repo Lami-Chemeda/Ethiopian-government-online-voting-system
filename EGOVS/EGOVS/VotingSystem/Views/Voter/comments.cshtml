@@ -1,0 +1,698 @@
+@model List<CommentViewModel>
+
+@{
+    ViewData["Title"] = "Comments from Supervisors";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ethiopian e-Voting System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* YOUR EXISTING CSS STYLES REMAIN EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 50%, #a8dadc 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) translateX(-5px);
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1d3557;
+        }
+
+        .page-title h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .comments-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .comments-count {
+            font-size: 1.1em;
+            color: #457b9d;
+            font-weight: bold;
+        }
+
+        .comment-item {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #2a9d8f;
+            cursor: pointer;
+        }
+
+        .comment-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.15);
+            border-left-color: #e9c46a;
+        }
+
+        .comment-item.read {
+            border-left-color: #457b9d;
+            background: linear-gradient(135deg, #f0f8ff, #ffffff);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .comment-sender {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sender-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #457b9d, #1d3557);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .sender-info h4 {
+            color: #1d3557;
+            margin-bottom: 4px;
+            font-size: 1.2em;
+        }
+
+        .sender-badge {
+            background: #457b9d;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .comment-time {
+            color: #6c757d;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .comment-subject {
+            background: #e9c46a;
+            color: #1d3557;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .comment-content {
+            color: #495057;
+            line-height: 1.6;
+            font-size: 1.05em;
+            padding: 15px 0;
+            border-top: 1px solid #e9ecef;
+            border-bottom: 1px solid #e9ecef;
+            margin: 15px 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-icon {
+            font-size: 4em;
+            color: #a8dadc;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #457b9d;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .empty-state p {
+            font-size: 1.1em;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f1f3f4;
+            gap: 10px;
+        }
+
+        .comment-type {
+            background: #a8dadc;
+            color: #1d3557;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .read-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+
+        .read-status.read {
+            color: #2a9d8f;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .delete-btn:hover {
+            background: #c1121f;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @@keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+                margin-left: 60px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .comment-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .comment-sender {
+                width: 100%;
+            }
+            
+            .comments-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .comment-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .comment-actions {
+                align-self: flex-end;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6em;
+                margin-left: 50px;
+            }
+            
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            
+            .comment-item {
+                padding: 15px;
+            }
+            
+            .sender-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 1em;
+            }
+
+            .comment-meta {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="@Url.Action("Dashboard", "Voter")" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            <h1>💬 Ethiopian e-Voting System</h1>
+            <p>Secure Digital Voting Platform</p>
+        </div>
+
+        <div class="content">
+            <div class="page-title">
+                <h2>📋 Supervisor Communications</h2>
+                <p>Important messages and updates from election supervisors</p>
+            </div>
+
+            <div class="comments-section">
+                <div class="comments-header">
+                    <h3>Your Messages</h3>
+                    <div class="comments-count">
+                        <i class="fas fa-envelope"></i>
+                        @Model.Count Message@(Model.Count != 1 ? "s" : "")
+                    </div>
+                </div>
+
+                @if (Model.Any())
+                {
+                    foreach (var comment in Model)
+                    {
+                        <div class="comment-item @(comment.IsRead ? "read" : "unread")" data-comment-id="@comment.Id" onclick="markAsRead(@comment.Id, this)">
+                            <div class="comment-header">
+                                <div class="comment-sender">
+                                    <div class="sender-avatar">
+                                        @if (!string.IsNullOrEmpty(comment.SenderName))
+                                        {
+                                            @comment.SenderName.Substring(0, 1)
+                                        }
+                                        else
+                                        {
+                                            @:S
+                                        }
+                                    </div>
+                                    <div class="sender-info">
+                                        <h4>@comment.SenderName</h4>
+                                        <div class="sender-badge">
+                                            <i class="fas fa-user-shield"></i>
+                                            @comment.SenderType
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-subject">
+                                    <i class="fas fa-tag"></i>
+                                    @comment.Subject
+                                </div>
+                            </div>
+
+                            <div class="comment-content">
+                                <p>@comment.Content</p>
+                            </div>
+
+                            <div class="comment-meta">
+                                <div class="comment-time">
+                                    <i class="far fa-clock"></i>
+                                    @comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                                </div>
+                                <div class="comment-type">
+                                    <i class="fas fa-comment-dots"></i>
+                                    @comment.CommentType
+                                </div>
+                                <div class="comment-actions">
+                                    <div class="read-status @(comment.IsRead ? "read" : "unread")" id="read-status-@comment.Id">
+                                        @if (comment.IsRead)
+                                        {
+                                            <i class="fas fa-eye"></i>
+                                            <span>Read</span>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-eye-slash"></i>
+                                            <span>Unread</span>
+                                        }
+                                    </div>
+                                    <button class="delete-btn" onclick="deleteComment(@comment.Id, event)">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="far fa-comments"></i>
+                        </div>
+                        <h3>No Messages Yet</h3>
+                        <p>You don't have any messages from supervisors at the moment. Check back later for important updates and announcements.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Add AntiForgeryToken for security -->
+    @Html.AntiForgeryToken()
+
+    <script>
+        // Function to mark comment as read
+        async function markAsRead(commentId, element) {
+            try {
+                console.log('Marking comment as read:', commentId);
+                
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                
+                const response = await fetch('@Url.Action("MarkCommentAsRead", "Voter")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify({ commentId: commentId })
+                });
+
+                const result = await response.json();
+                console.log('Mark as read response:', result);
+                
+                if (result.success) {
+                    element.classList.add('read');
+                    element.classList.remove('unread');
+                    
+                    const readStatus = document.getElementById(`read-status-${commentId}`);
+                    if (readStatus) {
+                        readStatus.innerHTML = '<i class="fas fa-eye"></i><span>Read</span>';
+                        readStatus.classList.add('read');
+                        readStatus.classList.remove('unread');
+                    }
+                }
+            } catch (error) {
+                console.error('Error marking comment as read:', error);
+            }
+        }
+
+        // Function to delete comment
+        async function deleteComment(commentId, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            
+            if (!confirm('Are you sure you want to delete this message?')) {
+                return;
+            }
+
+            try {
+                console.log('Deleting comment:', commentId);
+                console.log('Comment ID type:', typeof commentId);
+                
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                console.log('AntiForgeryToken found:', !!token);
+                
+                const requestBody = {
+                    commentId: commentId
+                };
+                
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch('@Url.Action("DeleteComment", "Voter")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Server response:', result);
+                
+                if (result.success) {
+                    const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`);
+                    if (commentElement) {
+                        commentElement.style.opacity = '0';
+                        commentElement.style.transform = 'translateX(-100px)';
+                        setTimeout(() => {
+                            commentElement.remove();
+                            updateCommentsCount();
+                        }, 300);
+                    }
+                    
+                    showAlert('Message deleted successfully!', 'success');
+                } else {
+                    showAlert(result.message || 'Failed to delete message', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting message:', error);
+                showAlert('Error deleting message. Please try again.', 'error');
+            }
+        }
+
+        // Function to show alert messages
+        function showAlert(message, type) {
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
+                ${message}
+            `;
+            
+            const content = document.querySelector('.content');
+            const commentsSection = document.querySelector('.comments-section');
+            content.insertBefore(alertDiv, commentsSection);
+            
+            setTimeout(() => {
+                if (alertDiv.parentElement) {
+                    alertDiv.style.opacity = '0';
+                    alertDiv.style.transform = 'translateY(-10px)';
+                    setTimeout(() => alertDiv.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Update comments count after deletion
+        function updateCommentsCount() {
+            const commentItems = document.querySelectorAll('.comment-item');
+            const commentsCount = document.querySelector('.comments-count');
+            if (commentsCount) {
+                commentsCount.innerHTML = `<i class="fas fa-envelope"></i> ${commentItems.length} Message${commentItems.length !== 1 ? 's' : ''}`;
+                
+                if (commentItems.length === 0) {
+                    const commentsSection = document.querySelector('.comments-section');
+                    commentsSection.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="far fa-comments"></i>
+                            </div>
+                            <h3>No Messages Yet</h3>
+                            <p>You don't have any messages from supervisors at the moment. Check back later for important updates and announcements.</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Add smooth animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentItems = document.querySelectorAll('.comment-item');
+            
+            commentItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.5s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Debug: Log all comment IDs
+            console.log('=== DEBUG: Available Comments ===');
+            commentItems.forEach(item => {
+                const commentId = item.getAttribute('data-comment-id');
+                console.log(`Comment ID: ${commentId} (type: ${typeof commentId})`);
+            });
+
+            // Auto-mark unread comments as read
+            setTimeout(() => {
+                const unreadComments = document.querySelectorAll('.comment-item.unread');
+                unreadComments.forEach(comment => {
+                    const commentId = comment.getAttribute('data-comment-id');
+                    markAsRead(commentId, comment);
+                });
+            }, 1000);
+        });
+
+        // Add hover effects for delete buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

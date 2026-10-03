@@ -1,0 +1,7 @@
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.AssemblyInfoInputs.cache
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.AssemblyInfo.cs
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.csproj.CoreCompileInputs.cache
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.RazorAssemblyInfo.cache
+C:\Users\A\Desktop\EGOVS\EGOVS\VotingSystem\obj\Debug\net8.0\VotingSystem.RazorAssemblyInfo.cs

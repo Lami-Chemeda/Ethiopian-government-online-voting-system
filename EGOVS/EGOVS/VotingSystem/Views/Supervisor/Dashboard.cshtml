@@ -1,0 +1,463 @@
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Supervisor Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Enhanced Styling with Full-Screen Ethiopian Theme */
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #457b9d;
+            --accent-color: #e63946;
+            --success-color: #2a9d8f;
+            --warning-color: #e9c46a;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --text-color: #2d3748;
+            --border-radius: 16px;
+            --box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ethiopian Pattern Background with Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(232, 65, 24, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 90% 80%, rgba(20, 126, 59, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 50% 50%, rgba(252, 209, 22, 0.06) 0%, transparent 50%),
+                            linear-gradient(45deg, transparent 48%, rgba(29, 53, 87, 0.03) 50%, transparent 52%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @@keyframes backgroundShift {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(-10px) translateY(-10px); }
+        }
+
+        /* Main Container - Full Screen Design */
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 0.8s ease-out;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.8em;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ethiopia-flag {
+            display: inline-block;
+            width: 30px;
+            height: 18px;
+            background: linear-gradient(to bottom, #da121a 33%, #fcd310 33%, #fcd310 66%, #078930 66%);
+            margin: 0 12px;
+            border-radius: 3px;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .content {
+            padding: 50px 40px;
+            min-height: 500px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            font-size: 1.1em;
+            background: rgba(241, 250, 238, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .welcome-message strong {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        .card:nth-child(1) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .card:nth-child(2) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .card:nth-child(3) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .card:nth-child(4) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .card button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            backdrop-filter: blur(10px);
+            position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .card button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, var(--accent-color), #c1121f);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 50px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #c1121f, var(--accent-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Back Button */
+        .back-home-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            padding: 12px 20px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+            font-family: 'Inter', sans-serif;
+            z-index: 2;
+        }
+
+        .back-home-btn:hover {
+            background: #c1121f;
+            transform: translateX(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(193, 18, 31, 0.4);
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 0;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .back-home-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin: 20px;
+                align-self: flex-start;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .main-container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .welcome-message {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <a href="/Home" class="back-home-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+
+            <div class="header">
+                <h1><i class="fas fa-user-shield"></i> Supervisor Dashboard</h1>
+                <p>Election Monitoring & Oversight <span class="ethiopia-flag"></span></p>
+            </div>
+
+            <div class="content">
+                <div class="welcome-message">
+                    Welcome, <strong>@Context.Session.GetString("SupervisorName")</strong>! 
+                    You are logged in as a Supervisor for the Ethiopian Government Online Voting System.
+                </div>
+
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3><i class="fas fa-user-edit"></i> Manage Candidate</h3>
+                        <p>Add, edit, or remove election candidates</p>
+                        <button onclick="manageCandidate()">Manage Candidate</button>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-user-tie"></i> Manage Manager</h3>
+                        <p>Oversee and manage election managers</p>
+                        <button onclick="manageManager()">Manage Manager</button>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-comments"></i> Comment</h3>
+                        <p>Review and respond to voter comments</p>
+                        <button onclick="viewComment()">View Comment</button>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-chart-bar"></i> Post Results</h3>
+                        <p>Publish and announce election results</p>
+                        <button onclick="postResults()">Post Results</button>
+                    </div>
+                </div>
+
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function manageCandidate() {
+            window.location.href = '/Supervisor/ManageCandidate';
+        }
+
+        function manageManager() {
+            window.location.href = '/Supervisor/ManageManager';
+        }
+
+        function viewComment() {
+            window.location.href = '/Supervisor/Comment';
+        }
+
+        function postResults() {
+            window.location.href = '/Supervisor/PostResults';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/Home/Logout';
+            }
+        }
+
+        // Display any success or error messages from TempData
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Supervisor Dashboard loaded successfully');
+            
+            // Add smooth animations to cards on load
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'slideInUp 0.6s ease-out forwards';
+            });
+        });
+    </script>
+</body>
+</html>

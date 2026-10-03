@@ -1,0 +1,854 @@
+@{
+    ViewData["Title"] = "Voter List";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ethiopian Voting System</title>
+    <style>
+        /* Enhanced Styling with Ethiopian Theme */
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #457b9d;
+            --accent-color: #e63946;
+            --success-color: #2a9d8f;
+            --warning-color: #e9c46a;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --text-color: #2d3748;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 25%, #a8dadc 50%, var(--light-color) 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1e3c72;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-box input {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            flex: 1;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.1);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .clear-btn:hover {
+            background: linear-gradient(135deg, #5a6268, #6c757d);
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-width: 140px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid #e2e8f0;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--success-color), #248277);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .export-btn:hover {
+            background: linear-gradient(135deg, #248277, var(--success-color));
+            transform: translateY(-2px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .voters-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 14px;
+        }
+
+        .voters-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .voters-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .voters-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .voters-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .edit-btn {
+            background: linear-gradient(135deg, var(--success-color), #248277);
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: linear-gradient(135deg, #248277, var(--success-color));
+            transform: translateY(-1px);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, var(--accent-color), #c1121f);
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #c1121f, var(--accent-color));
+            transform: translateY(-1px);
+        }
+
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            font-weight: 500;
+        }
+
+        .success {
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn:hover:not(.active) {
+            background: #f8f9fa;
+            border-color: var(--secondary-color);
+        }
+
+        .literacy-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .literacy-badge.literate {
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            color: #155724;
+        }
+
+        .literacy-badge.illiterate {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .container {
+                margin: 10px;
+                margin-top: 80px;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: none;
+                order: 2;
+            }
+            
+            .stats {
+                order: 1;
+                justify-content: center;
+            }
+            
+            .export-btn {
+                order: 3;
+                align-self: center;
+            }
+            
+            .voters-table {
+                font-size: 13px;
+            }
+            
+            .voters-table th, 
+            .voters-table td {
+                padding: 10px 8px;
+            }
+
+            .action-btns {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .action-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .stat-card {
+                min-width: 120px;
+                padding: 15px;
+            }
+
+            .stat-value {
+                font-size: 1.5em;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .voters-table {
+                font-size: 12px;
+            }
+
+            .voters-table th, 
+            .voters-table td {
+                padding: 8px 6px;
+            }
+
+            .stat-card {
+                min-width: 100px;
+                padding: 12px;
+            }
+
+            .stat-value {
+                font-size: 1.3em;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="goBackToDashboard()">
+        ← Back to Dashboard
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>👥 Voter List</h1>
+            <p>View and manage all registered voters in the Ethiopian E-Voting System</p>
+        </div>
+
+        <div class="content">
+            <div id="message" class="message"></div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search by name, national ID, phone, or region...">
+                    <button class="search-btn" onclick="searchVoters()">Search</button>
+                    <button class="clear-btn" onclick="clearSearch()">Clear</button>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalVoters">0</div>
+                        <div class="stat-label">Total Voters</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maleVoters">0</div>
+                        <div class="stat-label">Male</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="femaleVoters">0</div>
+                        <div class="stat-label">Female</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="literateVoters">0</div>
+                        <div class="stat-label">Literate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="illiterateVoters">0</div>
+                        <div class="stat-label">Illiterate</div>
+                    </div>
+                </div>
+                
+                <button class="export-btn" onclick="exportToCSV()">
+                    📊 Export to CSV
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="voters-table">
+                    <thead>
+                        <tr>
+                            <th>National ID</th>
+                            <th>Full Name</th>
+                            <th>Phone Number</th>
+                            <th>Region</th>
+                            <th>Nationality</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Literacy</th>
+                            <th>Registration Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="votersTableBody">
+                        <tr>
+                            <td colspan="10" class="loading">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                    <div class="spinner" style="width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                    Loading voters data...
+                                </div>
+                                <style>
+                                    @@keyframes spin {
+                                        0% { transform: rotate(0deg); }
+                                        100% { transform: rotate(360deg); }
+                                    }
+                                </style>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination buttons will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allVoters = [];
+        let currentPage = 1;
+        const votersPerPage = 10;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVoters();
+        });
+
+        function goBackToDashboard() {
+            window.location.href = '/Manager/Dashboard';
+        }
+
+        // Load voters from the server
+        async function loadVoters() {
+            try {
+                showLoading();
+                const response = await fetch('/Manager/GetVoters');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allVoters = result.voters;
+                    updateStats();
+                    displayVoters();
+                } else {
+                    showMessage('Error loading voters: ' + result.message, false);
+                }
+            } catch (error) {
+                console.error('Error loading voters:', error);
+                showMessage('Error loading voters: ' + error.message, false);
+            }
+        }
+
+        // Display voters in the table with pagination
+        function displayVoters() {
+            const tableBody = document.getElementById('votersTableBody');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filter voters based on search term
+            let filteredVoters = allVoters;
+            if (searchTerm) {
+                filteredVoters = allVoters.filter(voter => 
+                    voter.nationalId.toLowerCase().includes(searchTerm) ||
+                    voter.firstName.toLowerCase().includes(searchTerm) ||
+                    voter.middleName.toLowerCase().includes(searchTerm) ||
+                    voter.lastName.toLowerCase().includes(searchTerm) ||
+                    voter.region.toLowerCase().includes(searchTerm) ||
+                    voter.phoneNumber.toLowerCase().includes(searchTerm) ||
+                    voter.literate.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredVoters.length / votersPerPage);
+            const startIndex = (currentPage - 1) * votersPerPage;
+            const endIndex = Math.min(startIndex + votersPerPage, filteredVoters.length);
+            const pageVoters = filteredVoters.slice(startIndex, endIndex);
+            
+            // Update table
+            if (pageVoters.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="no-data">
+                            ${searchTerm ? 
+                                'No voters found matching your search criteria.' : 
+                                'No voters registered yet. Click "Create Voter" to add new voters.'}
+                        </td>
+                    </tr>
+                `;
+            } else {
+                tableBody.innerHTML = pageVoters.map(voter => `
+                    <tr>
+                        <td><strong>${voter.nationalId}</strong></td>
+                        <td>${voter.firstName} ${voter.middleName} ${voter.lastName}</td>
+                        <td>${voter.phoneNumber}</td>
+                        <td>${voter.region}</td>
+                        <td>${voter.nationality}</td>
+                        <td>${voter.age}</td>
+                        <td>${voter.sex}</td>
+                        <td>
+                            <span class="literacy-badge ${voter.literate === 'Yes' ? 'literate' : 'illiterate'}">
+                                ${voter.literate === 'Yes' ? 'Literate' : 'Illiterate'}
+                            </span>
+                        </td>
+                        <td>${voter.registerDate}</td>
+                        <td class="action-btns">
+                            <button class="action-btn edit-btn" onclick="editVoter('${voter.nationalId}')">
+                                ✏️ Edit
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteVoter('${voter.nationalId}', '${voter.firstName} ${voter.lastName}')">
+                                🗑️ Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            // Update pagination
+            updatePagination(totalPages);
+        }
+
+        // Update pagination controls
+        function updatePagination(totalPages) {
+            const paginationDiv = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationDiv.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            if (currentPage > 1) {
+                paginationHTML += `<button class="page-btn" onclick="changePage(${currentPage - 1})">‹ Previous</button>`;
+            }
+            
+            // Page numbers
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === currentPage) {
+                    paginationHTML += `<button class="page-btn active">${i}</button>`;
+                } else {
+                    paginationHTML += `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+                }
+            }
+            
+            // Next button
+            if (currentPage < totalPages) {
+                paginationHTML += `<button class="page-btn" onclick="changePage(${currentPage + 1})">Next ›</button>`;
+            }
+            
+            paginationDiv.innerHTML = paginationHTML;
+        }
+
+        // Change page
+        function changePage(page) {
+            currentPage = page;
+            displayVoters();
+            // Scroll to top of table
+            document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search voters
+        function searchVoters() {
+            currentPage = 1;
+            displayVoters();
+        }
+
+        // Clear search
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            currentPage = 1;
+            displayVoters();
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalVoters').textContent = allVoters.length;
+            document.getElementById('maleVoters').textContent = allVoters.filter(v => v.sex === 'Male').length;
+            document.getElementById('femaleVoters').textContent = allVoters.filter(v => v.sex === 'Female').length;
+            document.getElementById('literateVoters').textContent = allVoters.filter(v => v.literate === 'Yes').length;
+            document.getElementById('illiterateVoters').textContent = allVoters.filter(v => v.literate === 'No').length;
+        }
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById('votersTableBody').innerHTML = `
+                <tr>
+                    <td colspan="10" class="loading">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <div class="spinner" style="width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                            Loading voters data...
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Show message
+        function showMessage(message, isSuccess) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = isSuccess ? 'message success' : 'message error';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Edit voter
+        function editVoter(nationalId) {
+            // Redirect to update voter page with the national ID
+            window.location.href = `/Manager/UpdateVoter?nationalId=${encodeURIComponent(nationalId)}`;
+        }
+
+        // Delete voter
+        async function deleteVoter(nationalId, voterName) {
+            if (!confirm(`Are you sure you want to delete voter: ${voterName} (${nationalId})?`)) {
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('NationalId', nationalId);
+
+                const response = await fetch('/Manager/DeleteVoter', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✅ ' + result.message, true);
+                    // Reload the voter list
+                    await loadVoters();
+                } else {
+                    showMessage('❌ ' + result.message, false);
+                }
+            } catch (error) {
+                console.error('Error deleting voter:', error);
+                showMessage('❌ Error deleting voter: ' + error.message, false);
+            }
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            if (allVoters.length === 0) {
+                showMessage('No data to export', false);
+                return;
+            }
+
+            // Create CSV content
+            const headers = ['National ID', 'First Name', 'Middle Name', 'Last Name', 'Phone Number', 'Region', 'Nationality', 'Age', 'Sex', 'Literacy', 'Registration Date'];
+            const csvContent = [
+                headers.join(','),
+                ...allVoters.map(voter => [
+                    voter.nationalId,
+                    `"${voter.firstName}"`,
+                    `"${voter.middleName}"`,
+                    `"${voter.lastName}"`,
+                    voter.phoneNumber,
+                    `"${voter.region}"`,
+                    `"${voter.nationality}"`,
+                    voter.age,
+                    voter.sex,
+                    voter.literate,
+                    `"${voter.registerDate}"`
+                ].join(','))
+            ].join('\n');
+
+            // Create and download the file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `ethiopian_voters_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showMessage('CSV export started successfully', true);
+        }
+
+        // Handle Enter key in search input
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchVoters();
+            }
+        });
+
+        // Auto-refresh data every 30 seconds
+        setInterval(() => {
+            loadVoters();
+        }, 30000);
+    </script>
+</body>
+</html>

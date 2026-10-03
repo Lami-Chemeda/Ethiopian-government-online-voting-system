@@ -1,0 +1,328 @@
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #2a9d8f, #1d3557);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #1d3557, #2a9d8f);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #2a9d8f;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(42, 157, 143, 0.2);
+        }
+
+        .card h3 {
+            color: #1d3557;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card button {
+            background: linear-gradient(45deg, #1d3557, #457b9d);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .card button:hover {
+            background: linear-gradient(45deg, #457b9d, #1d3557);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #e63946, #e76f51);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #e76f51, #e63946);
+            transform: translateY(-2px);
+        }
+
+        /* Election status indicator */
+        .election-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-active {
+            color: #2a9d8f;
+            border-left: 4px solid #2a9d8f;
+        }
+
+        .status-inactive {
+            color: #e63946;
+            border-left: 4px solid #e63946;
+        }
+
+        .status-scheduled {
+            color: #e9c46a;
+            border-left: 4px solid #e9c46a;
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="/Home/Index">
+        <i class="fas fa-home"></i> Back to Home
+    </a>
+
+    <!-- Election Status Indicator -->
+    <div id="electionStatusIndicator" class="election-status" style="display: none;">
+        <i class="fas fa-vote-yea"></i>
+        <span id="statusText">Loading...</span>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>👑 Admin Dashboard</h1>
+            <p>Full System Control & Administration</p>
+        </div>
+
+        <div class="content">
+            <div class="dashboard-cards">
+                <!-- Set Election Time Card - ADDED THIS NEW CARD -->
+                <div class="card" onclick="setElectionTime()">
+                    <h3><i class="fas fa-clock"></i> Set Election Time</h3>
+                    <p>Configure voting schedule and election timing</p>
+                    <button onclick="setElectionTime()">Set Election Time</button>
+                </div>
+
+                <div class="card" onclick="manageSupervisor()">
+                    <h3><i class="fas fa-user-shield"></i> Manage Supervisor</h3>
+                    <p>Manage all supervisor accounts in the system</p>
+                    <button onclick="manageSupervisor()">Manage Supervisor</button>
+                </div>
+
+                <div class="card" onclick="manageComments()">
+                    <h3><i class="fas fa-comments"></i> Comments</h3>
+                    <p>View and manage all system comments</p>
+                    <button onclick="manageComments()">View Comments</button>
+                </div>
+
+                <div class="card" onclick="manageAccounts()">
+                    <h3><i class="fas fa-users-cog"></i> Manage Accounts</h3>
+                    <p>CRUD operations for all system actors</p>
+                    <button onclick="manageAccounts()">Manage All Accounts</button>
+                </div>
+
+                <div class="card" onclick="securityAlert()">
+                    <h3><i class="fas fa-shield-alt"></i> Security Alerts</h3>
+                    <p>Monitor security alerts and threats</p>
+                    <button onclick="securityAlert()">View Alerts</button>
+                </div>
+
+                <div class="card" onclick="viewLogs()">
+                    <h3><i class="fas fa-clipboard-list"></i> System Logs</h3>
+                    <p>View system activity logs</p>
+                    <button onclick="viewLogs()">View Logs</button>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functions
+        function setElectionTime() {
+            window.location.href = '/Admin/SetElectionTime';
+        }
+
+        function manageSupervisor() {
+            window.location.href = '/Admin/ManageSupervisor';
+        }
+
+        function manageComments() {
+            window.location.href = '/Admin/Comments';
+        }
+
+        function manageAccounts() {
+            window.location.href = '/Admin/ManageAccounts';
+        }
+
+        function securityAlert() {
+            window.location.href = '/Admin/SecurityAlert';
+        }
+
+        function viewLogs() {
+            window.location.href = '/Admin/ViewLogs';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/Home/Index';
+            }
+        }
+
+        // Load election status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadElectionStatus();
+        });
+
+        // Function to load and display election status
+        async function loadElectionStatus() {
+            try {
+                const response = await fetch('/Admin/GetElectionStatus');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const status = result.status;
+                    const indicator = document.getElementById('electionStatusIndicator');
+                    const statusText = document.getElementById('statusText');
+                    
+                    // Show the indicator
+                    indicator.style.display = 'flex';
+                    
+                    // Update status text and styling
+                    let statusClass = 'status-inactive';
+                    let statusIcon = '⏸️';
+                    
+                    if (status.status === 'Active') {
+                        statusClass = 'status-active';
+                        statusIcon = '✅';
+                    } else if (status.status === 'Scheduled') {
+                        statusClass = 'status-scheduled';
+                        statusIcon = '⏰';
+                    } else if (status.status === 'Completed') {
+                        statusClass = 'status-inactive';
+                        statusIcon = '🏁';
+                    }
+                    
+                    indicator.className = `election-status ${statusClass}`;
+                    statusText.innerHTML = `${statusIcon} ${status.status}`;
+                    
+                    // Add tooltip with more info
+                    indicator.title = `Election: ${status.electionName}\nStart: ${status.startDate}\nEnd: ${status.endDate}`;
+                    
+                }
+            } catch (error) {
+                console.error('Error loading election status:', error);
+                // Hide indicator if there's an error
+                document.getElementById('electionStatusIndicator').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = VotingSystem
+build_property.RootNamespace = VotingSystem
+build_property.ProjectDir = C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\A\Desktop\EGOVS\EGOVS\EGOVS\VotingSystem
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/comments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY29tbWVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/ManageAccounts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlQWNjb3VudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/managesupervisor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cbWFuYWdlc3VwZXJ2aXNvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/SecurityAlert.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VjdXJpdHlBbGVydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/SetElectionTime.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2V0RWxlY3Rpb25UaW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Admin/ViewLogs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld0xvZ3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Home/VisualLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaXN1YWxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Manager/CreateVoter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxDcmVhdGVWb3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Manager/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Manager/DeleteVoter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxEZWxldGVWb3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Manager/UpdateVoter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxVcGRhdGVWb3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Manager/VoterList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxWb3Rlckxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Supervisor/Comment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJ2aXNvclxDb21tZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Supervisor/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJ2aXNvclxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Supervisor/ManageCandidate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJ2aXNvclxNYW5hZ2VDYW5kaWRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Supervisor/ManageManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJ2aXNvclxNYW5hZ2VNYW5hZ2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Supervisor/postresults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJ2aXNvclxwb3N0cmVzdWx0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Voter/castvote.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZXJcY2FzdHZvdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Voter/comments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZXJcY29tbWVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Voter/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZXJcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Voter/seecandidate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZXJcc2VlY2FuZGlkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Voter/viewresult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90ZXJcdmlld3Jlc3VsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/A/Desktop/EGOVS/EGOVS/EGOVS/VotingSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-axjo0swodg

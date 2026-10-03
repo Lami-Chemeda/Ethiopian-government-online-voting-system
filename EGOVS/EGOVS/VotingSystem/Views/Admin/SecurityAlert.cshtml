@@ -1,0 +1,406 @@
+@{
+    ViewData["Title"] = "Security Alerts";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .security-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 4px solid;
+        }
+
+        .stat-card.critical { border-color: #e63946; }
+        .stat-card.high { border-color: #e76f51; }
+        .stat-card.medium { border-color: #f4a261; }
+        .stat-card.low { border-color: #2a9d8f; }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .alert-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #1d3557;
+            color: white;
+            border-color: #1d3557;
+        }
+
+        .alert-list {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .alert-item {
+            background: white;
+            border-left: 4px solid;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .alert-item.critical { border-color: #e63946; background: #ffe6e6; }
+        .alert-item.high { border-color: #e76f51; background: #ffebe6; }
+        .alert-item.medium { border-color: #f4a261; background: #fff3e6; }
+        .alert-item.low { border-color: #2a9d8f; background: #e6f7f5; }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #1d3557;
+        }
+
+        .alert-severity {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .severity-critical { background: #e63946; }
+        .severity-high { background: #e76f51; }
+        .severity-medium { background: #f4a261; }
+        .severity-low { background: #2a9d8f; }
+
+        .alert-description {
+            color: #495057;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .alert-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .no-alerts {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(45deg, #2a9d8f, #1d3557);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-resolved {
+            background: #2a9d8f;
+            color: white;
+        }
+
+        .status-active {
+            background: #e63946;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="back-btn" href="/Admin/Dashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1><i class="fas fa-shield-alt"></i> Security Alerts</h1>
+            <p>Monitor and manage security threats in real-time</p>
+        </div>
+
+        <div class="content">
+            <!-- Security Statistics -->
+            <div class="security-stats">
+                <div class="stat-card critical">
+                    <div class="stat-number" id="criticalCount">0</div>
+                    <div class="stat-label">Critical Alerts</div>
+                </div>
+                <div class="stat-card high">
+                    <div class="stat-number" id="highCount">0</div>
+                    <div class="stat-label">High Priority</div>
+                </div>
+                <div class="stat-card medium">
+                    <div class="stat-number" id="mediumCount">0</div>
+                    <div class="stat-label">Medium Priority</div>
+                </div>
+                <div class="stat-card low">
+                    <div class="stat-number" id="lowCount">0</div>
+                    <div class="stat-label">Low Priority</div>
+                </div>
+            </div>
+
+            <button class="refresh-btn" onclick="loadSecurityAlerts()">
+                <i class="fas fa-sync"></i> Refresh Alerts
+            </button>
+
+            <!-- Alert Filters -->
+            <div class="alert-filters">
+                <button class="filter-btn active" onclick="filterAlerts('all')">All Alerts</button>
+                <button class="filter-btn" onclick="filterAlerts('critical')">Critical</button>
+                <button class="filter-btn" onclick="filterAlerts('high')">High</button>
+                <button class="filter-btn" onclick="filterAlerts('medium')">Medium</button>
+                <button class="filter-btn" onclick="filterAlerts('low')">Low</button>
+                <button class="filter-btn" onclick="filterAlerts('unresolved')">Unresolved</button>
+            </div>
+
+            <!-- Alert List -->
+            <div class="alert-list" id="alertList">
+                <!-- Alerts will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allAlerts = [];
+        let currentFilter = 'all';
+
+        // Load alerts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSecurityAlerts();
+        });
+
+        function setActiveFilter(button, filter) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Add active class to clicked button
+            button.classList.add('active');
+            currentFilter = filter;
+            displayAlerts();
+        }
+
+        function filterAlerts(filter) {
+            setActiveFilter(event.target, filter);
+        }
+
+        async function loadSecurityAlerts() {
+            try {
+                const response = await fetch('/Admin/GetSecurityAlerts');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allAlerts = result.alerts;
+                    updateStatistics();
+                    displayAlerts();
+                } else {
+                    showError('Failed to load security alerts');
+                }
+            } catch (error) {
+                console.error('Error loading security alerts:', error);
+                showError('Error loading security alerts');
+            }
+        }
+
+        function updateStatistics() {
+            const critical = allAlerts.filter(a => a.severity === 'Critical' && !a.isResolved).length;
+            const high = allAlerts.filter(a => a.severity === 'High' && !a.isResolved).length;
+            const medium = allAlerts.filter(a => a.severity === 'Medium' && !a.isResolved).length;
+            const low = allAlerts.filter(a => a.severity === 'Low' && !a.isResolved).length;
+
+            document.getElementById('criticalCount').textContent = critical;
+            document.getElementById('highCount').textContent = high;
+            document.getElementById('mediumCount').textContent = medium;
+            document.getElementById('lowCount').textContent = low;
+        }
+
+        function displayAlerts() {
+            const alertList = document.getElementById('alertList');
+            let filteredAlerts = allAlerts;
+
+            // Apply filters
+            switch (currentFilter) {
+                case 'critical':
+                    filteredAlerts = allAlerts.filter(a => a.severity === 'Critical');
+                    break;
+                case 'high':
+                    filteredAlerts = allAlerts.filter(a => a.severity === 'High');
+                    break;
+                case 'medium':
+                    filteredAlerts = allAlerts.filter(a => a.severity === 'Medium');
+                    break;
+                case 'low':
+                    filteredAlerts = allAlerts.filter(a => a.severity === 'Low');
+                    break;
+                case 'unresolved':
+                    filteredAlerts = allAlerts.filter(a => !a.isResolved);
+                    break;
+            }
+
+            if (filteredAlerts.length === 0) {
+                alertList.innerHTML = `
+                    <div class="no-alerts">
+                        <i class="fas fa-check-circle" style="font-size: 3em; margin-bottom: 15px;"></i>
+                        <h3>No security alerts found</h3>
+                        <p>All systems are secure and running normally</p>
+                    </div>
+                `;
+                return;
+            }
+
+            alertList.innerHTML = filteredAlerts.map(alert => `
+                <div class="alert-item ${alert.severity.toLowerCase()}">
+                    <div class="alert-header">
+                        <div class="alert-title">${alert.alertType}</div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div class="alert-severity severity-${alert.severity.toLowerCase()}">
+                                ${alert.severity}
+                            </div>
+                            <div class="status-badge ${alert.isResolved ? 'status-resolved' : 'status-active'}">
+                                ${alert.isResolved ? 'Resolved' : 'Active'}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert-description">
+                        ${alert.description}
+                    </div>
+                    <div class="alert-meta">
+                        <div class="alert-time">
+                            <i class="fas fa-clock"></i> ${formatDate(alert.alertDate)}
+                        </div>
+                        <div class="alert-user">
+                            <i class="fas fa-user"></i> ${alert.nationalId || 'System'} (${alert.role || 'System'})
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        }
+
+        function showError(message) {
+            const alertList = document.getElementById('alertList');
+            alertList.innerHTML = `
+                <div class="no-alerts">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3em; margin-bottom: 15px; color: #e63946;"></i>
+                    <h3>Error Loading Alerts</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadSecurityAlerts, 30000);
+    </script>
+</body>
+</html>

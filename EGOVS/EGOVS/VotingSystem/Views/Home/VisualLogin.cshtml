@@ -1,0 +1,1822 @@
+@model VotingSystem.Models.VisualLoginModel
+@{
+    ViewData["Title"] = "National ID Visual Login - Ethiopian E-Voting";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>National ID Visual Login - Ethiopian E-Voting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Enhanced Styling with Full-Screen Ethiopian Theme */
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #457b9d;
+            --accent-color: #e63946;
+            --success-color: #2a9d8f;
+            --warning-color: #e9c46a;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --text-color: #2d3748;
+            --border-radius: 16px;
+            --box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 25%, #a8dadc 50%, #f1faee 75%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ethiopian Pattern Background with Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(232, 65, 24, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 90% 80%, rgba(20, 126, 59, 0.08) 0%, transparent 40%),
+                            radial-gradient(circle at 50% 50%, rgba(252, 209, 22, 0.06) 0%, transparent 50%),
+                            linear-gradient(45deg, transparent 48%, rgba(29, 53, 87, 0.03) 50%, transparent 52%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @@keyframes backgroundShift {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(-10px) translateY(-10px); }
+        }
+
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .visual-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 900px;
+            min-height: 750px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Login Steps */
+        .login-step {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .login-step.active {
+            display: block;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Back Button */
+        .back-home-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            padding: 12px 20px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+        }
+
+        .back-home-btn:hover {
+            background: #c1121f;
+            transform: translateX(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(193, 18, 31, 0.4);
+        }
+
+        /* National ID Upload Area */
+        .national-id-upload-area {
+            display: flex;
+            gap: 25px;
+            margin: 2rem 0;
+        }
+
+        .id-upload-box {
+            flex: 1;
+            border: 3px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(241, 250, 238, 0.6), rgba(168, 218, 220, 0.4));
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .id-upload-box:hover {
+            border-color: var(--secondary-color);
+            background: linear-gradient(135deg, rgba(241, 250, 238, 0.8), rgba(168, 218, 220, 0.6));
+            transform: translateY(-5px);
+        }
+
+        .id-upload-box.has-image {
+            border-style: solid;
+            border-color: var(--success-color);
+            background: linear-gradient(135deg, rgba(42, 157, 143, 0.1), rgba(42, 157, 143, 0.05));
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+            border: 2px solid var(--success-color);
+        }
+
+        /* Buttons */
+        button {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 8px 25px rgba(29, 53, 87, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(29, 53, 87, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #248277);
+            color: white;
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(42, 157, 143, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ff9e00, #ff6d00);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 157, 0, 0.3);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(255, 157, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(108, 117, 125, 0.4);
+        }
+
+        .btn-lg {
+            font-size: 1.1rem;
+            padding: 18px 30px;
+            width: 100%;
+        }
+
+        /* Action Buttons Container */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+
+        @@media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Image Password Grid */
+        .image-password-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 2rem 0;
+        }
+
+        .image-option {
+            border: 3px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .image-option:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .image-option.selected {
+            border-color: var(--success-color);
+            background: linear-gradient(135deg, rgba(42, 157, 143, 0.1), rgba(42, 157, 143, 0.05));
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.2);
+        }
+
+        .image-option .emoji-image {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+            border-radius: 8px;
+            background: rgba(29, 53, 87, 0.05);
+        }
+
+        /* Selection Counter */
+        .selection-counter {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1rem 0;
+            padding: 12px;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 10px;
+            border-left: 5px solid var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--success-color);
+        }
+
+        /* Extracted National ID Display */
+        .extracted-nationalid {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: var(--primary-color);
+            padding: 18px;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(30, 77, 140, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* Scanning Animation */
+        .scanning-animation {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .spinner-border {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 0.3em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner-border-animation .75s linear infinite;
+        }
+
+        @@keyframes spinner-border-animation {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Selected Images Preview */
+        .selected-images-preview {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: rgba(100, 255, 218, 0.05);
+            border-radius: 12px;
+            border: 2px dashed var(--success-color);
+        }
+
+        .selected-image {
+            text-align: center;
+            padding: 15px;
+            border: 2px solid var(--success-color);
+            border-radius: 10px;
+            background: rgba(42, 157, 143, 0.1);
+            min-width: 100px;
+        }
+
+        .selected-image .emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* One-time Images */
+        .one-time-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .one-time-image {
+            text-align: center;
+            padding: 20px;
+            border: 3px solid var(--warning-color);
+            border-radius: 12px;
+            background: rgba(255, 158, 0, 0.1);
+            min-width: 120px;
+            box-shadow: 0 8px 20px rgba(255, 158, 0, 0.2);
+        }
+
+        .one-time-image .emoji {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Instruction Box */
+        .instruction-box {
+            background: rgba(234, 244, 245, 0.8);
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .instruction-box p {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .instruction-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instruction-box li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: var(--text-color);
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .instruction-box li::before {
+            content: "▶";
+            color: var(--primary-color);
+            position: absolute;
+            left: -15px;
+        }
+
+        /* Success Section */
+        .success-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            border-radius: 16px;
+            border: 3px solid var(--success-color);
+            margin: 30px 0;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @@keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Error and Success Messages */
+        .error-message {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            display: none;
+            border-left: 5px solid var(--accent-color);
+            font-weight: 500;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1e7dd, #c3e6cb);
+            color: var(--success-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            display: none;
+            border-left: 5px solid var(--success-color);
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 992px) {
+            .visual-card {
+                padding: 30px;
+                min-height: 700px;
+            }
+            
+            .image-password-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .visual-card {
+                padding: 25px;
+                min-height: 650px;
+            }
+            
+            .national-id-upload-area {
+                flex-direction: column;
+            }
+            
+            .image-password-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .btn-lg {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .visual-card {
+                padding: 20px;
+                min-height: 600px;
+            }
+            
+            .image-password-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .id-upload-box {
+                padding: 20px;
+            }
+            
+            .extracted-nationalid {
+                font-size: 1.2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Button Content */
+        .button-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .button-icon {
+            font-size: 1.2rem;
+        }
+
+        .button-text {
+            font-weight: 700;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="visual-card">
+            <!-- Back Button -->
+            <button class="back-home-btn" onclick="window.location.href='/Home/Login'">
+                <i class="fas fa-arrow-left"></i> Back to Login
+            </button>
+
+            <!-- Step 1: National ID Upload -->
+            <div class="login-step active" id="step-nationalid">
+                <div class="header">
+                    <h2>🔐 National ID Visual Login</h2>
+                    <p class="subtitle">Ethiopian Electronic Voting System - Secure Visual Authentication</p>
+                </div>
+
+                <!-- Anti-forgery Token -->
+                @Html.AntiForgeryToken()
+                
+                <!-- Error and Success Messages -->
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+                
+                <div class="national-id-upload-area">
+                    <!-- Front Side Upload -->
+                    <div class="id-upload-box" id="frontUploadBox" onclick="document.getElementById('frontIdFile').click()">
+                        <span class="upload-icon">📷</span>
+                        <h4>🟦 FRONT SIDE</h4>
+                        <p>👉 Click to upload National ID front side</p>
+                        <img id="frontPreview" class="image-preview" alt="Front side preview">
+                        <input type="file" id="frontIdFile" accept="image/*" style="display: none;" onchange="previewImage(this, 'frontPreview', 'frontUploadBox')">
+                    </div>
+
+                    <!-- Back Side Upload -->
+                    <div class="id-upload-box" id="backUploadBox" onclick="document.getElementById('backIdFile').click()">
+                        <span class="upload-icon">📷</span>
+                        <h4>🟥 BACK SIDE</h4>
+                        <p>👉 Click to upload National ID back side</p>
+                        <img id="backPreview" class="image-preview" alt="Back side preview">
+                        <input type="file" id="backIdFile" accept="image/*" style="display: none;" onchange="previewImage(this, 'backPreview', 'backUploadBox')">
+                    </div>
+                </div>
+
+                <!-- Scanning Animation -->
+                <div class="scanning-animation" id="scanningAnimation">
+                    <div class="spinner-border" role="status"></div>
+                    <p class="mt-3">🔍 Scanning National ID...</p>
+                </div>
+
+                <!-- Extracted National ID Display -->
+                <div class="extracted-nationalid" id="extractedNationalId" style="display: none;">
+                    <i class="fas fa-id-card"></i>
+                    <span>National ID: <span id="nationalIdDisplay"></span></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-lg" onclick="scanNationalId()" id="scanButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">🔍</span>
+                            <span class="button-text">SCAN NATIONAL ID</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-success btn-lg" onclick="proceedToPassword()" id="proceedButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">➡️</span>
+                            <span class="button-text">PROCEED TO PASSWORD</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-warning btn-lg" onclick="forgotPassword()" id="forgotButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">🔑</span>
+                            <span class="button-text">FORGOT PASSWORD</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Instruction Box -->
+                <div class="instruction-box">
+                    <p><i class="fas fa-info-circle"></i> Instructions:</p>
+                    <ul>
+                        <li>📷 Upload clear images of both front and back of your National ID</li>
+                        <li>🔍 Click <strong>"SCAN NATIONAL ID"</strong> to extract your National ID number</li>
+                        <li>➡️ If you remember your image password, click <strong>"PROCEED TO PASSWORD"</strong></li>
+                        <li>🔑 If you forgot your password, click <strong>"FORGOT PASSWORD"</strong> for one-time login</li>
+                        <li>👁️ For illiterate voters: Use the symbols above each button to understand their function</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2: Regular Image Password Selection -->
+            <div class="login-step" id="step-password">
+                <div class="header">
+                    <h2>🖼️ Your Image Password</h2>
+                    <p class="subtitle">Select the same 4 images you chose during registration</p>
+                </div>
+
+                <!-- Selection Counter -->
+                <div class="selection-counter" id="selectionCounter">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Selected: 0/4 images</span>
+                </div>
+
+                <!-- Selected Images Preview -->
+                <div class="selected-images-preview" id="selectedPreview">
+                    <!-- Selected images will appear here -->
+                </div>
+
+                <div class="image-password-grid" id="imagePasswordGrid">
+                    <!-- Images will be dynamically loaded -->
+                </div>
+
+                <!-- National ID Display -->
+                <div class="extracted-nationalid">
+                    <i class="fas fa-id-card"></i>
+                    <span>National ID: <span id="currentNationalId"></span></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-success btn-lg" onclick="submitRegularLogin()" id="loginButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">✅</span>
+                            <span class="button-text">VOTE NOW</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="showStep('step-nationalid')">
+                        <div class="button-content">
+                            <span class="button-icon">↩️</span>
+                            <span class="button-text">BACK TO ID UPLOAD</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-warning btn-lg" onclick="switchToForgotPassword()">
+                        <div class="button-content">
+                            <span class="button-icon">🔑</span>
+                            <span class="button-text">FORGOT PASSWORD</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary" onclick="resetImageSelection()">
+                        <div class="button-content">
+                            <span class="button-icon">🔄</span>
+                            <span class="button-text">RESET SELECTION</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Instruction Box -->
+                <div class="instruction-box mt-4">
+                    <p><i class="fas fa-lightbulb"></i> Password Tips:</p>
+                    <ul>
+                        <li>👁️ Select the <strong>same 4 images</strong> you chose during registration</li>
+                        <li>📋 The order of selection matters for your password</li>
+                        <li>✅ Click <strong>"VOTE NOW"</strong> when you have selected all 4 images</li>
+                        <li>🔑 If you forgot your password, use the <strong>"FORGOT PASSWORD"</strong> option</li>
+                        <li>🔄 Use <strong>"RESET SELECTION"</strong> if you need to start over</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 3: Forgot Password - One-Time Images -->
+            <div class="login-step" id="step-forgot-password">
+                <div class="header">
+                    <h2>🔓 One-Time Password</h2>
+                    <p class="subtitle">Use these 4 random images to login (Valid for 10 minutes)</p>
+                </div>
+
+                <!-- One-Time Images Display -->
+                <div class="one-time-images" id="oneTimeImagesContainer">
+                    <!-- One-time images will appear here -->
+                </div>
+
+                <!-- Selection Counter -->
+                <div class="selection-counter" id="forgotSelectionCounter">
+                    <i class="fas fa-clock"></i>
+                    <span>Selected: 0/4 images</span>
+                </div>
+
+                <!-- Selected Images Preview -->
+                <div class="selected-images-preview" id="forgotSelectedPreview">
+                    <!-- Selected images will appear here -->
+                </div>
+
+                <div class="image-password-grid" id="forgotPasswordGrid">
+                    <!-- Images will be dynamically loaded -->
+                </div>
+
+                <!-- National ID Display -->
+                <div class="extracted-nationalid">
+                    <i class="fas fa-id-card"></i>
+                    <span>National ID: <span id="forgotNationalId"></span></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-success btn-lg" onclick="submitOneTimeLogin()" id="oneTimeLoginButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">🔓</span>
+                            <span class="button-text">LOGIN WITH ONE-TIME PASSWORD</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="showStep('step-nationalid')">
+                        <div class="button-content">
+                            <span class="button-icon">↩️</span>
+                            <span class="button-text">BACK TO ID UPLOAD</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Generate New Button -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-warning" onclick="generateNewOneTimePassword()">
+                        <div class="button-content">
+                            <span class="button-icon">🔄</span>
+                            <span class="button-text">GENERATE NEW ONE-TIME PASSWORD</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Instruction Box -->
+                <div class="instruction-box mt-4">
+                    <p><i class="fas fa-exclamation-triangle"></i> Important Information:</p>
+                    <ul>
+                        <li>⚠️ <strong>One-Time Password:</strong> These 4 images are valid for only 10 minutes</li>
+                        <li>🔄 <strong>After Login:</strong> You must set a new password immediately</li>
+                        <li>👆 Select the <strong>4 images shown above</strong> (order doesn't matter)</li>
+                        <li>🔓 Click <strong>"LOGIN WITH ONE-TIME PASSWORD"</strong> to continue</li>
+                        <li>📝 Then you will be asked to set a new 4-image password</li>
+                        <li>👁️ For illiterate voters: Match the images above with the grid below</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 4: Set New Password -->
+            <div class="login-step" id="step-set-password">
+                <div class="header">
+                    <h2>🔐 Set New Password</h2>
+                    <p class="subtitle">Select 4 new images for your password</p>
+                </div>
+
+                <!-- Selection Counter -->
+                <div class="selection-counter" id="newPasswordCounter">
+                    <i class="fas fa-key"></i>
+                    <span>Selected: 0/4 images</span>
+                </div>
+
+                <!-- Selected Images Preview -->
+                <div class="selected-images-preview" id="newPasswordPreview">
+                    <!-- Selected images will appear here -->
+                </div>
+
+                <div class="image-password-grid" id="newPasswordGrid">
+                    <!-- Images will be dynamically loaded -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-success btn-lg" onclick="submitNewPassword()" id="setPasswordButton" disabled>
+                        <div class="button-content">
+                            <span class="button-icon">✅</span>
+                            <span class="button-text">SET NEW PASSWORD</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="showStep('step-nationalid')">
+                        <div class="button-content">
+                            <span class="button-icon">❌</span>
+                            <span class="button-text">CANCEL</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary" onclick="resetNewPasswordSelection()">
+                        <div class="button-content">
+                            <span class="button-icon">🔄</span>
+                            <span class="button-text">RESET SELECTION</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Instruction Box -->
+                <div class="instruction-box mt-4">
+                    <p><i class="fas fa-lightbulb"></i> Password Creation Tips:</p>
+                    <ul>
+                        <li>👁️ Select <strong>4 images that you will remember</strong></li>
+                        <li>🔐 You will use these images to login in the future</li>
+                        <li>📋 Make sure to remember both the images and their order</li>
+                        <li>💭 Choose images that have personal meaning to you</li>
+                        <li>✅ Click <strong>"SET NEW PASSWORD"</strong> when done</li>
+                        <li>👆 For illiterate voters: Choose images you can easily recognize</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 5: Login Success -->
+            <div class="login-step" id="step-success">
+                <div class="success-section">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 style="color: var(--success-color); margin-bottom: 15px;">Login Successful!</h3>
+                    <p style="font-size: 16px; color: var(--text-color); margin-bottom: 10px;">
+                        Welcome to Ethiopian E-Voting System
+                    </p>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
+                        <i class="fas fa-spinner fa-spin"></i> Redirecting to voting page...
+                    </p>
+                    
+                    <!-- Success National ID Display -->
+                    <div class="extracted-nationalid">
+                        <i class="fas fa-user-check"></i>
+                        <span>Voter ID: <span id="successNationalId"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const REQUIRED_IMAGE_COUNT = 4;
+        let selectedImageIds = []; // NEW: Store image IDs instead of emojis
+        let oneTimeSelectedImageIds = []; // NEW: Store image IDs
+        let newPasswordImageIds = []; // NEW: Store image IDs
+        let nationalIdNumber = '';
+        let oneTimePasswordData = null;
+        
+        // All available images with IDs
+        const availableImages = [
+            { id: 1, name: "Globe", emoji: "🌍" },
+            { id: 2, name: "Mountain", emoji: "🏔️" },
+            { id: 3, name: "Coffee", emoji: "☕" },
+            { id: 4, name: "Wheat", emoji: "🌾" },
+            { id: 5, name: "Buffalo", emoji: "🐃" },
+            { id: 6, name: "Lion", emoji: "🦁" },
+            { id: 7, name: "Airplane", emoji: "✈️" },
+            { id: 8, name: "Building", emoji: "🏛️" },
+            { id: 9, name: "Scroll", emoji: "📜" },
+            { id: 10, name: "Shield", emoji: "🔰" }
+        ];
+
+        // Helper function to get emoji by image ID
+        function getEmojiById(imageId) {
+            const image = availableImages.find(img => img.id === imageId);
+            return image ? image.emoji : "❓";
+        }
+
+        // Step Navigation
+        function showStep(stepId) {
+            document.querySelectorAll('.login-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        // Image Preview Functions
+        function previewImage(input, previewId, boxId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
+            const box = document.getElementById(boxId);
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    box.classList.add('has-image');
+                }
+                reader.readAsDataURL(file);
+            }
+            checkScanButton();
+        }
+
+        function checkScanButton() {
+            const frontFile = document.getElementById('frontIdFile').files[0];
+            const backFile = document.getElementById('backIdFile').files[0];
+            const scanButton = document.getElementById('scanButton');
+            const proceedButton = document.getElementById('proceedButton');
+            const forgotButton = document.getElementById('forgotButton');
+
+            if (frontFile && backFile) {
+                scanButton.disabled = false;
+                scanButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔍</span>
+                        <span class="button-text">SCAN NATIONAL ID</span>
+                    </div>
+                `;
+                if (nationalIdNumber) {
+                    proceedButton.disabled = false;
+                    forgotButton.disabled = false;
+                }
+            } else {
+                scanButton.disabled = true;
+                scanButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔍</span>
+                        <span class="button-text">UPLOAD BOTH ID SIDES TO SCAN</span>
+                    </div>
+                `;
+                proceedButton.disabled = true;
+                forgotButton.disabled = true;
+            }
+        }
+
+        // Scan National ID
+        async function scanNationalId() {
+            const frontFile = document.getElementById('frontIdFile').files[0];
+            const backFile = document.getElementById('backIdFile').files[0];
+            const scanningAnimation = document.getElementById('scanningAnimation');
+            const extractedDiv = document.getElementById('extractedNationalId');
+            const nationalIdDisplay = document.getElementById('nationalIdDisplay');
+            const proceedButton = document.getElementById('proceedButton');
+            const forgotButton = document.getElementById('forgotButton');
+            const scanButton = document.getElementById('scanButton');
+
+            if (!frontFile || !backFile) {
+                showError('❌ Please upload both front and back sides of your National ID');
+                return;
+            }
+
+            scanningAnimation.style.display = 'block';
+            scanButton.disabled = true;
+            scanButton.innerHTML = `
+                <div class="button-content">
+                    <span class="button-icon">
+                        <div class="spinner-border spinner-border-sm" style="width: 1rem; height: 1rem;"></div>
+                    </span>
+                    <span class="button-text">SCANNING...</span>
+                </div>
+            `;
+
+            try {
+                const formData = new FormData();
+                formData.append('frontImage', frontFile);
+                formData.append('backImage', backFile);
+
+                // Get anti-forgery token
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                
+                // Use the correct endpoint for visual login
+                const response = await fetch('/Home/ExtractNationalIDFromImage', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token || ''
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Clean the National ID (remove non-numeric characters)
+                    nationalIdNumber = (result.nationalId || '').replace(/[^\d]/g, '');
+                    
+                    if (nationalIdNumber) {
+                        nationalIdDisplay.textContent = nationalIdNumber;
+                        extractedDiv.style.display = 'block';
+                        proceedButton.disabled = false;
+                        forgotButton.disabled = false;
+                        
+                        proceedButton.innerHTML = `
+                            <div class="button-content">
+                                <span class="button-icon">➡️</span>
+                                <span class="button-text">PROCEED TO PASSWORD</span>
+                            </div>
+                        `;
+                        
+                        forgotButton.innerHTML = `
+                            <div class="button-content">
+                                <span class="button-icon">🔑</span>
+                                <span class="button-text">FORGOT PASSWORD</span>
+                            </div>
+                        `;
+                        
+                        showSuccess('✅ National ID scanned successfully!');
+                    } else {
+                        throw new Error('Could not extract National ID from the ID card');
+                    }
+                } else {
+                    throw new Error(result.message || 'Failed to scan National ID');
+                }
+                
+            } catch (error) {
+                console.error('Scanning error:', error);
+                showError('❌ Error scanning National ID: ' + error.message);
+            } finally {
+                scanningAnimation.style.display = 'none';
+                scanButton.disabled = false;
+                scanButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔍</span>
+                        <span class="button-text">SCAN NATIONAL ID</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Regular Password Flow
+        function proceedToPassword() {
+            if (!nationalIdNumber) {
+                showError('❌ Please scan your National ID first');
+                return;
+            }
+
+            // Clean National ID for display
+            const displayId = nationalIdNumber.replace(/[^\d]/g, '');
+            document.getElementById('currentNationalId').textContent = displayId;
+            loadRegularPasswordGrid();
+            showStep('step-password');
+        }
+
+        function loadRegularPasswordGrid() {
+            const grid = document.getElementById('imagePasswordGrid');
+            grid.innerHTML = '';
+
+            availableImages.forEach((image, index) => {
+                const imageOption = document.createElement('div');
+                imageOption.className = 'image-option';
+                imageOption.dataset.imageId = image.id; // Store image ID as data attribute
+                imageOption.innerHTML = `
+                    <div class="emoji-image">${image.emoji}</div>
+                    <small>${image.name}</small>
+                `;
+                imageOption.onclick = () => selectRegularImage(image.id, imageOption);
+                grid.appendChild(imageOption);
+            });
+
+            updateRegularSelectionCounter();
+        }
+
+        function selectRegularImage(imageId, element) {
+            const index = selectedImageIds.indexOf(imageId);
+            
+            if (index === -1) {
+                if (selectedImageIds.length < REQUIRED_IMAGE_COUNT) {
+                    selectedImageIds.push(imageId);
+                    element.classList.add('selected');
+                } else {
+                    showError(`⚠️ You can only select ${REQUIRED_IMAGE_COUNT} images maximum`);
+                    return;
+                }
+            } else {
+                selectedImageIds.splice(index, 1);
+                element.classList.remove('selected');
+            }
+
+            updateRegularSelectionCounter();
+            updateRegularSelectedPreview();
+            checkRegularLoginButton();
+        }
+
+        function updateRegularSelectionCounter() {
+            const counter = document.getElementById('selectionCounter');
+            if (selectedImageIds.length === REQUIRED_IMAGE_COUNT) {
+                counter.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span style="color: var(--success-color);">Ready! Selected: 4/4 images</span>
+                `;
+            } else {
+                counter.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Selected: ${selectedImageIds.length}/4 images</span>
+                `;
+            }
+        }
+
+        function updateRegularSelectedPreview() {
+            const preview = document.getElementById('selectedPreview');
+            preview.innerHTML = '';
+
+            selectedImageIds.forEach(imageId => {
+                const selectedImage = document.createElement('div');
+                selectedImage.className = 'selected-image';
+                const emoji = getEmojiById(imageId);
+                selectedImage.innerHTML = `
+                    <span class="emoji">${emoji}</span>
+                    <small>Selected</small>
+                `;
+                preview.appendChild(selectedImage);
+            });
+        }
+
+        function checkRegularLoginButton() {
+            const loginButton = document.getElementById('loginButton');
+            loginButton.disabled = selectedImageIds.length !== REQUIRED_IMAGE_COUNT;
+            
+            if (selectedImageIds.length === REQUIRED_IMAGE_COUNT) {
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">VOTE NOW</span>
+                    </div>
+                `;
+            } else {
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">SELECT ${REQUIRED_IMAGE_COUNT - selectedImageIds.length} MORE</span>
+                    </div>
+                `;
+            }
+        }
+
+        function resetImageSelection() {
+            selectedImageIds = [];
+            document.querySelectorAll('#imagePasswordGrid .image-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            updateRegularSelectionCounter();
+            updateRegularSelectedPreview();
+            checkRegularLoginButton();
+        }
+
+        async function submitRegularLogin() {
+            if (selectedImageIds.length !== REQUIRED_IMAGE_COUNT) {
+                showError(`❌ Please select exactly ${REQUIRED_IMAGE_COUNT} images for your password`);
+                return;
+            }
+
+            const loginButton = document.getElementById('loginButton');
+            loginButton.disabled = true;
+            loginButton.innerHTML = `
+                <div class="button-content">
+                    <span class="button-icon">
+                        <div class="spinner-border spinner-border-sm" style="width: 1rem; height: 1rem;"></div>
+                    </span>
+                    <span class="button-text">LOGGING IN...</span>
+                </div>
+            `;
+
+            try {
+                // Get anti-forgery token
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                
+                console.log('Submitting visual login with:');
+                console.log('National ID:', nationalIdNumber);
+                console.log('Selected Image IDs:', selectedImageIds);
+
+                // Convert image IDs to emojis for backward compatibility
+                const selectedEmojis = selectedImageIds.map(id => getEmojiById(id));
+
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('ExtractedNationalId', nationalIdNumber);
+                
+                // Add both image IDs and emojis for backward compatibility
+                selectedImageIds.forEach((imageId, index) => {
+                    formData.append(`SelectedImageIds[${index}]`, imageId);
+                });
+                
+                selectedEmojis.forEach((emoji, index) => {
+                    formData.append(`SelectedImages[${index}]`, emoji);
+                });
+
+                // Add files if available
+                const frontFile = document.getElementById('frontIdFile').files[0];
+                const backFile = document.getElementById('backIdFile').files[0];
+                if (frontFile) formData.append('NationalIdFront', frontFile);
+                if (backFile) formData.append('NationalIdBack', backFile);
+
+                formData.append('__RequestVerificationToken', token);
+
+                // Call the visual login endpoint
+                const response = await fetch('/Home/ProcessVisualLogin', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Display success National ID
+                    document.getElementById('successNationalId').textContent = nationalIdNumber;
+                    showStep('step-success');
+                    
+                    // Redirect to cast vote page
+                    setTimeout(() => {
+                        window.location.href = result.redirectUrl || '/Voter/castvote';
+                    }, 2000);
+                } else {
+                    showError('❌ Login failed: ' + result.message);
+                    resetImageSelection();
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('❌ Login failed. Please try again.');
+            } finally {
+                loginButton.disabled = false;
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">VOTE NOW</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Forgot Password Flow
+        async function forgotPassword() {
+            if (!nationalIdNumber) {
+                showError('❌ Please scan your National ID first');
+                return;
+            }
+            
+            // Clean the National ID
+            nationalIdNumber = nationalIdNumber.replace(/[^\d]/g, '');
+            
+            console.log('Forgot password for:', nationalIdNumber);
+            
+            showStep('step-forgot-password');
+            document.getElementById('forgotNationalId').textContent = nationalIdNumber;
+            
+            // Generate one-time password
+            await generateNewOneTimePassword();
+        }
+
+        async function generateNewOneTimePassword() {
+            try {
+                // Clean the National ID (remove non-numeric characters)
+                const cleanNationalId = nationalIdNumber.replace(/[^\d]/g, '');
+                
+                console.log('Generating one-time password for:', cleanNationalId);
+                
+                // Get anti-forgery token
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                
+                const response = await fetch('/Home/GenerateOneTimeImagePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token || '',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ 
+                        nationalId: cleanNationalId 
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    oneTimePasswordData = {
+                        images: result.images || [],
+                        imageIds: result.imageIds || []
+                    };
+                    displayOneTimeImages();
+                    loadForgotPasswordGrid();
+                    oneTimeSelectedImageIds = [];
+                    updateForgotSelectionCounter();
+                    checkOneTimeLoginButton();
+                    
+                    showSuccess(result.message || '✅ One-time password generated!');
+                } else {
+                    showError('❌ ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error generating one-time password:', error);
+                showError('❌ Failed to generate one-time password: ' + error.message);
+            }
+        }
+
+        function displayOneTimeImages() {
+            const container = document.getElementById('oneTimeImagesContainer');
+            container.innerHTML = '';
+
+            if (oneTimePasswordData && oneTimePasswordData.images) {
+                oneTimePasswordData.images.forEach((imageEmoji, index) => {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'one-time-image';
+                    imageDiv.innerHTML = `
+                        <span class="emoji">${imageEmoji}</span>
+                        <div class="one-time-label">Image ${index + 1}</div>
+                    `;
+                    container.appendChild(imageDiv);
+                });
+            }
+        }
+
+        function loadForgotPasswordGrid() {
+            const grid = document.getElementById('forgotPasswordGrid');
+            grid.innerHTML = '';
+
+            availableImages.forEach((image, index) => {
+                const imageOption = document.createElement('div');
+                imageOption.className = 'image-option';
+                imageOption.dataset.imageId = image.id; // Store image ID
+                imageOption.innerHTML = `
+                    <div class="emoji-image">${image.emoji}</div>
+                    <small>${image.name}</small>
+                `;
+                imageOption.onclick = () => selectOneTimeImage(image.id, imageOption);
+                grid.appendChild(imageOption);
+            });
+        }
+
+        function selectOneTimeImage(imageId, element) {
+            const index = oneTimeSelectedImageIds.indexOf(imageId);
+            
+            if (index === -1) {
+                if (oneTimeSelectedImageIds.length < REQUIRED_IMAGE_COUNT) {
+                    oneTimeSelectedImageIds.push(imageId);
+                    element.classList.add('selected');
+                } else {
+                    showError(`⚠️ You can only select ${REQUIRED_IMAGE_COUNT} images`);
+                    return;
+                }
+            } else {
+                oneTimeSelectedImageIds.splice(index, 1);
+                element.classList.remove('selected');
+            }
+
+            updateForgotSelectionCounter();
+            updateForgotSelectedPreview();
+            checkOneTimeLoginButton();
+        }
+
+        function updateForgotSelectionCounter() {
+            const counter = document.getElementById('forgotSelectionCounter');
+            if (oneTimeSelectedImageIds.length === REQUIRED_IMAGE_COUNT) {
+                counter.innerHTML = `
+                    <i class="fas fa-clock"></i>
+                    <span style="color: var(--success-color);">Ready! Selected: 4/4 images</span>
+                `;
+            } else {
+                counter.innerHTML = `
+                    <i class="fas fa-clock"></i>
+                    <span>Selected: ${oneTimeSelectedImageIds.length}/4 images</span>
+                `;
+            }
+        }
+
+        function updateForgotSelectedPreview() {
+            const preview = document.getElementById('forgotSelectedPreview');
+            preview.innerHTML = '';
+
+            oneTimeSelectedImageIds.forEach(imageId => {
+                const selectedImage = document.createElement('div');
+                selectedImage.className = 'selected-image';
+                const emoji = getEmojiById(imageId);
+                selectedImage.innerHTML = `
+                    <span class="emoji">${emoji}</span>
+                    <small>Selected</small>
+                `;
+                preview.appendChild(selectedImage);
+            });
+        }
+
+        function checkOneTimeLoginButton() {
+            const loginButton = document.getElementById('oneTimeLoginButton');
+            loginButton.disabled = oneTimeSelectedImageIds.length !== REQUIRED_IMAGE_COUNT;
+            
+            if (oneTimeSelectedImageIds.length === REQUIRED_IMAGE_COUNT) {
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔓</span>
+                        <span class="button-text">LOGIN WITH ONE-TIME PASSWORD</span>
+                    </div>
+                `;
+            } else {
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔓</span>
+                        <span class="button-text">SELECT ${REQUIRED_IMAGE_COUNT - oneTimeSelectedImageIds.length} MORE</span>
+                    </div>
+                `;
+            }
+        }
+
+        async function submitOneTimeLogin() {
+            if (oneTimeSelectedImageIds.length !== REQUIRED_IMAGE_COUNT) {
+                showError(`❌ Please select exactly ${REQUIRED_IMAGE_COUNT} images`);
+                return;
+            }
+
+            const loginButton = document.getElementById('oneTimeLoginButton');
+            loginButton.disabled = true;
+            loginButton.innerHTML = `
+                <div class="button-content">
+                    <span class="button-icon">
+                        <div class="spinner-border spinner-border-sm" style="width: 1rem; height: 1rem;"></div>
+                    </span>
+                    <span class="button-text">VERIFYING...</span>
+                </div>
+            `;
+
+            try {
+                // Clean National ID
+                const cleanNationalId = nationalIdNumber.replace(/[^\d]/g, '');
+                
+                console.log('Verifying one-time login for:', cleanNationalId, 'with image IDs:', oneTimeSelectedImageIds);
+                
+                // Get anti-forgery token
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                
+                // Convert image IDs to emojis for backward compatibility
+                const selectedEmojis = oneTimeSelectedImageIds.map(id => getEmojiById(id));
+                
+                const response = await fetch('/Home/VerifyOneTimeImagePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token || '',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        nationalId: cleanNationalId,
+                        selectedImageIds: oneTimeSelectedImageIds,
+                        selectedImages: selectedEmojis
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    if (result.requiresNewPassword) {
+                        // Proceed to set new password
+                        loadNewPasswordGrid();
+                        showStep('step-set-password');
+                    } else {
+                        showStep('step-success');
+                        setTimeout(() => {
+                            window.location.href = '/Voter/castvote';
+                        }, 2000);
+                    }
+                } else {
+                    showError('❌ ' + result.message);
+                    oneTimeSelectedImageIds = [];
+                    document.querySelectorAll('#forgotPasswordGrid .image-option').forEach(option => {
+                        option.classList.remove('selected');
+                    });
+                    updateForgotSelectionCounter();
+                    updateForgotSelectedPreview();
+                }
+            } catch (error) {
+                console.error('One-time login error:', error);
+                showError('❌ Login failed: ' + error.message);
+            } finally {
+                loginButton.disabled = false;
+                loginButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">🔓</span>
+                        <span class="button-text">LOGIN WITH ONE-TIME PASSWORD</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Set New Password Flow
+        function loadNewPasswordGrid() {
+            const grid = document.getElementById('newPasswordGrid');
+            grid.innerHTML = '';
+            newPasswordImageIds = [];
+
+            availableImages.forEach((image, index) => {
+                const imageOption = document.createElement('div');
+                imageOption.className = 'image-option';
+                imageOption.dataset.imageId = image.id; // Store image ID
+                imageOption.innerHTML = `
+                    <div class="emoji-image">${image.emoji}</div>
+                    <small>${image.name}</small>
+                `;
+                imageOption.onclick = () => selectNewPasswordImage(image.id, imageOption);
+                grid.appendChild(imageOption);
+            });
+
+            updateNewPasswordCounter();
+        }
+
+        function selectNewPasswordImage(imageId, element) {
+            const index = newPasswordImageIds.indexOf(imageId);
+            
+            if (index === -1) {
+                if (newPasswordImageIds.length < REQUIRED_IMAGE_COUNT) {
+                    newPasswordImageIds.push(imageId);
+                    element.classList.add('selected');
+                } else {
+                    showError(`⚠️ You can only select ${REQUIRED_IMAGE_COUNT} images for your password`);
+                    return;
+                }
+            } else {
+                newPasswordImageIds.splice(index, 1);
+                element.classList.remove('selected');
+            }
+
+            updateNewPasswordCounter();
+            updateNewPasswordPreview();
+            checkSetPasswordButton();
+        }
+
+        function updateNewPasswordCounter() {
+            const counter = document.getElementById('newPasswordCounter');
+            if (newPasswordImageIds.length === REQUIRED_IMAGE_COUNT) {
+                counter.innerHTML = `
+                    <i class="fas fa-key"></i>
+                    <span style="color: var(--success-color);">Ready! Selected: 4/4 images</span>
+                `;
+            } else {
+                counter.innerHTML = `
+                    <i class="fas fa-key"></i>
+                    <span>Selected: ${newPasswordImageIds.length}/4 images</span>
+                `;
+            }
+        }
+
+        function updateNewPasswordPreview() {
+            const preview = document.getElementById('newPasswordPreview');
+            preview.innerHTML = '';
+
+            newPasswordImageIds.forEach((imageId, index) => {
+                const selectedImage = document.createElement('div');
+                selectedImage.className = 'selected-image';
+                const emoji = getEmojiById(imageId);
+                selectedImage.innerHTML = `
+                    <span class="emoji">${emoji}</span>
+                    <small>Position ${index + 1}</small>
+                `;
+                preview.appendChild(selectedImage);
+            });
+        }
+
+        function checkSetPasswordButton() {
+            const setButton = document.getElementById('setPasswordButton');
+            setButton.disabled = newPasswordImageIds.length !== REQUIRED_IMAGE_COUNT;
+            
+            if (newPasswordImageIds.length === REQUIRED_IMAGE_COUNT) {
+                setButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">SET NEW PASSWORD</span>
+                    </div>
+                `;
+            } else {
+                setButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">SELECT ${REQUIRED_IMAGE_COUNT - newPasswordImageIds.length} MORE</span>
+                    </div>
+                `;
+            }
+        }
+
+        function resetNewPasswordSelection() {
+            newPasswordImageIds = [];
+            document.querySelectorAll('#newPasswordGrid .image-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            updateNewPasswordCounter();
+            updateNewPasswordPreview();
+            checkSetPasswordButton();
+        }
+
+        async function submitNewPassword() {
+            if (newPasswordImageIds.length !== REQUIRED_IMAGE_COUNT) {
+                showError(`❌ Please select exactly ${REQUIRED_IMAGE_COUNT} images for your new password`);
+                return;
+            }
+
+            const setButton = document.getElementById('setPasswordButton');
+            setButton.disabled = true;
+            setButton.innerHTML = `
+                <div class="button-content">
+                    <span class="button-icon">
+                        <div class="spinner-border spinner-border-sm" style="width: 1rem; height: 1rem;"></div>
+                    </span>
+                    <span class="button-text">SETTING PASSWORD...</span>
+                </div>
+            `;
+
+            try {
+                // Clean National ID
+                const cleanNationalId = nationalIdNumber.replace(/[^\d]/g, '');
+                
+                console.log('Setting new password for:', cleanNationalId, 'with image IDs:', newPasswordImageIds);
+                
+                // Get anti-forgery token
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                
+                // Convert image IDs to emojis for backward compatibility
+                const newEmojis = newPasswordImageIds.map(id => getEmojiById(id));
+                
+                const response = await fetch('/Home/UpdateImagePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token || '',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        nationalId: cleanNationalId,
+                        newImageIds: newPasswordImageIds,
+                        newImages: newEmojis
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStep('step-success');
+                    setTimeout(() => {
+                        window.location.href = result.redirectUrl || '/Voter/castvote';
+                    }, 2000);
+                } else {
+                    showError('❌ ' + result.message);
+                }
+            } catch (error) {
+                console.error('Set password error:', error);
+                showError('❌ Failed to set new password: ' + error.message);
+            } finally {
+                setButton.disabled = false;
+                setButton.innerHTML = `
+                    <div class="button-content">
+                        <span class="button-icon">✅</span>
+                        <span class="button-text">SET NEW PASSWORD</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Switch from regular password to forgot password
+        function switchToForgotPassword() {
+            showStep('step-nationalid');
+            setTimeout(() => {
+                forgotPassword();
+            }, 100);
+        }
+
+        // Utility Functions
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            if (successDiv) {
+                successDiv.style.display = 'none';
+            }
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const errorDiv = document.getElementById('errorMessage');
+            
+            if (successDiv) {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            if (errorDiv) {
+                errorDiv.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep('step-nationalid');
+            
+            // Add anti-forgery token if not present
+            if (!document.querySelector('input[name="__RequestVerificationToken"]')) {
+                const tokenElement = document.createElement('input');
+                tokenElement.type = 'hidden';
+                tokenElement.name = '__RequestVerificationToken';
+                tokenElement.value = '@Html.AntiForgeryToken()';
+                document.body.appendChild(tokenElement);
+            }
+        });
+    </script>
+</body>
+</html>
