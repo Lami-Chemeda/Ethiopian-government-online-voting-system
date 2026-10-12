@@ -1,0 +1,11 @@
+.git
+**/bin
+**/obj
+Backups
+appsettings.Development.json
+x64
+**/x64
+EGOVS
+**/EGOVS
+*.user
+*.suo

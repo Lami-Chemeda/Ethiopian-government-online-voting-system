@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
 using VotingSystem.Data;
+using VotingSystem.Models;
 using VotingSystem.Services;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -31,7 +33,6 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             "libdeflate.so.0",
             "libjbig.so.0",
-            "libLerc.so.4",
             "libLerc.so.4",
             "libwebp.so.7",
             "libwebpmux.so.3",
@@ -119,12 +120,25 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "The DefaultConnection connection string is required. Configure ConnectionStrings__DefaultConnection in the hosting environment.");
+}
+
 // Add services to the container
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 // Database configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 // Add Login Tracking Service
 builder.Services.AddScoped<ILoginTrackingService, LoginTrackingService>();
 // Add session services
@@ -159,6 +173,50 @@ builder.Services.AddLogging(loggingBuilder =>
 
 // Build the application
 var app = builder.Build();
+
+app.UseForwardedHeaders();
+
+// Automatically verify database connection, ensure schema exists, and seed default admin
+try
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+    logger.LogInformation("[Database] Testing database connection...");
+    if (dbContext.Database.CanConnect())
+    {
+        logger.LogInformation("[Database] Connected successfully to database!");
+        dbContext.Database.EnsureCreated();
+
+        if (!dbContext.Admins.Any())
+        {
+            dbContext.Admins.Add(new Admin
+            {
+                NationalId = "123456789012345",
+                Nationality = "Ethiopian",
+                Region = "Addis Ababa",
+                PhoneNumber = "0912345678",
+                FirstName = "Abebe",
+                MiddleName = "Kebede",
+                LastName = "Alemu",
+                Age = 30,
+                Sex = "Male",
+                Password = "Admin@123"
+            });
+            dbContext.SaveChanges();
+            logger.LogInformation("[Database] Seeded initial administrator (ID: 123456789012345, Password: Admin@123)");
+        }
+    }
+    else
+    {
+        logger.LogWarning("[Database Warning] Could not connect to the configured database. On Render, ensure the 'ConnectionStrings__DefaultConnection' environment variable is set to your cloud SQL Server.");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[Database Warning] Database initialization check: {ex.Message}");
+}
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
@@ -209,6 +267,43 @@ app.Use(async (context, next) =>
 
 app.UseAuthorization();
 app.UseSession();
+
+app.MapGet("/robots.txt", (HttpRequest request, IConfiguration configuration) =>
+{
+    var publicBaseUrl = configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+        ?? $"{request.Scheme}://{request.Host}";
+    var sitemapUrl = $"{publicBaseUrl}/sitemap.xml";
+    var robots = string.Join('\n',
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /Admin",
+        "Disallow: /Manager",
+        "Disallow: /Supervisor",
+        "Disallow: /Voter",
+        "Disallow: /Home/Login",
+        "Disallow: /Home/Register",
+        $"Sitemap: {sitemapUrl}",
+        "");
+
+    return Results.Text(robots, "text/plain");
+});
+
+app.MapGet("/sitemap.xml", (HttpRequest request, IConfiguration configuration) =>
+{
+    var publicBaseUrl = configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+        ?? $"{request.Scheme}://{request.Host}";
+    var escapedBaseUrl = System.Security.SecurityElement.Escape(publicBaseUrl);
+    var sitemap = $"""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url>
+            <loc>{escapedBaseUrl}/</loc>
+          </url>
+        </urlset>
+        """;
+
+    return Results.Content(sitemap, "application/xml");
+});
 
 app.MapControllerRoute(
     name: "default",

@@ -113,6 +113,9 @@ namespace VotingSystem.Controllers
 
         public IActionResult Index()
         {
+            ViewData["ProjectAuthor"] = _configuration["Seo:Author"] ?? "Project developer";
+            ViewData["CanonicalUrl"] = _configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+                ?? $"{Request.Scheme}://{Request.Host}";
             return View();
         }
 
