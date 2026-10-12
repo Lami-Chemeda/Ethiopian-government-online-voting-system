@@ -16,6 +16,7 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 
         string[] candidateDirs = new[]
         {
+            "/usr/lib/x86_64-linux-gnu",
             Path.Combine(baseDir, "x64"),
             baseDir,
             Path.Combine(currentDir, "x64"),
@@ -40,6 +41,7 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             "libgif.so.7",
             "libopenjp2.so.7",
             "libarchive.so.13",
+            "liblept.so.5",
             "libleptonica.so.6",
             "libleptonica-1.82.0.so",
             "libtesseract.so.5",
@@ -65,17 +67,20 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             }
         }
 
-        // Copy files to target output directories if missing
-        var targetDirs = new[] { baseDir, Path.Combine(baseDir, "x64") };
-        foreach (var dir in targetDirs)
+        // Copy files to target output directories if using bundled local x64 directory
+        if (!string.Equals(nativeDir, "/usr/lib/x86_64-linux-gnu", StringComparison.Ordinal))
         {
-            if (!Directory.Exists(dir)) { try { Directory.CreateDirectory(dir); } catch { } }
-            if (Directory.Exists(nativeDir) && nativeDir != dir)
+            var targetDirs = new[] { baseDir, Path.Combine(baseDir, "x64") };
+            foreach (var dir in targetDirs)
             {
-                foreach (var file in Directory.GetFiles(nativeDir, "*.so*"))
+                if (!Directory.Exists(dir)) { try { Directory.CreateDirectory(dir); } catch { } }
+                if (Directory.Exists(nativeDir) && nativeDir != dir)
                 {
-                    var dest = Path.Combine(dir, Path.GetFileName(file));
-                    if (!File.Exists(dest)) { try { File.Copy(file, dest, true); } catch { } }
+                    foreach (var file in Directory.GetFiles(nativeDir, "*.so*"))
+                    {
+                        var dest = Path.Combine(dir, Path.GetFileName(file));
+                        if (!File.Exists(dest)) { try { File.Copy(file, dest, true); } catch { } }
+                    }
                 }
             }
         }
@@ -83,6 +88,11 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         // Register DllImportResolver for Tesseract assembly
         NativeLibrary.SetDllImportResolver(typeof(Tesseract.TesseractEngine).Assembly, (libraryName, assembly, searchPath) =>
         {
+            if (libraryName.Contains("libdl", StringComparison.OrdinalIgnoreCase) || libraryName.Equals("dl", StringComparison.OrdinalIgnoreCase))
+            {
+                if (NativeLibrary.TryLoad("libdl.so.2", assembly, searchPath, out var dlHandle)) return dlHandle;
+                if (NativeLibrary.TryLoad("libc.so.6", assembly, searchPath, out dlHandle)) return dlHandle;
+            }
             if (libraryName.Contains("lept", StringComparison.OrdinalIgnoreCase))
             {
                 var candidates = new[] { "libleptonica-1.82.0.so", "liblept.so.5", "libleptonica.so.6", "liblept.so" };
@@ -125,6 +135,21 @@ if (string.IsNullOrWhiteSpace(connectionString))
 {
     throw new InvalidOperationException(
         "The DefaultConnection connection string is required. Configure ConnectionStrings__DefaultConnection in the hosting environment.");
+}
+
+// Automatically switch MonsterASP internal host (dbXXXX.databaseasp.net -> 10.0.0.x)
+// to public remote host (dbXXXX.public.databaseasp.net) when running on external Linux hosting (e.g. Render)
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
+    connectionString.Contains(".databaseasp.net", StringComparison.OrdinalIgnoreCase) &&
+    !connectionString.Contains(".public.databaseasp.net", StringComparison.OrdinalIgnoreCase))
+{
+    connectionString = System.Text.RegularExpressions.Regex.Replace(
+        connectionString,
+        @"(\bdb\d+)\.databaseasp\.net\b",
+        "$1.public.databaseasp.net",
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+    builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
+    Console.WriteLine("[Database] Automatically switched MonsterASP host to public remote endpoint (.public.databaseasp.net).");
 }
 
 // Add services to the container
@@ -184,38 +209,33 @@ try
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
     logger.LogInformation("[Database] Testing database connection...");
-    if (dbContext.Database.CanConnect())
-    {
-        logger.LogInformation("[Database] Connected successfully to database!");
-        dbContext.Database.EnsureCreated();
+    dbContext.Database.OpenConnection();
+    dbContext.Database.CloseConnection();
+    logger.LogInformation("[Database] Connected successfully to database!");
+    dbContext.Database.EnsureCreated();
 
-        if (!dbContext.Admins.Any())
-        {
-            dbContext.Admins.Add(new Admin
-            {
-                NationalId = "123456789012345",
-                Nationality = "Ethiopian",
-                Region = "Addis Ababa",
-                PhoneNumber = "0912345678",
-                FirstName = "Abebe",
-                MiddleName = "Kebede",
-                LastName = "Alemu",
-                Age = 30,
-                Sex = "Male",
-                Password = "Admin@123"
-            });
-            dbContext.SaveChanges();
-            logger.LogInformation("[Database] Seeded initial administrator (ID: 123456789012345, Password: Admin@123)");
-        }
-    }
-    else
+    if (!dbContext.Admins.Any())
     {
-        logger.LogWarning("[Database Warning] Could not connect to the configured database. On Render, ensure the 'ConnectionStrings__DefaultConnection' environment variable is set to your cloud SQL Server.");
+        dbContext.Admins.Add(new Admin
+        {
+            NationalId = "123456789012345",
+            Nationality = "Ethiopian",
+            Region = "Addis Ababa",
+            PhoneNumber = "0912345678",
+            FirstName = "Abebe",
+            MiddleName = "Kebede",
+            LastName = "Alemu",
+            Age = 30,
+            Sex = "Male",
+            Password = "Admin@123"
+        });
+        dbContext.SaveChanges();
+        logger.LogInformation("[Database] Seeded initial administrator (ID: 123456789012345, Password: Admin@123)");
     }
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"[Database Warning] Database initialization check: {ex.Message}");
+    Console.WriteLine($"[Database Warning] Could not connect to database: {ex.Message}");
 }
 
 // Configure the HTTP request pipeline
