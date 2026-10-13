@@ -1,14 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="@(ViewData["Robots"] ?? "index,follow")" />
+    <meta name="author" content="Lami Chemeda - Full-Stack Developer and ERP Developer at OTech Technology Company" />
+    <meta name="description" content="Ethiopian Government Online Voting System (EGOVS) — Secure digital election and e-voting platform featuring Ethiopian National ID OCR verification, visual authentication, and real-time election management. Developed by Lami Chemeda, Full-Stack Developer and ERP Developer at OTech Technology Company." />
+    <meta name="keywords" content="Ethiopian Government Online Voting System, EGOVS, Ethiopian E-Voting System, Lami Chemeda, Full-Stack Developer, ERP Developer, OTech Technology Company" />
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>WELCOME TO ETHIOPIAN GOVERNMENT ONLINE VOTING SYSTEM | @ViewData["Title"]</title>
+    <title>Ethiopian Government Online Voting System (EGOVS) | @ViewData["Title"] — By Lami Chemeda</title>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -22,28 +26,52 @@
         }
         
         .main-navbar {
-            background-color: #07f242ff !important; /* Using the color directly */
-            padding: 10px 0;
+            background: linear-gradient(135deg, #1a2639 0%, #0d1423 100%) !important;
+            padding: 12px 0;
+            border-bottom: 4px solid #FCDD09 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
-        .navbar-brand {
-            color: white !important;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .ethiopian-brand-container {
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4));
+            transition: transform 0.3s ease;
+        }
+        
+        .ethiopian-brand-container:hover {
+            transform: scale(1.02);
+        }
+
+        .ethiopian-brand-text {
+            font-weight: 900;
+            font-size: 2.1rem; /* Increased by 30% */
+            /* Ethiopian Flag Colors Gradient */
+            background: linear-gradient(90deg, #00b140 0%, #00b140 30%, #FCDD09 45%, #FCDD09 55%, #EF3340 70%, #EF3340 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            text-decoration: none;
+        }
+        
+        .navbar-brand:hover {
+            color: transparent !important;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FFFFE0;
+            background-color: #f8f9fa;
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 main-navbar">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 main-navbar">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    WELCOME TO ETHIOPIAN GOVERNMENT ONLINE VOTING SYSTEM
+                <a class="navbar-brand ethiopian-brand-container" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="ethiopian-brand-text">Welcome to Ethiopian Government Online Voting System</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +89,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Now.Year - Ethiopian Government Voting System (EGOVS)
+            &copy; @DateTime.Now.Year - Ethiopian Government Online Voting System (EGOVS) | Developed by <strong>Lami Chemeda</strong> — Full-Stack Developer &amp; ERP Developer at <strong>OTech Technology Company</strong>
         </div>
     </footer>
     

@@ -296,6 +296,9 @@ app.MapGet("/robots.txt", (HttpRequest request, IConfiguration configuration) =>
     var robots = string.Join('\n',
         "User-agent: *",
         "Allow: /",
+        "Allow: /Home/Index",
+        "Allow: /Home/About",
+        "Allow: /Home/Contact",
         "Disallow: /Admin",
         "Disallow: /Manager",
         "Disallow: /Supervisor",
@@ -318,6 +321,18 @@ app.MapGet("/sitemap.xml", (HttpRequest request, IConfiguration configuration) =
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
           <url>
             <loc>{escapedBaseUrl}/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>1.0</priority>
+          </url>
+          <url>
+            <loc>{escapedBaseUrl}/Home/About</loc>
+            <changefreq>monthly</changefreq>
+            <priority>0.9</priority>
+          </url>
+          <url>
+            <loc>{escapedBaseUrl}/Home/Contact</loc>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
           </url>
         </urlset>
         """;

@@ -113,19 +113,31 @@ namespace VotingSystem.Controllers
 
         public IActionResult Index()
         {
-            ViewData["ProjectAuthor"] = _configuration["Seo:Author"] ?? "Project developer";
-            ViewData["CanonicalUrl"] = _configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+            var baseUrl = _configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
                 ?? $"{Request.Scheme}://{Request.Host}";
+            ViewData["ProjectAuthor"] = _configuration["Seo:Author"] ?? "Lami Chemeda, Full-Stack Developer and ERP Developer at OTech Technology Company";
+            ViewData["CanonicalUrl"] = baseUrl;
+            ViewData["GoogleSiteVerification"] = _configuration["Seo:GoogleSiteVerification"];
             return View();
         }
 
         public IActionResult About()
         {
+            var baseUrl = _configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+                ?? $"{Request.Scheme}://{Request.Host}";
+            ViewData["ProjectAuthor"] = _configuration["Seo:Author"] ?? "Lami Chemeda, Full-Stack Developer and ERP Developer at OTech Technology Company";
+            ViewData["CanonicalUrl"] = $"{baseUrl}/Home/About";
+            ViewData["GoogleSiteVerification"] = _configuration["Seo:GoogleSiteVerification"];
             return View();
         }
 
         public IActionResult Contact()
         {
+            var baseUrl = _configuration["Seo:PublicBaseUrl"]?.TrimEnd('/')
+                ?? $"{Request.Scheme}://{Request.Host}";
+            ViewData["ProjectAuthor"] = _configuration["Seo:Author"] ?? "Lami Chemeda, Full-Stack Developer and ERP Developer at OTech Technology Company";
+            ViewData["CanonicalUrl"] = $"{baseUrl}/Home/Contact";
+            ViewData["GoogleSiteVerification"] = _configuration["Seo:GoogleSiteVerification"];
             return View();
         }
 
