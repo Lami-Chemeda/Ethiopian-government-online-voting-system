@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="D8HSr4R6KtIAhgL9epwgKG5oap-TL4SMNDjxvUPGXus" />
-    <meta name="robots" content="@(ViewData["Robots"] ?? "index,follow")" />
-    <meta name="author" content="Lami Chemeda - Full-Stack Developer and ERP Developer at OTech Technology Company" />
-    <meta name="description" content="Ethiopian Government Online Voting System (EGOVS) — Secure digital election and e-voting platform featuring Ethiopian National ID OCR verification, visual authentication, and real-time election management. Developed by Lami Chemeda, Full-Stack Developer and ERP Developer at OTech Technology Company." />
-    <meta name="keywords" content="Ethiopian Government Online Voting System, EGOVS, Ethiopian E-Voting System, Lami Chemeda, Full-Stack Developer, ERP Developer, OTech Technology Company" />
+    <meta name="robots" content="@(ViewData["Robots"] ?? "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1")" />
+    <meta name="author" content="Lami Chemeda - Full-Stack Developer and ERP Developer in OTech Engineering Company (OTech Technology Company)" />
+    <meta name="description" content="This is the Ethiopian Government Online Voting System (EGOVS), which is developed by Lami Chemeda, who is a Full-Stack Developer and ERP Developer in OTech Engineering Company (OTech Technology Company). This system is a secure digital voting system designed for Ethiopia featuring National ID OCR scanning, visual login for illiterate and literate voters, and real-time election management." />
+    <meta name="keywords" content="Ethiopian Government Online Voting System, EGOVS, Ethiopian Online Voting System, Lami Chemeda, Full-Stack Developer, ERP Developer, OTech Engineering Company, OTech Technology Company, Secure Digital Voting System Ethiopia" />
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Ethiopian Government Online Voting System (EGOVS) | @ViewData["Title"] — By Lami Chemeda</title>
+    <title>@(string.IsNullOrWhiteSpace(ViewData["Title"] as string) ? "Ethiopian Government Online Voting System (EGOVS) — Developed by Lami Chemeda (OTech Engineering Company)" : $"Ethiopian Government Online Voting System (EGOVS) | {ViewData["Title"]}")</title>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -90,7 +90,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Now.Year - Ethiopian Government Online Voting System (EGOVS) | Developed by <strong>Lami Chemeda</strong> — Full-Stack Developer &amp; ERP Developer at <strong>OTech Technology Company</strong>
+            &copy; @DateTime.Now.Year - Ethiopian Government Online Voting System (EGOVS) | Developed by <strong>Lami Chemeda</strong> — Full-Stack Developer &amp; ERP Developer in <strong>OTech Engineering Company (OTech Technology Company)</strong>
         </div>
     </footer>
     
