@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="D8HSr4R6KtIAhgL9epwgKG5oap-TL4SMNDjxvUPGXus" />
+    @if (ViewData["GoogleSiteVerification"] is string verificationCode && !string.IsNullOrWhiteSpace(verificationCode))
+    {
+        <meta name="google-site-verification" content="@verificationCode" />
+    }
     <meta name="robots" content="@(ViewData["Robots"] ?? "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1")" />
     <meta name="author" content="Lami Chemeda - Full-Stack Developer and ERP Developer in OTech Engineering Company (OTech Technology Company)" />
     <meta name="description" content="This is the Ethiopian Government Online Voting System (EGOVS), which is developed by Lami Chemeda, who is a Full-Stack Developer and ERP Developer in OTech Engineering Company (OTech Technology Company). This system is a secure digital voting system designed for Ethiopia featuring National ID OCR scanning, visual login for illiterate and literate voters, and real-time election management." />

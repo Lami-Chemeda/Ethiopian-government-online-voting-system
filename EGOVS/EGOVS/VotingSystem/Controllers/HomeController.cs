@@ -113,17 +113,27 @@ namespace VotingSystem.Controllers
 
         public IActionResult Index()
         {
+            SetPublicPageMetadata(string.Empty);
             return View();
         }
 
         public IActionResult About()
         {
+            SetPublicPageMetadata("/Home/About");
             return View();
         }
 
         public IActionResult Contact()
         {
+            SetPublicPageMetadata("/Home/Contact");
             return View();
+        }
+
+        private void SetPublicPageMetadata(string path)
+        {
+            var baseUrl = (_configuration["Seo:PublicBaseUrl"] ?? $"{Request.Scheme}://{Request.Host}").TrimEnd('/');
+            ViewData["CanonicalUrl"] = $"{baseUrl}{path}";
+            ViewData["GoogleSiteVerification"] = _configuration["Seo:GoogleSiteVerification"];
         }
 
         [HttpPost]

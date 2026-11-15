@@ -70,6 +70,25 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+// Keep public informational pages available to search engines while excluding
+// login, account, and application workflows from search results.
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value?.TrimEnd('/') ?? string.Empty;
+    var isPublicPage = path.Length == 0
+        || path.Equals("/Home", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/About", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/Contact", StringComparison.OrdinalIgnoreCase);
+
+    if (!isPublicPage)
+    {
+        context.Response.Headers["X-Robots-Tag"] = "noindex, nofollow";
+    }
+
+    await next();
+});
+
 // Disable Cache
 app.Use(async (context, next) =>
 {
@@ -81,6 +100,28 @@ app.Use(async (context, next) =>
 
 app.UseSession();
 app.UseAuthorization();
+
+app.MapGet("/robots.txt", (HttpRequest request, IConfiguration configuration) =>
+{
+    var publicBaseUrl = (configuration["Seo:PublicBaseUrl"] ?? $"{request.Scheme}://{request.Host}").TrimEnd('/');
+    var robots = $"User-agent: *\nAllow: /\nSitemap: {publicBaseUrl}/sitemap.xml\n";
+    return Results.Text(robots, "text/plain");
+});
+
+app.MapGet("/sitemap.xml", (HttpRequest request, IConfiguration configuration) =>
+{
+    var publicBaseUrl = (configuration["Seo:PublicBaseUrl"] ?? $"{request.Scheme}://{request.Host}").TrimEnd('/');
+    var escapedBaseUrl = System.Security.SecurityElement.Escape(publicBaseUrl);
+    var sitemap = $"""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url><loc>{escapedBaseUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+          <url><loc>{escapedBaseUrl}/Home/About</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+          <url><loc>{escapedBaseUrl}/Home/Contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+        </urlset>
+        """;
+    return Results.Content(sitemap, "application/xml");
+});
 
 app.MapControllerRoute(
     name: "default",

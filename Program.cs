@@ -273,6 +273,25 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+// Let crawlers fetch URLs so they can process the noindex directive on
+// application pages instead of leaving them reported as blocked by robots.txt.
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value?.TrimEnd('/') ?? string.Empty;
+    var isPublicPage = path.Length == 0
+        || path.Equals("/Home", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/About", StringComparison.OrdinalIgnoreCase)
+        || path.Equals("/Home/Contact", StringComparison.OrdinalIgnoreCase);
+
+    if (!isPublicPage)
+    {
+        context.Response.Headers["X-Robots-Tag"] = "noindex, nofollow";
+    }
+
+    await next();
+});
+
 // ============ ADD THIS MIDDLEWARE FOR CACHE CONTROL ============
 app.Use(async (context, next) =>
 {
@@ -296,15 +315,6 @@ app.MapGet("/robots.txt", (HttpRequest request, IConfiguration configuration) =>
     var robots = string.Join('\n',
         "User-agent: *",
         "Allow: /",
-        "Allow: /Home/Index",
-        "Allow: /Home/About",
-        "Allow: /Home/Contact",
-        "Disallow: /Admin",
-        "Disallow: /Manager",
-        "Disallow: /Supervisor",
-        "Disallow: /Voter",
-        "Disallow: /Home/Login",
-        "Disallow: /Home/Register",
         $"Sitemap: {sitemapUrl}",
         "");
 
